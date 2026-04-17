@@ -1,6 +1,6 @@
 "use client";
 
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Book, Contact2, Contact2Icon, ContactRoundIcon, Menu, Phone, Sunset, Trees, Zap } from "lucide-react";
 
 import {
   Accordion,
@@ -25,6 +25,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface MenuItem {
   title: string;
@@ -64,9 +65,9 @@ const Navbar = ({
     title: "Shadcnblocks.com",
   },
   menu = [
-    { title: "Home", url: "#" },
+    { title: "Home", url: "/" },
     {
-      title: "Products",
+      title: "Services",
       url: "#",
       items: [
         {
@@ -97,8 +98,8 @@ const Navbar = ({
       ],
     },
     {
-      title: "Resources",
-      url: "#",
+      title: "Our Work",
+      url: "/our-work",
       items: [
         {
           title: "Help Center",
@@ -128,29 +129,26 @@ const Navbar = ({
     },
     {
       title: "Pricing",
-      url: "#",
+      url: "/pricing",
     },
     {
-      title: "Blog",
-      url: "#",
+      title: "About Us",
+      url: "/about",
     },
   ],
-  auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
-  },
+ 
   className,
 }: Navbar1Props) => {
   return (
-    <section className={cn("py-4 px-10", className)}>
+<section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-sm ", className)}>
       <div className="container">
         {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
-            <a href={logo.url} className="flex items-center gap-2">
+        <nav className="hidden items-center justify-between lg:flex px-3 py-2 rounded-lg border shadow-accent shadow-b-lg">
+            <Link href={logo.url} className="flex items-center gap-2">
               <p>PrePilot</p>
             
             
-            </a>
+            </Link>
           <div className="flex items-center gap-6">
             {/* Logo */}
             <div className="flex justify-center items-center">
@@ -162,12 +160,9 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
+                <Button asChild className="rounded-sm">
+                      <Link href='/contact'><Phone /> Contact Us</Link>
+                  </Button>
           </div>
         </nav>
 
@@ -203,11 +198,9 @@ const Navbar = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
+         
                     <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
+                      <Link href='/contact'><Contact2Icon /> Contact US</Link>
                     </Button>
                   </div>
                 </div>
@@ -273,9 +266,9 @@ const renderMobileMenuItem = (item: MenuItem) => {
 
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
-    <a
-      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
-      href={item.url}
+    <Link
+      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground "
+      href={item.url} 
     >
       <div className="text-foreground">{item.icon}</div>
       <div>
@@ -286,7 +279,7 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
           </p>
         )}
       </div>
-    </a>
+    </Link>
   );
 };
 

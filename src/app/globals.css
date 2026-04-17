@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -51,6 +52,7 @@
 :root {
   /* Base */
   --background: oklch(95.53% 0.0029 84.56);
+  --background-hover : oklch(95.91% 0.0215 294.6)
   --foreground: oklch(17% 0.008 84.56);
 
   /* Card / Popover */

@@ -1,8 +1,10 @@
+import Hero from "./modules/Home/Hero/Hero";
 
 
 
 export default function Home() {
   return (
-    <div className=""></div>
+    <div className=""><Hero>
+      </Hero></div>
   );
 }
