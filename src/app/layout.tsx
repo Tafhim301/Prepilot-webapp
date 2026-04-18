@@ -1,27 +1,33 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono , Lora} from "next/font/google";
+import type { Metadata } from "next"
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const relative = localFont({
+  src: [
+    {
+      path: "../fonts/Relative-Book.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Relative-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Relative-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-relative",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,13 +42,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable, lora.variable)}
+      className={cn(
+      "h-full antialiased",
+        relative.variable
+      )}
     >
-      <body className="min-h-full flex flex-col container md:px-20">
-        <Navbar></Navbar>
+      <body className="min-h-full flex flex-col font-relative">
+        <Navbar />
         {children}
-        <Footer></Footer>
-        </body>
+        <Footer />
+      </body>
     </html>
   );
 }

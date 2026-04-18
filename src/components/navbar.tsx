@@ -140,7 +140,7 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
   return (
-<section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-sm ", className)}>
+<section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-sm", className)}>
       <div className="container">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex px-3 py-2 rounded-lg border shadow-accent shadow-b-lg">
