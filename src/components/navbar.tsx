@@ -68,34 +68,8 @@ const Navbar = ({
     { title: "Home", url: "/" },
     {
       title: "Services",
-      url: "#",
-      items: [
-        {
-          title: "Blog",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Company",
-          description: "Our mission is to innovate and empower the world",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Careers",
-          description: "Browse job listing and discover our workspace",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Support",
-          description:
-            "Get in touch with our support team or visit our community forums",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
+      url: "/service",
+     
     },
     {
       title: "Our Work",
@@ -143,7 +117,7 @@ const Navbar = ({
 <section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-sm", className)}>
       <div className="container">
         {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex px-3 py-2 rounded-lg border shadow-accent shadow-b-lg">
+        <nav className="hidden items-center justify-between lg:flex px-6 py-2 rounded-lg border shadow-accent shadow-b-lg">
             <Link href={logo.url} className="flex items-center gap-2">
               <p>PrePilot</p>
             
