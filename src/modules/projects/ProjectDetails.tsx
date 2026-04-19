@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Home, ChevronRight } from "lucide-react";
 import type { Project, ContentBlock } from "@/types/projects.types";
@@ -72,12 +73,9 @@ function ContentRenderer({ block }: { block: ContentBlock }) {
     case "image":
       return (
         <figure className="my-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={block.src}
-            alt={block.alt}
-            className="w-full rounded-2xl shadow-lg"
-          />
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg">
+            <Image src={block.src} alt={block.alt} fill className="object-cover" />
+          </div>
           {block.caption && (
             <figcaption className="mt-3 text-sm text-center text-muted-foreground italic">
               {block.caption}
@@ -91,18 +89,19 @@ function ContentRenderer({ block }: { block: ContentBlock }) {
   }
 }
 
-/* --- Main Page Component --- */
+/* --- Main Detail Component --- */
 export default function ProjectDetail({ project }: { project: Project }) {
   return (
     <article className="min-h-screen bg-background">
-      {/* Hero Section */}
+
+      {/* Hero */}
       <section className="relative overflow-hidden bg-muted/40 px-4 sm:px-6 lg:px-10 pt-10 pb-16 lg:pb-20">
-        {/* Decorative diagonal stripes background */}
+        {/* Diagonal stripe texture */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-40"
+          className="absolute inset-0 pointer-events-none opacity-30"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(-20deg, transparent 0px, transparent 180px, oklch(0.9 0.02 60 / 0.4) 180px, oklch(0.9 0.02 60 / 0.4) 181px)",
+              "repeating-linear-gradient(-20deg, transparent 0px, transparent 200px, oklch(0.88 0.02 60 / 0.5) 200px, oklch(0.88 0.02 60 / 0.5) 201px)",
           }}
         />
 
@@ -115,18 +114,11 @@ export default function ProjectDetail({ project }: { project: Project }) {
             className="flex items-center gap-2 text-sm text-muted-foreground mb-10"
             aria-label="Breadcrumb"
           >
-            <Link
-              href="/"
-              className="hover:text-foreground transition-colors flex items-center"
-              aria-label="Home"
-            >
+            <Link href="/" className="hover:text-foreground transition-colors" aria-label="Home">
               <Home className="w-4 h-4" />
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link
-              href="/our-work"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link href="/our-work" className="hover:text-foreground transition-colors">
               Our Work
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -134,6 +126,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
               {project.shortTitle}
             </span>
           </motion.nav>
+
+          {/* Client name label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.05 }}
+            className="text-xs font-semibold uppercase tracking-widest text-primary mb-4"
+          >
+            {project.client.name}
+          </motion.p>
 
           {/* Title */}
           <motion.h1
@@ -163,38 +165,47 @@ export default function ProjectDetail({ project }: { project: Project }) {
             className="mt-10 flex flex-wrap gap-8 pt-8 border-t border-border/50"
           >
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Client
-              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Client</p>
               <p className="text-sm font-semibold">{project.client.name}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Solution
-              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Solution</p>
               <p className="text-sm font-semibold">{project.solution}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Industry
-              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Industry</p>
               <p className="text-sm font-semibold">{project.industry}</p>
             </div>
             {project.awards.length > 0 && (
               <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                  Awards
-                </p>
-                <p className="text-sm font-semibold">
-                  {project.awards.join(" · ")}
-                </p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Awards</p>
+                <p className="text-sm font-semibold">{project.awards.join(" · ")}</p>
               </div>
             )}
           </motion.div>
         </div>
       </section>
 
-      {/* Content Body */}
+      {/* Featured image */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="px-4 sm:px-6 lg:px-10 -mt-8 relative z-10"
+      >
+        <div className="max-w-5xl mx-auto relative aspect-[16/7] rounded-2xl overflow-hidden shadow-2xl">
+          <Image
+            src={project.featuredImage}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      </motion.div>
+
+      {/* Content body */}
       <section className="px-4 sm:px-6 lg:px-10 py-16 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -209,7 +220,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         </motion.div>
       </section>
 
-      {/* Back to work CTA */}
+      {/* Back CTA */}
       <section className="px-4 sm:px-6 lg:px-10 pb-20">
         <div className="max-w-3xl mx-auto">
           <Link

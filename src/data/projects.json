@@ -5,18 +5,17 @@
     "shortTitle": "Building Embedded Web Stories for WordPress",
     "excerpt": "rtCamp collaborated with Google to make the snackable Web Stories format even easier to consume with flexible WordPress blocks.",
     "client": {
-      "name": "Google",
-      "logo": "/assets/clients/google.png"
+      "name": "Google"
     },
     "solution": "WordPress Development",
     "industry": "SaaS",
     "awards": [],
     "coverImages": [
-      "/assets/projects/google/web-stories-1.jpg",
-      "/assets/projects/google/web-stories-2.jpg",
-      "/assets/projects/google/web-stories-3.jpg"
+      "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=640&fit=crop"
     ],
-    "featuredImage": "/assets/projects/google/web-stories-featured.jpg",
+    "featuredImage": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&h=800&fit=crop",
     "content": [
       {
         "type": "paragraph",
@@ -84,18 +83,19 @@
     "slug": "grist-journalism-platform",
     "title": "Powering Grist's award-winning journalism with Custom development, content syndication, and Parse.ly",
     "shortTitle": "Powering Grist's award-winning journalism",
-    "excerpt": "How rtCamp helped Grist modernize their publishing workflow and scale their audience through data-driven journalism tools.",
+    "excerpt": "How we helped Grist modernize their publishing workflow and scale their audience through data-driven journalism tools.",
     "client": {
-      "name": "Grist",
-      "logo": "/assets/clients/grist.png"
+      "name": "Grist"
     },
     "solution": "WordPress Development",
     "industry": "Publication and Media",
     "awards": ["SIGMA Awards", "ASME Awards"],
     "coverImages": [
-      "/assets/projects/grist/grist-illustration.jpg"
+      "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?w=400&h=640&fit=crop"
     ],
-    "featuredImage": "/assets/projects/grist/grist-featured.jpg",
+    "featuredImage": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=800&fit=crop",
     "content": [
       {
         "type": "paragraph",
@@ -128,16 +128,17 @@
     "shortTitle": "Fueling Dealer Growth for LeadVenture",
     "excerpt": "Powering over 40,000 dealers with a scalable digital platform built for the automotive and powersports industries.",
     "client": {
-      "name": "LeadVenture",
-      "logo": "/assets/clients/leadventure.png"
+      "name": "LeadVenture"
     },
     "solution": "Custom Web Platform",
     "industry": "Automotive",
     "awards": [],
     "coverImages": [
-      "/assets/projects/leadventure/leadventure-1.jpg"
+      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1583267746897-2cf415887172?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=640&fit=crop"
     ],
-    "featuredImage": "/assets/projects/leadventure/leadventure-featured.webp",
+    "featuredImage": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&h=800&fit=crop",
     "content": [
       {
         "type": "paragraph",
@@ -155,16 +156,17 @@
     "shortTitle": "Modernizing Digital Experience for NextGear Capital",
     "excerpt": "Powering dealership success with inventory search, financing tools, and a refreshed digital presence.",
     "client": {
-      "name": "NextGear Capital",
-      "logo": "/assets/clients/nextgear.png"
+      "name": "NextGear Capital"
     },
     "solution": "Digital Transformation",
     "industry": "Financial Services",
     "awards": [],
     "coverImages": [
-      "/assets/projects/nextgear/nextgear-1.jpg"
+      "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=640&fit=crop"
     ],
-    "featuredImage": "/assets/projects/nextgear/nextgear-featured.webp",
+    "featuredImage": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=1200&h=800&fit=crop",
     "content": [
       {
         "type": "paragraph",
@@ -187,16 +189,17 @@
     "shortTitle": "Dealertrack Lender Platform",
     "excerpt": "A cohesive digital platform helping lenders streamline application processing, contract processing, and title management.",
     "client": {
-      "name": "Dealertrack",
-      "logo": "/assets/clients/dealertrack.png"
+      "name": "Dealertrack"
     },
     "solution": "Enterprise Platform",
     "industry": "Financial Services",
     "awards": [],
     "coverImages": [
-      "/assets/projects/dealertrack/dealertrack-1.jpg"
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=640&fit=crop",
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&h=640&fit=crop"
     ],
-    "featuredImage": "/assets/projects/dealertrack/dealertrack-featured.webp",
+    "featuredImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
     "content": [
       {
         "type": "paragraph",

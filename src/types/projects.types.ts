@@ -12,12 +12,12 @@ export interface Project {
   excerpt: string;
   client: {
     name: string;
-    logo: string;
   };
   solution: string;
   industry: string;
   awards: string[];
-  coverImages: string[];
+  /** Always exactly 3 cover images for the stacked preview on listing cards */
+  coverImages: [string, string, string];
   featuredImage: string;
   content: ContentBlock[];
 }

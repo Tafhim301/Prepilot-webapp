@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Featured from "../Featured/Featured";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -56,7 +57,9 @@ export default function Hero() {
           </Button>
 
           <button className="w-full sm:w-auto text-gray-500 hover:text-gray-900 text-sm sm:text-base transition-colors underline underline-offset-4">
-            View case studies
+           <Link href="/our-work">
+           View case studies
+           </Link>
           </button>
         </div>
       </div>
