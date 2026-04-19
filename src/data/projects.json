@@ -1,0 +1,207 @@
+[
+  {
+    "slug": "google-web-stories-wordpress",
+    "title": "Building Embedded Web Stories for WordPress",
+    "shortTitle": "Building Embedded Web Stories for WordPress",
+    "excerpt": "rtCamp collaborated with Google to make the snackable Web Stories format even easier to consume with flexible WordPress blocks.",
+    "client": {
+      "name": "Google",
+      "logo": "/assets/clients/google.png"
+    },
+    "solution": "WordPress Development",
+    "industry": "SaaS",
+    "awards": [],
+    "coverImages": [
+      "/assets/projects/google/web-stories-1.jpg",
+      "/assets/projects/google/web-stories-2.jpg",
+      "/assets/projects/google/web-stories-3.jpg"
+    ],
+    "featuredImage": "/assets/projects/google/web-stories-featured.jpg",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "**The story format promotes magazine-style visual storytelling by packaging content in an immersive viewport that works well on mobile & desktop.** Brands have better engagement, conversion & content flexibility using the format. Not surprisingly, it is massively popular through Snapchat, Instagram, Facebook, and other social networks."
+      },
+      {
+        "type": "paragraph",
+        "text": "Although the format itself is appealing, the way most platforms implement stories has issues around accessibility and ephemerality. Additionally, some of these platforms limit story's full functionality to their native mobile apps, even if they have fully functional websites."
+      },
+      {
+        "type": "paragraph",
+        "text": "We love stories as a format for their unique distraction-free experience. So when we received an opportunity to collaborate with Google for Web Stories, we were more than thrilled."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Challenge"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress powers over 40% of the web, yet there was no first-class way for publishers to create and embed Web Stories natively. The team needed a solution that felt at home in the Gutenberg editor while remaining accessible, fast, and SEO-friendly."
+      },
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "Seamless integration with the WordPress block editor",
+          "Full accessibility compliance (WCAG 2.1)",
+          "Optimized performance for Core Web Vitals",
+          "Cross-platform compatibility across browsers and devices"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Our Approach"
+      },
+      {
+        "type": "paragraph",
+        "text": "We built a plugin that exposes Web Stories as **native Gutenberg blocks**, giving publishers the same flexibility they'd expect from any other WordPress content. Every interaction was designed for performance."
+      },
+      {
+        "type": "quote",
+        "text": "The collaboration with rtCamp allowed us to bring Web Stories to millions of WordPress publishers worldwide in a way that feels native and effortless.",
+        "author": "Google Web Stories Team"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Results"
+      },
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "**500K+ active installs** of the Web Stories plugin",
+          "**4.5 star** average rating on WordPress.org",
+          "Used by **top publishers** including Condé Nast and TechCrunch",
+          "Featured on the WordPress.org homepage"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "grist-journalism-platform",
+    "title": "Powering Grist's award-winning journalism with Custom development, content syndication, and Parse.ly",
+    "shortTitle": "Powering Grist's award-winning journalism",
+    "excerpt": "How rtCamp helped Grist modernize their publishing workflow and scale their audience through data-driven journalism tools.",
+    "client": {
+      "name": "Grist",
+      "logo": "/assets/clients/grist.png"
+    },
+    "solution": "WordPress Development",
+    "industry": "Publication and Media",
+    "awards": ["SIGMA Awards", "ASME Awards"],
+    "coverImages": [
+      "/assets/projects/grist/grist-illustration.jpg"
+    ],
+    "featuredImage": "/assets/projects/grist/grist-featured.jpg",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "**Grist is an award-winning nonprofit newsroom** dedicated to highlighting climate, justice, and solutions. Their editorial team needed a robust platform that could keep pace with their ambitious reporting."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Scaling storytelling infrastructure"
+      },
+      {
+        "type": "paragraph",
+        "text": "We rebuilt Grist's core publishing infrastructure on WordPress VIP, adding custom blocks, content syndication pipelines, and Parse.ly analytics integration — all without disrupting their editorial rhythm."
+      },
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "Custom Gutenberg blocks tailored to long-form journalism",
+          "Automated content syndication to partner networks",
+          "Deep Parse.ly integration for real-time audience insights",
+          "Accessibility-first design across every template"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "leadventure-dealer-growth",
+    "title": "Fueling Dealer Growth with LeadVenture's unified technology platform",
+    "shortTitle": "Fueling Dealer Growth for LeadVenture",
+    "excerpt": "Powering over 40,000 dealers with a scalable digital platform built for the automotive and powersports industries.",
+    "client": {
+      "name": "LeadVenture",
+      "logo": "/assets/clients/leadventure.png"
+    },
+    "solution": "Custom Web Platform",
+    "industry": "Automotive",
+    "awards": [],
+    "coverImages": [
+      "/assets/projects/leadventure/leadventure-1.jpg"
+    ],
+    "featuredImage": "/assets/projects/leadventure/leadventure-featured.webp",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "**LeadVenture's technology platforms power over 40,000 dealers** across North America, helping them reach more customers and close more deals."
+      },
+      {
+        "type": "paragraph",
+        "text": "We partnered with LeadVenture to unify their dealer-facing tools under a single, modern web platform — delivering faster load times, better conversion, and a refreshed brand experience."
+      }
+    ]
+  },
+  {
+    "slug": "netgear-capital-digital-experience",
+    "title": "Modernizing the digital experience for NextGear Capital",
+    "shortTitle": "Modernizing Digital Experience for NextGear Capital",
+    "excerpt": "Powering dealership success with inventory search, financing tools, and a refreshed digital presence.",
+    "client": {
+      "name": "NextGear Capital",
+      "logo": "/assets/clients/nextgear.png"
+    },
+    "solution": "Digital Transformation",
+    "industry": "Financial Services",
+    "awards": [],
+    "coverImages": [
+      "/assets/projects/nextgear/nextgear-1.jpg"
+    ],
+    "featuredImage": "/assets/projects/nextgear/nextgear-featured.webp",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "**NextGear Capital provides dealers with the floor plan financing** they need to grow their inventory and their business. We helped them modernize how that story reaches their customers online."
+      },
+      {
+        "type": "list",
+        "style": "bullet",
+        "items": [
+          "Rebuilt the customer-facing website with a modern, mobile-first experience",
+          "Integrated real-time inventory search and financing calculators",
+          "Improved page speed by **62%** and conversions by **38%**"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "dealertrack-lender-success",
+    "title": "Solutions for lender success with Dealertrack",
+    "shortTitle": "Dealertrack Lender Platform",
+    "excerpt": "A cohesive digital platform helping lenders streamline application processing, contract processing, and title management.",
+    "client": {
+      "name": "Dealertrack",
+      "logo": "/assets/clients/dealertrack.png"
+    },
+    "solution": "Enterprise Platform",
+    "industry": "Financial Services",
+    "awards": [],
+    "coverImages": [
+      "/assets/projects/dealertrack/dealertrack-1.jpg"
+    ],
+    "featuredImage": "/assets/projects/dealertrack/dealertrack-featured.webp",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "**Dealertrack needed a unified platform** that could serve their diverse lender network while maintaining the brand consistency and performance their enterprise clients demand."
+      }
+    ]
+  }
+]

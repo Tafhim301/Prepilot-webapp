@@ -1,46 +1,43 @@
-import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 
 export default function Featured() {
   return (
-    <section className="px-16 mb-10 w-[80%]">
-      <div className="flex items-center space-x-20">
-        <div className="grid grid-cols-4 gap-5 space-y-5 w-full h-30 items-center flex-1">
-          <Image className="bg-primary p-3 rounded-md" src="/assets/miro.png" alt="Miro" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/amazon.png" alt="Amazon" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/miro.png" alt="Miro" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/notion.svg" alt="Notion" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/samsung.svg" alt="Samsung" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/miro.png" alt="Miro" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/amazon.png" alt="Amazon" width={100} height={60} />
-          <Image className="bg-primary p-3 rounded-md" src="/assets/notion.svg" alt="Notion" width={100} height={60} />
+    <section className="px-16 py-10 w-full max-w-6xl">
+      <div className="flex items-center gap-16">
+     
+        <div className="grid grid-cols-4 gap-x-12 gap-y-8 flex-1 items-center">
+          {[
+            { src: "/assets/brand1.png", alt: "Brand 1" },
+            { src: "/assets/brand2.png", alt: "Brand 2" },
+            { src: "/assets/brand3.png", alt: "Brand 3" },
+            { src: "/assets/brand4.png", alt: "Brand 4" },
+            { src: "/assets/brand5.png", alt: "Brand 5" },
+            { src: "/assets/brand6.png", alt: "Brand 6" },
+            { src: "/assets/brand7.png", alt: "Brand 7" },
+            { src: "/assets/brand8.png", alt: "Brand 8" },
+          ].map((brand) => (
+            <div key={brand.alt} className="flex items-center justify-center h-10">
+              <Image
+                src={brand.src}
+                alt={brand.alt}
+                width={110}
+                height={40}
+                className="object-contain grayscale opacity-80 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          ))}
         </div>
 
-        <div>
-          <Button
-            className="border border-primary bg-transparent text-primary p-5 text-lg font-semibold rounded-3xl size-full our-work-btn"
-          >
-            OUR WORK <ArrowRightIcon />
-          </Button>
+        {/* CTA Button */}
+        <div className="shrink-0">
+          <button className="our-work-btn px-7 py-3 rounded-full border border-primary text-primary bg-transparent text-sm font-semibold tracking-widest flex items-center gap-2 uppercase whitespace-nowrap hover:bg-primary-gradaint hover:text-white transition-all duration-300 hover:shadow-lg hover:border-transparent">
+            Our Work <ArrowRightIcon size={16} />
+          </button>
         </div>
       </div>
 
-      <style>{`
-        .our-work-btn {
-          transition: background 0.35s ease, color 0.35s ease;
-        }
-        .our-work-btn:hover {
-          background: linear-gradient(
-            135deg,
-            oklch(53.78% 0.1561 3.111) 0%,
-            oklch(57.76% 0.1648 17.71) 48%,
-            oklch(61.73% 0.1786 28.24) 100%
-          ) !important;
-          color: white !important;
-          border-color: transparent !important;
-        }
-      `}</style>
+
     </section>
   );
 }

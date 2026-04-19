@@ -9,6 +9,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --background-image-primary-gradaint: var(--primary-gradaint);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-mono);
@@ -56,7 +57,12 @@
   --background: oklch(95.53% 0.0029 84.56);
   --background-hover : oklch(95.91% 0.0215 294.6)
   --foreground: oklch(17% 0.008 84.56);
-
+  --primary-gradaint: linear-gradient(
+    to right,
+    oklch(53.78% 0.1561 3.111),
+    oklch(57.76% 0.1648 17.71),
+    oklch(61.73% 0.1786 28.24)
+  );
   /* Card / Popover */
   --card: oklch(99.2% 0.001 84.56);
   --card-foreground: oklch(17% 0.008 84.56);
@@ -109,7 +115,12 @@
 .dark {
   --background: oklch(14% 0.006 84.56);
   --foreground: oklch(96% 0.004 84.56);
-
+   --primary-gradaint: linear-gradient(
+    to right,
+    oklch(53.78% 0.1561 3.111),
+    oklch(57.76% 0.1648 17.71),
+    oklch(61.73% 0.1786 28.24)
+  );
   --card: oklch(20% 0.008 84.56);
   --card-foreground: oklch(96% 0.004 84.56);
   --popover: oklch(20% 0.008 84.56);

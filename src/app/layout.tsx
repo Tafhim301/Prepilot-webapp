@@ -48,7 +48,8 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col font-relative">
-        <Navbar />
+     <Navbar />
+        
         {children}
         <Footer />
       </body>

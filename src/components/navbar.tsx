@@ -114,8 +114,9 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
   return (
-<section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-sm", className)}>
-      <div className="container">
+
+  <section className={cn("py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-md", className)}>
+  <div className="w-full mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex px-6 py-2 rounded-lg border shadow-accent shadow-b-lg">
             <Link href={logo.url} className="flex items-center gap-2">

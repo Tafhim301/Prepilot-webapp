@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Featured from "../Featured/Featured";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden w-full px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-20">
+    <section className="relative flex flex-col items-center justify-center overflow-hidden w-full px-4 sm:px-8 md:px-12 lg:px-16 pb-16 sm:py-20">
 
       {/* Floating badges — hidden on mobile, visible md+ */}
       <div className="hidden md:flex absolute top-[28%] left-[4%] lg:left-[6%] items-center gap-2 bg-white rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-md text-xs lg:text-sm font-medium z-10 pointer-events-none select-none">
@@ -48,8 +49,8 @@ export default function Hero() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-2 w-full sm:w-auto">
           <Button
-            className="w-full sm:w-auto flex items-center justify-center gap-2 h-11 border border-gray-900 text-gray-900 rounded-full px-6 py-3 text-sm sm:text-base font-semibold bg-background transition-all duration-300 hover:text-white"
-            style={{ transition: "background 0.35s ease, color 0.35s ease, border-color 0.35s ease" }}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 h-11 border border-primary text-gray-900 rounded-full px-6 py-3 text-sm sm:text-base font-semibold bg-background transition-all duration-300 hover:text-white hover:bg-primary-gradaint"
+     
           >
             OUR WORK <ArrowRight size={15} />
           </Button>
@@ -59,6 +60,7 @@ export default function Hero() {
           </button>
         </div>
       </div>
+      <Featured />
     </section>
   );
 }
