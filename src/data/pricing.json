@@ -1,0 +1,135 @@
+{
+  "billing": {
+    "monthly": "monthly",
+    "annual": "annual",
+    "annualDiscount": 20
+  },
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "tagline": "Perfect for early-stage startups and small businesses ready to establish their digital presence.",
+      "monthlyPrice": 3000,
+      "annualPrice": 2400,
+      "highlight": false,
+      "badge": null,
+      "cta": "Get Started",
+      "ctaUrl": "/contact",
+      "color": "zinc",
+      "deliverables": {
+        "pages": 5,
+        "revisions": 2,
+        "teamSize": 2,
+        "responseTime": "48h"
+      },
+      "features": [
+        { "label": "Up to 5-page responsive website", "included": true },
+        { "label": "Custom UI/UX design", "included": true },
+        { "label": "SEO foundations & meta setup", "included": true },
+        { "label": "Performance-optimised build", "included": true },
+        { "label": "2 rounds of revisions", "included": true },
+        { "label": "Basic analytics integration", "included": true },
+        { "label": "Contact form & CTA setup", "included": true },
+        { "label": "Content strategy & copywriting", "included": false },
+        { "label": "CMS / headless CMS setup", "included": false },
+        { "label": "Custom integrations & APIs", "included": false },
+        { "label": "Dedicated project manager", "included": false },
+        { "label": "Monthly strategy calls", "included": false }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Growth",
+      "tagline": "For growing businesses that need a full-stack digital experience and content engine.",
+      "monthlyPrice": 7500,
+      "annualPrice": 6000,
+      "highlight": true,
+      "badge": "Most Popular",
+      "cta": "Start Growing",
+      "ctaUrl": "/contact",
+      "color": "primary",
+      "deliverables": {
+        "pages": 15,
+        "revisions": 4,
+        "teamSize": 4,
+        "responseTime": "24h"
+      },
+      "features": [
+        { "label": "Up to 15-page responsive website", "included": true },
+        { "label": "Custom UI/UX design", "included": true },
+        { "label": "SEO foundations & meta setup", "included": true },
+        { "label": "Performance-optimised build", "included": true },
+        { "label": "4 rounds of revisions", "included": true },
+        { "label": "Advanced analytics & dashboards", "included": true },
+        { "label": "Contact form & CTA setup", "included": true },
+        { "label": "Content strategy & copywriting", "included": true },
+        { "label": "CMS / headless CMS setup", "included": true },
+        { "label": "Custom integrations & APIs", "included": false },
+        { "label": "Dedicated project manager", "included": false },
+        { "label": "Monthly strategy calls", "included": false }
+      ]
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "tagline": "For organisations that demand full ownership, custom architecture, and a dedicated team.",
+      "monthlyPrice": 15000,
+      "annualPrice": 12000,
+      "highlight": false,
+      "badge": "Full Service",
+      "cta": "Talk to Us",
+      "ctaUrl": "/contact",
+      "color": "zinc",
+      "deliverables": {
+        "pages": null,
+        "revisions": null,
+        "teamSize": 8,
+        "responseTime": "4h"
+      },
+      "features": [
+        { "label": "Unlimited pages & templates", "included": true },
+        { "label": "Custom UI/UX design", "included": true },
+        { "label": "SEO foundations & meta setup", "included": true },
+        { "label": "Performance-optimised build", "included": true },
+        { "label": "Unlimited revision cycles", "included": true },
+        { "label": "Advanced analytics & dashboards", "included": true },
+        { "label": "Contact form & CTA setup", "included": true },
+        { "label": "Content strategy & copywriting", "included": true },
+        { "label": "CMS / headless CMS setup", "included": true },
+        { "label": "Custom integrations & APIs", "included": true },
+        { "label": "Dedicated project manager", "included": true },
+        { "label": "Monthly strategy calls", "included": true }
+      ]
+    }
+  ],
+  "addons": [
+    { "name": "Extra revision round", "price": 400 },
+    { "name": "Blog / editorial setup", "price": 800 },
+    { "name": "E-commerce integration", "price": 2500 },
+    { "name": "Multi-language (per locale)", "price": 1200 },
+    { "name": "AI chatbot integration", "price": 1800 },
+    { "name": "Monthly SEO retainer", "price": 1500 }
+  ],
+  "faqs": [
+    {
+      "question": "Can I upgrade my plan later?",
+      "answer": "Absolutely. You can upgrade at any time and we'll credit the remaining balance of your current plan toward the new one."
+    },
+    {
+      "question": "What does 'monthly' pricing mean here?",
+      "answer": "Our pricing is structured as a monthly retainer. This covers an ongoing engagement — not just a one-time build — so your product continues to evolve and improve."
+    },
+    {
+      "question": "Do you charge a setup or onboarding fee?",
+      "answer": "No hidden fees. What you see is what you pay. Discovery workshops for Enterprise engagements are included."
+    },
+    {
+      "question": "How does the annual billing discount work?",
+      "answer": "Committing to an annual contract gives you 20% off the monthly rate. You're billed once upfront for the full year."
+    },
+    {
+      "question": "What if my project needs something not listed?",
+      "answer": "Reach out and we'll scope a custom plan. Most of our best client relationships started with a conversation, not a pricing page."
+    }
+  ]
+}
