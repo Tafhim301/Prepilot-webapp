@@ -614,7 +614,7 @@ export default function Pricing() {
                 className="mt-3 text-base leading-relaxed max-w-sm"
                 style={{ color: P.onDarkMid }}
               >
-                Book a free 30-minute discovery call. We'll scope your project and recommend the
+                Book a free 30-minute discovery call. We&lsquo;ll scope your project and recommend the
                 right engagement — no pressure, no pitch.
               </p>
             </div>

@@ -23,12 +23,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
           {/* Left: 3 stacked cover images */}
           <div className="relative min-h-[260px] flex items-center justify-center">
-            {/* Soft blob background */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-[85%] h-[80%] rounded-full bg-gradient-to-br from-amber-100/50 via-orange-50/30 to-rose-100/20 blur-2xl" />
             </div>
 
-            {/* 3 images in a staggered stack */}
             <div className="relative z-10 flex items-end gap-3">
               {project.coverImages.map((src, i) => (
                 <motion.div
@@ -52,14 +50,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               ))}
             </div>
 
-            {/* Awards */}
             {project.awards.length > 0 && (
               <div className="absolute bottom-0 left-0 flex gap-3 z-20">
                 {project.awards.map((award) => (
-                  <span
-                    key={award}
-                    className="text-xs font-medium text-muted-foreground"
-                  >
+                  <span key={award} className="text-xs font-medium text-muted-foreground">
                     🏆 {award}
                   </span>
                 ))}
@@ -69,7 +63,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
           {/* Right: Content */}
           <div className="flex flex-col gap-8 pr-16">
-            {/* Client name as text label */}
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">
               {project.client.name}
             </p>
@@ -83,30 +76,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1.5">
                   Solution
                 </p>
-                <p className="text-sm font-semibold text-foreground">
-                  {project.solution}
-                </p>
+                <p className="text-sm font-semibold text-foreground">{project.solution}</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1.5">
                   Industry
                 </p>
-                <p className="text-sm font-semibold text-foreground">
-                  {project.industry}
-                </p>
+                <p className="text-sm font-semibold text-foreground">{project.industry}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Arrow button */}
-        <div className="absolute top-1/2 right-8 lg:right-10 -translate-y-1/2 hover:bg-primary-gradaint rounded-full  transition-all duration-300">
+        <div className="absolute top-1/2 right-8 lg:right-10 -translate-y-1/2 rounded-full transition-all duration-300">
           <motion.div
             whileHover={{ scale: 1.12, rotate: -45 }}
             transition={{ type: "spring", stiffness: 300, damping: 18 }}
-            className="w-14 h-14 rounded-full border-2 border-foreground/20 flex items-center justify-center group-hover:bg-primary-gradaint group-hover:text-white transition-colors duration-300 hover:text-white"
+            className="w-14 h-14 rounded-full border-2 border-foreground/20 flex items-center justify-center group-hover:bg-primary-gradaint group-hover:text-white transition-colors duration-300"
           >
-            <ArrowRight className="w-5 h-5  transition-colors duration-300" />
+            <ArrowRight className="w-5 h-5  hover:text-white transition-colors duration-300" />
           </motion.div>
         </div>
       </Link>
@@ -114,9 +103,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function ProjectShowcase() {
+export default function OurWorkSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-10 bg-muted/30">
+    <section
+      id="our-work"
+      className="py-20 px-4 sm:px-6 lg:px-10 bg-muted/30 scroll-mt-20"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <motion.div
@@ -139,12 +131,28 @@ export default function ProjectShowcase() {
           </p>
         </motion.div>
 
-        {/* Project cards */}
+        {/* Project cards — show first 3 on homepage */}
         <div className="flex flex-col gap-6">
-          {(projects as Project[]).map((project, i) => (
+          {(projects as Project[]).slice(0, 3).map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
+
+        {/* View all CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-12 text-center"
+        >
+          <Link
+            href="/our-work"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold hover:bg-primary-gradaint transition-opacity duration-200"
+          >
+            View all projects <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

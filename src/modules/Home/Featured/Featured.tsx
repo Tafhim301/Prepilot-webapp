@@ -6,9 +6,9 @@ export default function Featured() {
     <section className="px-16 py-10 w-full max-w-6xl">
       <div className="flex items-center gap-16">
      
-        <div className="grid grid-cols-4 gap-x-12 gap-y-8 flex-1 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8 flex-1 items-center">
           {[
-            { src: "/assets/brand1.png", alt: "Brand 1" },
+            { src: "/assets/brand1.png", alt: "Brand 1", },
             { src: "/assets/brand2.png", alt: "Brand 2" },
             { src: "/assets/brand3.png", alt: "Brand 3" },
             { src: "/assets/brand4.png", alt: "Brand 4" },
