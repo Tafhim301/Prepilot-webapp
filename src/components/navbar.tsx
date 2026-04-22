@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -36,26 +37,26 @@ import { cn } from "@/lib/utils";
 
 // ── Single source of truth ───────────────────────────────────────────────────
 import projectsData from "@/data/projects.json";
-import pricingData  from "@/data/pricing.json";
-import type { Project }     from "@/types/projects.types";
+import pricingData from "@/data/pricing.json";
+import type { Project } from "@/types/projects.types";
 import type { PricingData } from "@/types/pricing.types";
 
 // ─── Design tokens (mirrors globals.css + Pricing / Services / OurWork) ──────
 const P = {
-  page:      "#f4f1ec",
-  ink:       "#1f1a14",
-  inkMid:    "#7a6e62",
-  inkLight:  "#a89e94",
-  card:      "#fdfcfb",
-  border:    "rgba(0,0,0,0.08)",
+  page: "#f4f1ec",
+  ink: "#1f1a14",
+  inkMid: "#7a6e62",
+  inkLight: "#a89e94",
+  card: "#fdfcfb",
+  border: "rgba(0,0,0,0.08)",
   borderMid: "rgba(0,0,0,0.05)",
   mutedFill: "rgba(0,0,0,0.03)",
-  primary:   "#4a3018",
-  red:       "#8b3a2a",
-  mid:       "#9b4a28",
-  amber:     "#a85e26",
-  darkBg:    "#1a1208",
-  onDark:    "#f4f1ec",
+  primary: "#4a3018",
+  red: "#8b3a2a",
+  mid: "#9b4a28",
+  amber: "#a85e26",
+  darkBg: "#1a1208",
+  onDark: "#f4f1ec",
   onDarkMid: "#c4bdb4",
   onDarkDim: "#7a7168",
 } as const;
@@ -72,12 +73,12 @@ type ServicePreview = {
 };
 
 const SERVICES_PREVIEW: ServicePreview[] = [
-  { icon: "🎨", title: "Strategic UI/UX",       description: "User-centric interfaces that convert.",   tags: ["Figma", "Design Systems"]    },
-  { icon: "⚛️", title: "MERN Stack",            description: "Full-stack JS apps, end to end.",         tags: ["React", "Node.js"]           },
-  { icon: "🌐", title: "Custom Architecture",   description: "High-performance web applications.",      tags: ["Next.js", "GraphQL"]         },
-  { icon: "🔷", title: "WordPress",              description: "Custom themes, plugins, headless CMS.",   tags: ["Gutenberg", "Headless"]      },
-  { icon: "💧", title: "Webflow",                description: "Pixel-perfect builds, CMS, handoff.",     tags: ["CMS", "Interactions"]        },
-  { icon: "🛒", title: "E-commerce",             description: "Storefronts built to sell and scale.",    tags: ["Shopify", "Stripe"]          },
+  { icon: "🎨", title: "Strategic UI/UX", description: "User-centric interfaces that convert.", tags: ["Figma", "Design Systems"] },
+  { icon: "⚛️", title: "MERN Stack", description: "Full-stack JS apps, end to end.", tags: ["React", "Node.js"] },
+  { icon: "🌐", title: "Custom Architecture", description: "High-performance web applications.", tags: ["Next.js", "GraphQL"] },
+  { icon: "🔷", title: "WordPress", description: "Custom themes, plugins, headless CMS.", tags: ["Gutenberg", "Headless"] },
+  { icon: "💧", title: "Webflow", description: "Pixel-perfect builds, CMS, handoff.", tags: ["CMS", "Interactions"] },
+  { icon: "🛒", title: "E-commerce", description: "Storefronts built to sell and scale.", tags: ["Shopify", "Stripe"] },
 ];
 
 const SERVICES_SUMMARY = [
@@ -92,13 +93,13 @@ const SERVICES_SUMMARY = [
 // ─── Derived data from JSON ──────────────────────────────────────────────────
 
 const PROJECTS_PREVIEW = (projectsData as Project[]).slice(0, 4);
-const PRICING_PREVIEW  = (pricingData  as PricingData).plans;
-const FEATURED_ADDONS  = (pricingData  as PricingData).addons.slice(0, 3);
+const PRICING_PREVIEW = (pricingData as PricingData).plans;
+const FEATURED_ADDONS = (pricingData as PricingData).addons.slice(0, 3);
 
 // ─── Smooth-scroll hook ──────────────────────────────────────────────────────
 
 function useSmoothScroll() {
-  const router   = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
 
   return useCallback(
@@ -119,7 +120,7 @@ function useSmoothScroll() {
  *
  * For route-based items (/pricing, /about)   → match on pathname
  * For scroll-based items (#services, #our-work) → only active on the
- *   homepage AND when the corresponding section is in view.
+ * homepage AND when the corresponding section is in view.
  *
  * IntersectionObserver watches #services and #our-work with a rootMargin
  * that biases toward the section whose top has crossed the viewport mid.
@@ -128,23 +129,20 @@ function useActiveSection(): string {
   const pathname = usePathname();
   const [active, setActive] = useState<string>("");
 
-  // Sub-route / scroll-section detection
   useEffect(() => {
-    // Non-home routes: active key is the first path segment
     if (pathname !== "/") {
-      if (pathname.startsWith("/pricing"))  setActive("/pricing");
-      else if (pathname.startsWith("/about"))    setActive("/about");
+      if (pathname.startsWith("/pricing")) setActive("/pricing");
+      else if (pathname.startsWith("/about")) setActive("/about");
       else if (pathname.startsWith("/our-work")) setActive("#our-work");
-      else if (pathname.startsWith("/contact"))  setActive("/contact");
+      else if (pathname.startsWith("/contact")) setActive("/contact");
       else setActive("");
       return;
     }
 
-    // Homepage — observe the anchor sections
-    setActive("/"); // default: Home
+    setActive("/");
 
     const sectionIds = ["services", "our-work"];
-    const elements   = sectionIds
+    const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
@@ -157,7 +155,6 @@ function useActiveSection(): string {
         for (const entry of entries) {
           visibility.set(entry.target.id, entry.intersectionRatio);
         }
-        // Pick the most-visible observed section (if it's meaningfully visible)
         let best: { id: string; ratio: number } | null = null;
         for (const [id, ratio] of visibility) {
           if (ratio > 0.25 && (!best || ratio > best.ratio)) {
@@ -167,9 +164,8 @@ function useActiveSection(): string {
         setActive(best ? `#${best.id}` : "/");
       },
       {
-        // Trigger when section occupies the middle band of viewport
         rootMargin: "-35% 0px -35% 0px",
-        threshold:  [0, 0.25, 0.5, 0.75, 1],
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
 
@@ -199,7 +195,7 @@ function Label({ children, onDark = false }: { children: ReactNode; onDark?: boo
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Panel · SERVICES — mini version of ServicesSection
+// Panel · SERVICES
 // ═══════════════════════════════════════════════════════════════════════════
 
 function ServicesPanel({ onClose }: { onClose: () => void }) {
@@ -207,12 +203,10 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full">
-      {/* LEFT: dark intro + In Summary + Accepting badge */}
       <div
         className="w-[300px] flex-shrink-0 flex flex-col justify-between p-7 relative overflow-hidden"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
       >
-        {/* Subtle radial glow */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
@@ -243,7 +237,6 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
             End-to-end digital solutions for teams that want to own their stack — no lock-in, no compromises.
           </p>
 
-          {/* In Summary list */}
           <p className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: P.onDarkDim }}>
             In Summary
           </p>
@@ -259,7 +252,6 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
           </ul>
         </div>
 
-        {/* Accepting partnerships badge */}
         <div
           className="relative z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-medium w-fit"
           style={{ background: "rgba(255,255,255,0.05)", color: P.onDark, border: "1px solid rgba(255,255,255,0.08)" }}
@@ -269,7 +261,6 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      {/* RIGHT: service grid */}
       <div className="flex-1 flex flex-col p-5">
         <div className="flex items-center justify-between mb-3.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: P.inkMid }}>
@@ -304,17 +295,17 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background  = "rgba(255,255,255,0.95)";
+                  el.style.background = "rgba(255,255,255,0.95)";
                   el.style.borderColor = `${P.amber}55`;
-                  el.style.transform   = "translateY(-2px)";
-                  el.style.boxShadow   = "0 10px 24px rgba(0,0,0,0.06)";
+                  el.style.transform = "translateY(-2px)";
+                  el.style.boxShadow = "0 10px 24px rgba(0,0,0,0.06)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background  = "rgba(255,255,255,0.55)";
+                  el.style.background = "rgba(255,255,255,0.55)";
                   el.style.borderColor = "rgba(255,255,255,0.7)";
-                  el.style.transform   = "translateY(0)";
-                  el.style.boxShadow   = "none";
+                  el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
                 }}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -360,7 +351,7 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Panel · OUR WORK — mini version of ProjectsShowCase
+// Panel · OUR WORK
 // ═══════════════════════════════════════════════════════════════════════════
 
 function OurWorkPanel({ onClose }: { onClose: () => void }) {
@@ -369,7 +360,6 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full">
-      {/* LEFT: featured preview image + intro */}
       <div
         className="w-[340px] flex-shrink-0 flex flex-col p-6 relative overflow-hidden"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
@@ -397,7 +387,6 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
           </p>
         </div>
 
-        {/* Featured preview image */}
         <div
           className="relative rounded-xl overflow-hidden flex-1 min-h-0"
           style={{ boxShadow: "0 16px 40px rgba(0,0,0,0.4)" }}
@@ -406,8 +395,8 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
             <motion.div
               key={active.slug}
               initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1    }}
-              exit ={{ opacity: 0, scale: 0.98  }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0"
             >
@@ -423,10 +412,9 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
                 style={{ background: "linear-gradient(to top, rgba(26,18,8,0.92) 0%, rgba(26,18,8,0.1) 45%, transparent 60%)" }}
               />
 
-              {/* Awards tag if any */}
               {active.awards.length > 0 && (
                 <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full"
-                     style={{ background: "rgba(26,18,8,0.7)", backdropFilter: "blur(8px)" }}>
+                  style={{ background: "rgba(26,18,8,0.7)", backdropFilter: "blur(8px)" }}>
                   <Trophy className="w-2.5 h-2.5" style={{ color: P.amber }} />
                   <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: P.onDark }}>
                     Award-winning
@@ -434,7 +422,6 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
                 </div>
               )}
 
-              {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-3.5">
                 <p className="text-[9px] font-bold uppercase tracking-[0.15em] mb-1" style={{ color: P.amber }}>
                   {active.client.name}
@@ -461,7 +448,6 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
         </Link>
       </div>
 
-      {/* RIGHT: project list */}
       <div className="flex-1 flex flex-col p-5">
         <div className="flex items-center justify-between mb-3.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: P.inkMid }}>
@@ -489,13 +475,12 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
                 onMouseEnter={() => setHovered(i)}
                 className="group flex items-center gap-3 p-2.5 rounded-xl border transition-all duration-200"
                 style={{
-                  background:  hovered === i ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)",
-                  borderColor: hovered === i ? `${P.amber}55`            : "rgba(255,255,255,0.7)",
-                  transform:   hovered === i ? "translateX(4px)"         : "translateX(0)",
-                  boxShadow:   hovered === i ? "0 6px 16px rgba(0,0,0,0.06)" : "none",
+                  background: hovered === i ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)",
+                  borderColor: hovered === i ? `${P.amber}55` : "rgba(255,255,255,0.7)",
+                  transform: hovered === i ? "translateX(4px)" : "translateX(0)",
+                  boxShadow: hovered === i ? "0 6px 16px rgba(0,0,0,0.06)" : "none",
                 }}
               >
-                {/* Thumbnail */}
                 <div className="w-16 h-11 rounded-md overflow-hidden flex-shrink-0 relative">
                   <Image
                     src={p.coverImages[0]}
@@ -506,7 +491,6 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
                   />
                 </div>
 
-                {/* Meta */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-0.5">
                     <p
@@ -533,7 +517,7 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
                 <ArrowRight
                   className="w-3.5 h-3.5 flex-shrink-0 transition-all duration-200"
                   style={{
-                    color:     hovered === i ? P.primary : P.inkLight,
+                    color: hovered === i ? P.primary : P.inkLight,
                     transform: hovered === i ? "translateX(2px)" : "translateX(0)",
                   }}
                 />
@@ -547,13 +531,12 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Panel · PRICING — mini version of Pricing section
+// Panel · PRICING
 // ═══════════════════════════════════════════════════════════════════════════
 
 function PricingPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full">
-      {/* LEFT: intro + addons */}
       <div
         className="w-[270px] flex-shrink-0 flex flex-col justify-between p-6 relative overflow-hidden"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
@@ -588,7 +571,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
             No setup fees. No lock-in. Save {pricingData.billing.annualDiscount}% when you bill yearly.
           </p>
 
-          {/* Trust points */}
           <ul className="flex flex-col gap-1.5 mb-6">
             {["No setup fees", "Cancel anytime", "30-day money-back"].map((t) => (
               <li key={t} className="flex items-center gap-2">
@@ -600,7 +582,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
             ))}
           </ul>
 
-          {/* Popular addons */}
           <div>
             <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: P.onDarkDim }}>
               Popular Add-ons
@@ -629,7 +610,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
         </Link>
       </div>
 
-      {/* RIGHT: pricing cards */}
       <div className="flex-1 flex flex-col p-5">
         <div className="flex items-center justify-between mb-3.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: P.inkMid }}>
@@ -664,7 +644,7 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                       ? {
                           background: P.darkBg,
                           borderColor: "rgba(255,255,255,0.08)",
-                          boxShadow:   `0 12px 32px -10px ${P.red}50`,
+                          boxShadow: `0 12px 32px -10px ${P.red}50`,
                         }
                       : {
                           background: "rgba(255,255,255,0.55)",
@@ -674,21 +654,20 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                   onMouseEnter={(e) => {
                     if (plan.highlight) return;
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background  = "rgba(255,255,255,0.95)";
+                    el.style.background = "rgba(255,255,255,0.95)";
                     el.style.borderColor = `${P.amber}55`;
-                    el.style.transform   = "translateY(-2px)";
-                    el.style.boxShadow   = "0 10px 24px rgba(0,0,0,0.06)";
+                    el.style.transform = "translateY(-2px)";
+                    el.style.boxShadow = "0 10px 24px rgba(0,0,0,0.06)";
                   }}
                   onMouseLeave={(e) => {
                     if (plan.highlight) return;
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background  = "rgba(255,255,255,0.55)";
+                    el.style.background = "rgba(255,255,255,0.55)";
                     el.style.borderColor = "rgba(255,255,255,0.7)";
-                    el.style.transform   = "translateY(0)";
-                    el.style.boxShadow   = "none";
+                    el.style.transform = "translateY(0)";
+                    el.style.boxShadow = "none";
                   }}
                 >
-                  {/* Highlighted glow */}
                   {plan.highlight && (
                     <div
                       aria-hidden
@@ -699,7 +678,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                     />
                   )}
 
-                  {/* Badge */}
                   {plan.badge && (
                     <span
                       className="absolute top-2.5 right-2.5 text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded-full z-10 inline-flex items-center gap-0.5"
@@ -714,7 +692,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                     </span>
                   )}
 
-                  {/* Name + Price */}
                   <div className="relative z-10 mb-3">
                     <p
                       className="text-[10px] font-bold uppercase tracking-[0.15em]"
@@ -744,7 +721,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                     </div>
                   </div>
 
-                  {/* Features */}
                   <ul className="relative z-10 flex flex-col gap-1.5 flex-1">
                     {topFeatures.map((f) => (
                       <li key={f.label} className="flex items-start gap-1.5">
@@ -768,7 +744,6 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
                     ))}
                   </ul>
 
-                  {/* Mini CTA */}
                   <div
                     className="relative z-10 mt-3 pt-2.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider"
                     style={{ borderTop: `1px solid ${plan.highlight ? "rgba(255,255,255,0.08)" : P.borderMid}` }}
@@ -795,21 +770,20 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
 
 type PanelKey = "services" | "our-work" | "pricing";
 
-const PANEL_SIZE = { width: 920, height: 460 } as const;
+const PANEL_SIZE = { width: 1220, height: 460 } as const;
 
 const NAV_ITEMS: Array<{
   title: string;
   url: string;
-  /** Key used to match against useActiveSection() — route path OR #anchor */
   activeKey: string;
   scrollTo?: string;
   panel?: PanelKey;
 }> = [
-  { title: "Home",     url: "/",           activeKey: "/"                                                     },
-  { title: "Services", url: "/#services",  activeKey: "#services",  scrollTo: "services", panel: "services"  },
-  { title: "Our Work", url: "/#our-work",  activeKey: "#our-work",  scrollTo: "our-work", panel: "our-work"  },
-  { title: "Pricing",  url: "/pricing",    activeKey: "/pricing",                         panel: "pricing"   },
-  { title: "About Us", url: "/about",      activeKey: "/about"                                                },
+  { title: "Home", url: "/", activeKey: "/" },
+  { title: "Services", url: "/#services", activeKey: "#services", scrollTo: "services", panel: "services" },
+  { title: "Our Work", url: "/#our-work", activeKey: "#our-work", scrollTo: "our-work", panel: "our-work" },
+  { title: "Pricing", url: "/pricing", activeKey: "/pricing", panel: "pricing" },
+  { title: "About Us", url: "/about", activeKey: "/about" },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -818,316 +792,308 @@ const NAV_ITEMS: Array<{
 
 export function Navbar({ className }: { className?: string }) {
   const [activePanel, setActivePanel] = useState<PanelKey | null>(null);
-  const closeTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const smoothScroll  = useSmoothScroll();
-  const activeKey     = useActiveSection();
-
-  const openPanel = useCallback((key: PanelKey) => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setActivePanel(key);
-  }, []);
-
-  const scheduleClose = useCallback(() => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setActivePanel(null), 180);
-  }, []);
-
-  const cancelClose = useCallback(() => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-  }, []);
-
-  const closeNow = useCallback(() => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setActivePanel(null);
-  }, []);
+  const smoothScroll = useSmoothScroll();
+  const activeKey = useActiveSection();
 
   return (
     <section
       className={cn(
-        "py-4 px-10 sticky top-0 z-50 bg-background/80 backdrop-blur-md",
-        className
+        "sticky top-0 z-50 w-full py-4 px-10 flex justify-center shrink-0 mx-auto",
+        className,
       )}
-    >
-      <div className="w-full mx-auto">
-
-        {/* ── Desktop nav ─────────────────────────────────────────────── */}
-   
-<div className="hidden lg:flex relative" onMouseLeave={scheduleClose}>
-  {/* Gradient border wrapper */}
-  <div
-    className="relative w-full rounded-xl p-[1.5px]"
-    style={{
-      background: GRAD,
-    }}
-  >
-    {/* Traveling light on the border track */}
-    <div
-      aria-hidden
-      className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none z-10"
-    >
-      <div
-        className="absolute"
-        style={{
-          width: "80px",
-          height: "3px",
-          borderRadius: "999px",
-          background:
-            "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), rgba(255,255,255,0.5), transparent)",
-          filter: "blur(1px)",
-          animation: "navTravelLight 3.5s linear infinite",
-        }}
-      />
-    </div>
-
-    {/* Inner nav surface */}
-    <nav
-      className="relative flex items-center justify-between px-6 py-2 rounded-[10px] shadow-accent overflow-hidden"
       style={{
-        background:           "rgba(244,241,236,0.92)",
-        backdropFilter:       "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "linear-gradient(180deg, rgba(244,241,236,0.98) 0%, rgba(240,235,226,0.92) 100%)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(168,94,38,0.12)",
+        boxShadow: "0 1px 0 rgba(168,94,38,0.08), 0 4px 24px -4px rgba(139,58,42,0.08)",
       }}
     >
-      {/* Shine overlay */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none rounded-[10px]"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
-        }}
-      />
-
-      {/* Ambient warm glow */}
-      <div
-        aria-hidden
-        className="absolute top-[-60%] right-[-5%] w-[280px] h-[280px] rounded-full pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${P.amber}18, transparent 65%)`,
-          filter: "blur(40px)",
-        }}
-      />
-
-      <Link href="/" className="flex items-center gap-2 flex-shrink-0 z-20" onClick={closeNow}>
-        <p className="font-semibold text-sm tracking-tight" style={{ color: P.ink }}>PrePilot</p>
-      </Link>
-
-      {/* Links */}
-      <div className="flex items-center">
-        {NAV_ITEMS.map((item) => {
-          const isActive    = activeKey === item.activeKey;
-          const isPanelOpen = activePanel === item.panel;
-          const isLit       = isActive || isPanelOpen;
-
-          if (item.panel) {
-            return (
-              <div
-                key={item.title}
-                onMouseEnter={() => openPanel(item.panel!)}
-                className="relative"
-              >
-                <Link
-                  href={item.url}
-                  onClick={(e) => {
-                    closeNow();
-                    if (item.scrollTo) smoothScroll(item.scrollTo)(e);
-                  }}
-                  className="relative inline-flex items-center gap-1 h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
-                  style={{
-                    color:      isLit ? P.ink : P.inkMid,
-                    background: isActive ? `${P.primary}08` : "transparent",
-                  }}
-                >
-                  {item.title}
-                  <ChevronDown
-                    className="w-3 h-3 transition-transform duration-200"
-                    style={{
-                      transform: isPanelOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      opacity: 0.55,
-                    }}
-                  />
-                  <motion.span
-                    aria-hidden
-                    className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
-                    style={{ background: GRAD }}
-                    animate={{
-                      width:   isLit    ? 20 : 0,
-                      opacity: isActive ? 1  : isPanelOpen ? 0.5 : 0,
-                    }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </Link>
-              </div>
-            );
-          }
-
-          return (
-            <Link
-              key={item.title}
-              href={item.url}
-              onMouseEnter={closeNow}
-              onClick={closeNow}
-              className="relative inline-flex items-center h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
-              style={{
-                color:      isActive ? P.ink : P.inkMid,
-                background: isActive ? `${P.primary}08` : "transparent",
-              }}
-            >
-              {item.title}
-              <motion.span
-                aria-hidden
-                className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
-                style={{ background: GRAD }}
-                animate={{
-                  width:   isActive ? 20 : 0,
-                  opacity: isActive ? 1  : 0,
-                }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              />
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* CTA */}
-      <Button asChild className="rounded-sm flex-shrink-0 z-20">
-        <Link href="/contact" onClick={closeNow}>
-          <Phone className="w-3.5 h-3.5" /> Contact Us
-        </Link>
-      </Button>
-
-      {/* Mega popover (unchanged) */}
-      <AnimatePresence>
-        {activePanel && (
-          <motion.div
-            key="panel"
-            initial={{ opacity: 0, y: -8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0,  scale: 1    }}
-            exit ={{ opacity: 0, y: -6,  scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
-            className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-40"
+      <div className="w-full flex justify-center">
+        <div
+          className="relative w-full max-w-5xl rounded-2xl p-[1.5px]"
+          style={{
+            background: "linear-gradient(135deg, #8b3a2a 0%, #9b4a28 40%, #a85e26 70%, #c4742e 100%)",
+            boxShadow: `0 0 0 1px rgba(139,58,42,0.15), 0 8px 32px -8px rgba(139,58,42,0.25)`,
+          }}
+        >
+          {/* Traveling light */}
+          <div
+            aria-hidden
+            className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none z-10"
           >
             <div
-              className="relative rounded-2xl overflow-hidden"
+              className="absolute"
               style={{
-                width:                `${PANEL_SIZE.width}px`,
-                height:               `${PANEL_SIZE.height}px`,
-                background:           "rgba(250,248,245,0.94)",
-                backdropFilter:       "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                border:               "1px solid rgba(255,255,255,0.9)",
-                boxShadow: `
-                  0 32px 72px rgba(0,0,0,0.18),
-                  0 6px 20px rgba(0,0,0,0.08),
-                  0 0 0 1px rgba(0,0,0,0.04)
-                `,
+                width: "100px",
+                height: "4px",
+                borderRadius: "999px",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,1), rgba(255,255,255,0.6), transparent)",
+                filter: "blur(1.5px)",
+                animation: "navTravelLight 3.5s linear infinite",
               }}
-            >
+            />
+          </div>
+
+          {/* Inner nav surface - Moved onMouseLeave here */}
+          <nav
+            className="relative flex items-center justify-between px-6 py-2 rounded-[14px]"
+            style={{
+              background: "rgba(247,244,239,0.97)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
+            onMouseLeave={() => setActivePanel(null)}
+          >
+            {/* Glows Container - Moved overflow-hidden here to avoid clipping the dropdown */}
+            <div className="absolute inset-0 rounded-[14px] overflow-hidden pointer-events-none z-0">
+              {/* Shine overlay */}
               <div
                 aria-hidden
-                className="absolute top-0 left-0 right-0 h-[2px] z-20"
-                style={{ background: GRAD }}
-              />
-              <div
-                aria-hidden
-                className="absolute pointer-events-none"
+                className="absolute inset-0"
                 style={{
-                  top: "-25%", right: "-10%",
-                  width: "320px", height: "320px",
-                  background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
-                  filter: "blur(48px)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 40%, transparent 100%)",
                 }}
               />
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activePanel}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit ={{ opacity: 0, x: -8 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-full"
-                >
-                  {activePanel === "services" && <ServicesPanel onClose={closeNow} />}
-                  {activePanel === "our-work" && <OurWorkPanel  onClose={closeNow} />}
-                  {activePanel === "pricing"  && <PricingPanel  onClose={closeNow} />}
-                </motion.div>
-              </AnimatePresence>
+              {/* Amber ambient glow */}
+              <div
+                aria-hidden
+                className="absolute top-[-80%] right-[-5%] w-[300px] h-[300px] rounded-full"
+                style={{
+                  background: `radial-gradient(circle, ${P.amber}22, transparent 65%)`,
+                  filter: "blur(40px)",
+                }}
+              />
+              {/* Red ambient glow */}
+              <div
+                aria-hidden
+                className="absolute top-[-80%] left-[-5%] w-[200px] h-[200px] rounded-full"
+                style={{
+                  background: `radial-gradient(circle, ${P.red}14, transparent 65%)`,
+                  filter: "blur(40px)",
+                }}
+              />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  </div>
-</div>
 
-        {/* ── Mobile nav ──────────────────────────────────────────────── */}
-        <div className="block lg:hidden">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <p className="font-semibold tracking-tight" style={{ color: P.ink }}>PrePilot</p>
+            <Link href="/" className="flex items-center gap-2 flex-shrink-0 z-20" onClick={() => setActivePanel(null)}>
+              <p className="font-semibold text-sm tracking-tight" style={{ color: P.ink }}>DigiTreak</p>
             </Link>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Menu className="size-4" />
-                </Button>
-              </SheetTrigger>
+            {/* Links */}
+            <div className="flex items-center z-20">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeKey === item.activeKey;
+                const isPanelOpen = activePanel === item.panel;
+                const isLit = isActive || isPanelOpen;
 
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>
-                    <Link href="/">
-                      <p>PrePilot</p>
-                    </Link>
-                  </SheetTitle>
-                </SheetHeader>
-
-                <div className="flex flex-col gap-4 p-4 mt-2">
-                  <Accordion type="single" collapsible className="flex w-full flex-col">
-                    {NAV_ITEMS.filter((i) => i.panel).map((item) => (
-                      <MobileAccordion
-                        key={item.title}
-                        title={item.title}
-                        panel={item.panel!}
-                        isActive={activeKey === item.activeKey}
-                      />
-                    ))}
-                  </Accordion>
-
-                  {NAV_ITEMS.filter((i) => !i.panel).map((item) => {
-                    const isActive = activeKey === item.activeKey;
-                    return (
+                if (item.panel) {
+                  return (
+                    <div
+                      key={item.title}
+                      onMouseEnter={() => setActivePanel(item.panel!)}
+                      className="relative"
+                    >
                       <Link
-                        key={item.title}
                         href={item.url}
-                        className="text-base font-semibold py-1 inline-flex items-center gap-2"
-                        style={{ color: isActive ? P.primary : P.ink }}
+                        onClick={(e) => {
+                          setActivePanel(null);
+                          if (item.scrollTo) smoothScroll(item.scrollTo)(e);
+                        }}
+                        className="relative inline-flex items-center gap-1 h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
+                        style={{
+                          color: isLit ? P.ink : P.inkMid,
+                          background: isActive ? `${P.primary}08` : "transparent",
+                        }}
                       >
-                        {isActive && (
-                          <span
-                            className="w-1 h-1 rounded-full flex-shrink-0"
-                            style={{ background: GRAD }}
-                          />
-                        )}
                         {item.title}
+                        <ChevronDown
+                          className="w-3 h-3 transition-transform duration-200"
+                          style={{
+                            transform: isPanelOpen ? "rotate(180deg)" : "rotate(0deg)",
+                            opacity: 0.55,
+                          }}
+                        />
+                        <motion.span
+                          aria-hidden
+                          className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
+                          style={{ background: GRAD }}
+                          animate={{
+                            width: isLit ? 20 : 0,
+                            opacity: isActive ? 1 : isPanelOpen ? 0.5 : 0,
+                          }}
+                          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                        />
                       </Link>
-                    );
-                  })}
+                    </div>
+                  );
+                }
 
-                  <Button asChild className="mt-2">
-                    <Link href="/contact">
-                      <Contact2Icon /> Contact Us
-                    </Link>
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                return (
+                  <Link
+                    key={item.title}
+                    href={item.url}
+                    onMouseEnter={() => setActivePanel(null)}
+                    onClick={() => setActivePanel(null)}
+                    className="relative inline-flex items-center h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
+                    style={{
+                      color: isActive ? P.ink : P.inkMid,
+                      background: isActive ? `${P.primary}08` : "transparent",
+                    }}
+                  >
+                    {item.title}
+                    <motion.span
+                      aria-hidden
+                      className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
+                      style={{ background: GRAD }}
+                      animate={{
+                        width: isActive ? 20 : 0,
+                        opacity: isActive ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* CTA */}
+            <Button asChild className="rounded-sm flex-shrink-0 z-20">
+              <Link href="/contact" onClick={() => setActivePanel(null)}>
+                <Phone className="w-3.5 h-3.5" /> Contact Us
+              </Link>
+            </Button>
+
+            {/* Mega popover */}
+            <AnimatePresence>
+              {activePanel && (
+                <motion.div
+                  key="panel"
+                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                  transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-40 scroll-mr-10"
+                >
+                  {/* Invisible Bridge */}
+                  <div className="absolute top- left-0 w-full h-4 z-50" />
+                  
+                  <div
+                    className="relative rounded-2xl overflow-hidden"
+                    style={{
+                      width: `${PANEL_SIZE.width}px`,
+                      height: `${PANEL_SIZE.height}px`,
+                      background: "rgba(250,248,245,0.94)",
+                      backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
+                      border: "1px solid rgba(255,255,255,0.9)",
+                      boxShadow: `
+                        0 32px 72px rgba(0,0,0,0.18),
+                        0 6px 20px rgba(0,0,0,0.08),
+                        0 0 0 1px rgba(0,0,0,0.04)
+                      `,
+                    }}
+                  >
+                    <div
+                      aria-hidden
+                      className="absolute top-0 left-0 right-0 h-[2px] z-20"
+                      style={{ background: GRAD }}
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute pointer-events-none"
+                      style={{
+                        top: "-25%", right: "-10%",
+                        width: "320px", height: "320px",
+                        background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
+                        filter: "blur(48px)",
+                      }}
+                    />
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activePanel}
+                        initial={{ opacity: 0, x: 8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -8 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="h-full"
+                      >
+                        {activePanel === "services" && <ServicesPanel onClose={() => setActivePanel(null)} />}
+                        {activePanel === "our-work" && <OurWorkPanel onClose={() => setActivePanel(null)} />}
+                        {activePanel === "pricing" && <PricingPanel onClose={() => setActivePanel(null)} />}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </nav>
         </div>
+      </div>
 
+      {/* ── Mobile nav ──────────────────────────────────────────────── */}
+      <div className="block lg:hidden">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <p className="font-semibold tracking-tight" style={{ color: P.ink }}>DigiTreak</p>
+          </Link>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Menu className="size-4" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent className="overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle>
+                  <Link href="/">
+                    <p>DigiTreak</p>
+                  </Link>
+                </SheetTitle>
+              </SheetHeader>
+
+              <div className="flex flex-col gap-4 p-4 mt-2">
+                <Accordion type="single" collapsible className="flex w-full flex-col">
+                  {NAV_ITEMS.filter((i) => i.panel).map((item) => (
+                    <MobileAccordion
+                      key={item.title}
+                      title={item.title}
+                      panel={item.panel!}
+                      isActive={activeKey === item.activeKey}
+                    />
+                  ))}
+                </Accordion>
+
+                {NAV_ITEMS.filter((i) => !i.panel).map((item) => {
+                  const isActive = activeKey === item.activeKey;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.url}
+                      className="text-base font-semibold py-1 inline-flex items-center gap-2"
+                      style={{ color: isActive ? P.primary : P.ink }}
+                    >
+                      {isActive && (
+                        <span
+                          className="w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ background: GRAD }}
+                        />
+                      )}
+                      {item.title}
+                    </Link>
+                  );
+                })}
+
+                <Button asChild className="mt-2">
+                  <Link href="/contact">
+                    <Contact2Icon /> Contact Us
+                  </Link>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </section>
   );

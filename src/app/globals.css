@@ -190,15 +190,15 @@
 }
 
 @keyframes navTravelLight {
-  0%   { top: 0; left: -80px; bottom: auto; right: auto; }
-  24%  { top: 0; left: calc(100% + 80px); bottom: auto; right: auto; }
-  25%  { top: 0; left: auto; right: -80px; bottom: auto; }
-  49%  { top: 0; left: auto; right: calc(100% + 80px); bottom: auto; }
-  50%  { top: auto; bottom: -3px; left: auto; right: -80px; }
-  74%  { top: auto; bottom: -3px; left: auto; right: calc(100% + 80px); }
-  75%  { top: auto; bottom: -3px; left: -80px; right: auto; }
-  99%  { top: auto; bottom: -3px; left: calc(100% + 80px); right: auto; }
-  100% { top: 0; left: -80px; bottom: auto; right: auto; }
+  0%   { top: -2px; left: -100px; bottom: auto; right: auto; }
+  24%  { top: -2px; left: calc(100% + 100px); bottom: auto; right: auto; }
+  25%  { top: -2px; left: auto; right: -100px; bottom: auto; }
+  49%  { top: -2px; left: auto; right: calc(100% + 100px); bottom: auto; }
+  50%  { top: auto; bottom: -2px; left: auto; right: -100px; }
+  74%  { top: auto; bottom: -2px; left: auto; right: calc(100% + 100px); }
+  75%  { top: auto; bottom: -2px; left: -100px; right: auto; }
+  99%  { top: auto; bottom: -2px; left: calc(100% + 100px); right: auto; }
+  100% { top: -2px; left: -100px; bottom: auto; right: auto; }
 }
 
 
