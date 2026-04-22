@@ -31,7 +31,7 @@ export default function Featured() {
 
         {/* CTA Button */}
         <div className="shrink-0">
-          <button className="our-work-btn px-7 py-3 rounded-full border border-primary text-primary bg-transparent text-sm font-semibold tracking-widest flex items-center gap-2 uppercase whitespace-nowrap hover:bg-primary-gradaint hover:text-white transition-all duration-300 hover:shadow-lg hover:border-transparent">
+          <button className="our-work-btn px-7 hidden py-3 rounded-full border border-primary text-primary bg-transparent text-sm font-semibold tracking-widest md:flex items-center gap-2 uppercase whitespace-nowrap hover:bg-primary-gradaint hover:text-white transition-all duration-300 hover:shadow-lg hover:border-transparent">
             Our Work <ArrowRightIcon size={16} />
           </button>
         </div>

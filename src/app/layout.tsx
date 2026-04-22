@@ -5,10 +5,11 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
+
 const relative = localFont({
   src: [
     {
-      path: "../fonts/Relative-Book.ttf",
+      path: "../../src/fonts/Relative-Book.ttf",
       weight: "400",
       style: "normal",
     },
@@ -18,7 +19,7 @@ const relative = localFont({
       style: "normal",
     },
     {
-      path: "../fonts/Relative-Bold.ttf",
+      path: "../../src/fonts/Relative-Bold.ttf",
       weight: "700",
       style: "normal",
     },
