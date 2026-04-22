@@ -851,184 +851,216 @@ export function Navbar({ className }: { className?: string }) {
       <div className="w-full mx-auto">
 
         {/* ── Desktop nav ─────────────────────────────────────────────── */}
-        <nav
-          className="hidden lg:flex items-center justify-between px-6 py-2 rounded-lg border shadow-accent relative"
-          onMouseLeave={scheduleClose}
-        >
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0 z-20" onClick={closeNow}>
-            <p className="font-semibold text-sm tracking-tight" style={{ color: P.ink }}>PrePilot</p>
-          </Link>
+   
+<div className="hidden lg:flex relative" onMouseLeave={scheduleClose}>
+  {/* Gradient border wrapper */}
+  <div
+    className="relative w-full rounded-xl p-[1.5px]"
+    style={{
+      background: GRAD,
+    }}
+  >
+    {/* Traveling light on the border track */}
+    <div
+      aria-hidden
+      className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none z-10"
+    >
+      <div
+        className="absolute"
+        style={{
+          width: "80px",
+          height: "3px",
+          borderRadius: "999px",
+          background:
+            "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), rgba(255,255,255,0.5), transparent)",
+          filter: "blur(1px)",
+          animation: "navTravelLight 3.5s linear infinite",
+        }}
+      />
+    </div>
 
-          {/* Links */}
-          <div className="flex items-center">
-            {NAV_ITEMS.map((item) => {
-              const isActive      = activeKey === item.activeKey;
-              const isPanelOpen   = activePanel === item.panel;
-              // "Lit" — either we're on this page/section, or its panel is open
-              const isLit         = isActive || isPanelOpen;
+    {/* Inner nav surface */}
+    <nav
+      className="relative flex items-center justify-between px-6 py-2 rounded-[10px] shadow-accent overflow-hidden"
+      style={{
+        background:           "rgba(244,241,236,0.92)",
+        backdropFilter:       "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      }}
+    >
+      {/* Shine overlay */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none rounded-[10px]"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
+        }}
+      />
 
-              if (item.panel) {
-                return (
-                  <div
-                    key={item.title}
-                    onMouseEnter={() => openPanel(item.panel!)}
-                    className="relative"
-                  >
-                    {/*
-                      CRITICAL: This is a <Link>, not a <button>.
-                      — For scroll items (Services / Our Work), smoothScroll's
-                        preventDefault handles the scroll when on homepage,
-                        and falls through to Next.js navigation otherwise.
-                      — For Pricing, no scrollTo is set, so clicking this
-                        actually navigates to /pricing. (Previous bug: button
-                        onClick only called closeNow() and had no href.)
-                    */}
-                    <Link
-                      href={item.url}
-                      onClick={(e) => {
-                        closeNow();
-                        if (item.scrollTo) smoothScroll(item.scrollTo)(e);
-                      }}
-                      className="relative inline-flex items-center gap-1 h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-muted"
-                      style={{
-                        color:      isLit ? P.ink : P.inkMid,
-                        background: isActive ? `${P.primary}08` : "transparent",
-                      }}
-                    >
-                      {item.title}
-                      <ChevronDown
-                        className="w-3 h-3 transition-transform duration-200"
-                        style={{
-                          transform: isPanelOpen ? "rotate(180deg)" : "rotate(0deg)",
-                          opacity: 0.55,
-                        }}
-                      />
-                      {/* Active indicator — underline bar under the link */}
-                      <motion.span
-                        aria-hidden
-                        className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
-                        style={{ background: GRAD }}
-                        animate={{
-                          width:   isLit    ? 20 : 0,
-                          opacity: isActive ? 1  : isPanelOpen ? 0.5 : 0,
-                        }}
-                        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                    </Link>
-                  </div>
-                );
-              }
+      {/* Ambient warm glow */}
+      <div
+        aria-hidden
+        className="absolute top-[-60%] right-[-5%] w-[280px] h-[280px] rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(circle, ${P.amber}18, transparent 65%)`,
+          filter: "blur(40px)",
+        }}
+      />
 
-              return (
+      <Link href="/" className="flex items-center gap-2 flex-shrink-0 z-20" onClick={closeNow}>
+        <p className="font-semibold text-sm tracking-tight" style={{ color: P.ink }}>PrePilot</p>
+      </Link>
+
+      {/* Links */}
+      <div className="flex items-center">
+        {NAV_ITEMS.map((item) => {
+          const isActive    = activeKey === item.activeKey;
+          const isPanelOpen = activePanel === item.panel;
+          const isLit       = isActive || isPanelOpen;
+
+          if (item.panel) {
+            return (
+              <div
+                key={item.title}
+                onMouseEnter={() => openPanel(item.panel!)}
+                className="relative"
+              >
                 <Link
-                  key={item.title}
                   href={item.url}
-                  onMouseEnter={closeNow}
-                  onClick={closeNow}
-                  className="relative inline-flex items-center h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-muted"
+                  onClick={(e) => {
+                    closeNow();
+                    if (item.scrollTo) smoothScroll(item.scrollTo)(e);
+                  }}
+                  className="relative inline-flex items-center gap-1 h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
                   style={{
-                    color:      isActive ? P.ink : P.inkMid,
+                    color:      isLit ? P.ink : P.inkMid,
                     background: isActive ? `${P.primary}08` : "transparent",
                   }}
                 >
                   {item.title}
+                  <ChevronDown
+                    className="w-3 h-3 transition-transform duration-200"
+                    style={{
+                      transform: isPanelOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      opacity: 0.55,
+                    }}
+                  />
                   <motion.span
                     aria-hidden
                     className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
                     style={{ background: GRAD }}
                     animate={{
-                      width:   isActive ? 20 : 0,
-                      opacity: isActive ? 1  : 0,
+                      width:   isLit    ? 20 : 0,
+                      opacity: isActive ? 1  : isPanelOpen ? 0.5 : 0,
                     }}
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </Link>
-              );
-            })}
-          </div>
+              </div>
+            );
+          }
 
-          {/* CTA */}
-          <Button asChild className="rounded-sm flex-shrink-0 z-20">
-            <Link href="/contact" onClick={closeNow}>
-              <Phone className="w-3.5 h-3.5" /> Contact Us
+          return (
+            <Link
+              key={item.title}
+              href={item.url}
+              onMouseEnter={closeNow}
+              onClick={closeNow}
+              className="relative inline-flex items-center h-10 px-4 text-sm font-medium rounded-md transition-colors duration-150 hover:bg-black/[0.04]"
+              style={{
+                color:      isActive ? P.ink : P.inkMid,
+                background: isActive ? `${P.primary}08` : "transparent",
+              }}
+            >
+              {item.title}
+              <motion.span
+                aria-hidden
+                className="absolute -bottom-[6px] left-1/2 h-[2px] rounded-full -translate-x-1/2"
+                style={{ background: GRAD }}
+                animate={{
+                  width:   isActive ? 20 : 0,
+                  opacity: isActive ? 1  : 0,
+                }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              />
             </Link>
-          </Button>
+          );
+        })}
+      </div>
 
-          {/*
-            MEGA POPOVER
-            — Absolutely positioned relative to <nav>
-            — left:50% + translateX(-50%) = always centered under navbar
-              regardless of which trigger the user hovered
-          */}
-          <AnimatePresence>
-            {activePanel && (
-              <motion.div
-                key="panel"
-                initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0,  scale: 1    }}
-                exit ={{ opacity: 0, y: -6,  scale: 0.98 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                onMouseEnter={cancelClose}
-                onMouseLeave={scheduleClose}
-                className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-40"
-              >
-                <div
-                  className="relative rounded-2xl overflow-hidden"
-                  style={{
-                    width:                `${PANEL_SIZE.width}px`,
-                    height:               `${PANEL_SIZE.height}px`,
-                    background:           "rgba(250,248,245,0.94)",
-                    backdropFilter:       "blur(24px)",
-                    WebkitBackdropFilter: "blur(24px)",
-                    border:               "1px solid rgba(255,255,255,0.9)",
-                    boxShadow: `
-                      0 32px 72px rgba(0,0,0,0.18),
-                      0 6px 20px rgba(0,0,0,0.08),
-                      0 0 0 1px rgba(0,0,0,0.04)
-                    `,
-                  }}
+      {/* CTA */}
+      <Button asChild className="rounded-sm flex-shrink-0 z-20">
+        <Link href="/contact" onClick={closeNow}>
+          <Phone className="w-3.5 h-3.5" /> Contact Us
+        </Link>
+      </Button>
+
+      {/* Mega popover (unchanged) */}
+      <AnimatePresence>
+        {activePanel && (
+          <motion.div
+            key="panel"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0,  scale: 1    }}
+            exit ={{ opacity: 0, y: -6,  scale: 0.98 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+            className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-40"
+          >
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                width:                `${PANEL_SIZE.width}px`,
+                height:               `${PANEL_SIZE.height}px`,
+                background:           "rgba(250,248,245,0.94)",
+                backdropFilter:       "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border:               "1px solid rgba(255,255,255,0.9)",
+                boxShadow: `
+                  0 32px 72px rgba(0,0,0,0.18),
+                  0 6px 20px rgba(0,0,0,0.08),
+                  0 0 0 1px rgba(0,0,0,0.04)
+                `,
+              }}
+            >
+              <div
+                aria-hidden
+                className="absolute top-0 left-0 right-0 h-[2px] z-20"
+                style={{ background: GRAD }}
+              />
+              <div
+                aria-hidden
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-25%", right: "-10%",
+                  width: "320px", height: "320px",
+                  background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
+                  filter: "blur(48px)",
+                }}
+              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePanel}
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit ={{ opacity: 0, x: -8 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="h-full"
                 >
-                  {/* Top gradient accent line */}
-                  <div
-                    aria-hidden
-                    className="absolute top-0 left-0 right-0 h-[2px] z-20"
-                    style={{ background: GRAD }}
-                  />
-
-                  {/* Ambient orb */}
-                  <div
-                    aria-hidden
-                    className="absolute pointer-events-none"
-                    style={{
-                      top:        "-25%",
-                      right:      "-10%",
-                      width:      "320px",
-                      height:     "320px",
-                      background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
-                      filter:     "blur(48px)",
-                    }}
-                  />
-
-                  {/* Smooth panel transition */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activePanel}
-                      initial={{ opacity: 0, x: 8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit ={{ opacity: 0, x: -8 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                      className="h-full"
-                    >
-                      {activePanel === "services" && <ServicesPanel onClose={closeNow} />}
-                      {activePanel === "our-work" && <OurWorkPanel  onClose={closeNow} />}
-                      {activePanel === "pricing"  && <PricingPanel  onClose={closeNow} />}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </nav>
+                  {activePanel === "services" && <ServicesPanel onClose={closeNow} />}
+                  {activePanel === "our-work" && <OurWorkPanel  onClose={closeNow} />}
+                  {activePanel === "pricing"  && <PricingPanel  onClose={closeNow} />}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  </div>
+</div>
 
         {/* ── Mobile nav ──────────────────────────────────────────────── */}
         <div className="block lg:hidden">

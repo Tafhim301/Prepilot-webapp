@@ -14,7 +14,7 @@ const relative = localFont({
       style: "normal",
     },
     {
-      path: "../fonts/Relative-Medium.ttf",
+      path: "../../src/fonts/Relative-Medium.ttf",
       weight: "500",
       style: "normal",
     },

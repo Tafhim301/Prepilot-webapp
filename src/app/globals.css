@@ -50,6 +50,12 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --font-sans: var(--font-relative);
+  --font-relative: var(--font-relative);  /* exposes font-relative utility */
+
+  /* Keep these or remove if unused */
+  --font-mono: var(--font-relative);      /* or ui-monospace if you want separate */
+  --font-heading: var(--font-relative);
 }
 
 :root {
@@ -99,12 +105,12 @@
   --background: oklch(14% 0.006 84.56);
   --foreground: oklch(96% 0.004 84.56);
 
-  --primary-gradaint: linear-gradient(
-    to right,
-    oklch(53.78% 0.1561 3.111),
-    oklch(57.76% 0.1648 17.71),
-    oklch(61.73% 0.1786 28.24)
-  );
+ --primary-gradaint: linear-gradient(
+  135deg,
+  oklch(42% 0.12 25) 0%,
+  oklch(45% 0.13 35) 50%,
+  oklch(50% 0.12 50) 100%
+);
 
   --card: oklch(20% 0.008 84.56);
   --card-foreground: oklch(96% 0.004 84.56);
@@ -183,6 +189,17 @@
   --sidebar-ring: oklch(55% 0.05 54.56);
 }
 
+@keyframes navTravelLight {
+  0%   { top: 0; left: -80px; bottom: auto; right: auto; }
+  24%  { top: 0; left: calc(100% + 80px); bottom: auto; right: auto; }
+  25%  { top: 0; left: auto; right: -80px; bottom: auto; }
+  49%  { top: 0; left: auto; right: calc(100% + 80px); bottom: auto; }
+  50%  { top: auto; bottom: -3px; left: auto; right: -80px; }
+  74%  { top: auto; bottom: -3px; left: auto; right: calc(100% + 80px); }
+  75%  { top: auto; bottom: -3px; left: -80px; right: auto; }
+  99%  { top: auto; bottom: -3px; left: calc(100% + 80px); right: auto; }
+  100% { top: 0; left: -80px; bottom: auto; right: auto; }
+}
 
 
 @layer base {
@@ -193,6 +210,6 @@
     @apply bg-background text-foreground ;
   }
   html {
-    @apply font-mono;
+    font-family: var(--font-relative), system-ui, sans-serif;
   }
 }
