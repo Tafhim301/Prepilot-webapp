@@ -321,7 +321,7 @@ export default function ContactPage() {
                       onChange={set("fullName")} onBlur={blur("fullName")}
                       style={getInputStyle(!!touched.fullName && !!errors.fullName)}
                       onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = `${P.purple}80`; }}
-                      onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = touched.fullName && errors.fullName ? `${ERROR_COLOR}55` : "rgba(255,255,255,0.10)"; blur("fullName")(); }}
+                     
                     />
                   </FieldWrap>
 
