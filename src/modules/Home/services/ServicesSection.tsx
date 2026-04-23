@@ -1,11 +1,14 @@
 "use client";
 
-import { Check, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
-import { P,  GRAD_TEXT, GRAD_SECTION_ALT, cardGlass, cardHoverShadow } from "@/lib/ds";
+import {
+  P, GRAD, GRAD_TEXT, GRAD_SECTION_ALT,
+  cardGlass, cardHoverShadow, labelLight,
+} from "@/lib/ds";
 
-// ── Services data ─────────────────────────────────────────────────────────────
+// ── Data ──────────────────────────────────────────────────────────────────────
 const services = [
   {
     icon: "🎨",
@@ -45,27 +48,9 @@ const services = [
   },
 ];
 
-const summaryText = [
-  "Custom Web Development",
-  "Front-end Development",
-  "Back-end Development",
-  "Full-stack Development",
-  "E-commerce Solutions",
-  "WordPress Development",
-  "API Integrations",
-  "Web Application",
-  "Webflow Development",
-  "E-commerce Development",
-  "Web Interactions & Animations",
-  "Technical Planning",
-  "CMS Implementation",
-  "Landing Page Development",
-  "Hosting & Domain Setup",
-  "Accessibility Audits",
-  "Quality Assurance",
-];
-
 // ── Animation variants ────────────────────────────────────────────────────────
+const ease = cubicBezier(0.22, 1, 0.36, 1);
+
 const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.09 } },
@@ -73,17 +58,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) } },
-};
-
-const listVariants = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.04 } },
-};
-
-const listItemVariants = {
-  hidden:  { opacity: 0, x: -10 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.28 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 
 // ── ServiceCard ───────────────────────────────────────────────────────────────
@@ -97,44 +72,36 @@ function ServiceCard({ icon, title, description, tags }: {
       transition={{ duration: 0.22 }}
       className="group relative flex flex-col gap-5 rounded-2xl p-7 cursor-pointer overflow-hidden
                  transition-shadow duration-300"
-      style={{
-        ...cardGlass,
-        ["--hover-shadow" as string]: cardHoverShadow,
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = cardHoverShadow;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = cardGlass.boxShadow as string;
-      }}
+      style={cardGlass}
+      onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardHoverShadow}
+      onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardGlass.boxShadow as string}
     >
-      {/* Top gradient accent line */}
+      {/* Top accent line */}
       <div
         aria-hidden
         className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: `linear-gradient(90deg, transparent, ${P.amber}70, transparent)` }}
+        style={{ background: `linear-gradient(90deg, transparent, ${P.pink}80, ${P.violet}80, transparent)` }}
       />
 
-      {/* Hover warm wash */}
+      {/* Hover gradient wash */}
       <div
         aria-hidden
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: `linear-gradient(220deg, ${P.amber}10, transparent 55%)` }}
+        style={{ background: `linear-gradient(220deg, ${P.pink}0d, ${P.violet}08, transparent 60%)` }}
       />
 
-      {/* Subtle top-left shine */}
+      {/* Shine */}
       <div
         aria-hidden
         className="absolute inset-0 rounded-2xl pointer-events-none"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
-        }}
+        style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, transparent 100%)" }}
       />
 
       {/* Icon */}
       <div
-        className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl select-none z-10 transition-transform duration-300 group-hover:scale-110"
-        style={{ background: `${P.primary}0e` }}
+        className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl select-none z-10
+                   transition-transform duration-300 group-hover:scale-110"
+        style={{ background: "rgba(160,48,200,0.15)" }}
       >
         {icon}
       </div>
@@ -150,49 +117,48 @@ function ServiceCard({ icon, title, description, tags }: {
         {tags.map((tag) => (
           <span
             key={tag}
-            className="text-xs rounded-full px-3 py-1 transition-colors duration-200 group-hover:border-amber-300/60"
-            style={{
-              border:     `1px solid ${P.border}`,
-              color:      P.inkMid,
-              background: "rgba(0,0,0,0.025)",
-            }}
+            className="text-xs rounded-full px-3 py-1"
+            style={{ border: `1px solid ${P.border}`, color: P.inkLight, background: P.mutedFill }}
           >
             {tag}
           </span>
         ))}
       </div>
 
-      {/* CTA link */}
-      <Link
-        href="/service"
+      {/* CTA */}
+      <span
         className="inline-flex items-center gap-1 text-sm font-semibold mt-auto z-10 w-fit
                    transition-opacity hover:opacity-70"
         style={GRAD_TEXT}
       >
         See More
-        <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      </Link>
+        <ArrowUpRight
+          size={15}
+          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+        />
+      </span>
     </motion.div>
   );
 }
 
-// ── Section ───────────────────────────────────────────────────────────────────
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 py-20 lg:py-28 flex flex-col gap-16 scroll-mt-20 relative overflow-hidden"
+      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 py-20 sm:py-28 flex flex-col gap-16
+                 relative overflow-hidden scroll-mt-20"
       style={{ background: GRAD_SECTION_ALT }}
     >
-      {/* Ambient corner blobs */}
+      {/* Ambient blobs */}
       <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full blur-[110px] opacity-30"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full blur-[120px] opacity-18"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
         <div
-          className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full blur-[100px] opacity-25"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[100px] opacity-14"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
       </div>
 
@@ -206,11 +172,7 @@ export default function ServicesSection() {
       >
         <div
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] w-fit border"
-          style={{
-            background:  `${P.primary}0d`,
-            borderColor: `${P.primary}22`,
-            color:       P.primary,
-          }}
+          style={labelLight}
         >
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
           What We Do
@@ -226,101 +188,42 @@ export default function ServicesSection() {
         </p>
       </motion.div>
 
-      {/* Main layout */}
-      <div className="flex flex-col lg:flex-row gap-10 items-start relative z-10">
+      {/* Cards grid */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {services.map((service) => (
+          <ServiceCard key={service.title} {...service} />
+        ))}
+      </motion.div>
 
-        {/* Sidebar */}
-        <motion.div
-          initial={{ opacity: 0, x: -28 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: cubicBezier(0.22, 1, 0.36, 1) }}
-          className="lg:sticky lg:top-24 w-full lg:w-[300px] xl:w-[340px] flex-shrink-0
-                     flex flex-col gap-6 rounded-2xl p-7 relative overflow-hidden"
-          style={cardGlass}
+      {/* CTA row */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 flex flex-col sm:flex-row items-center gap-4"
+      >
+        <Link
+          href="/service"
+          className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold
+                     tracking-wide text-white transition-opacity hover:opacity-85"
+          style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.pink}50` }}
         >
-          {/* Ambient amber glow */}
-          <div
-            aria-hidden
-            className="absolute top-[-30%] right-[-20%] w-[220px] h-[220px] rounded-full pointer-events-none"
-            style={{ background: `radial-gradient(circle, ${P.amber}2a, transparent 65%)`, filter: "blur(40px)" }}
-          />
-
-          {/* Shine overlay */}
-          <div
-            aria-hidden
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)" }}
-          />
-
-          <div className="relative z-10">
-            <h3 className="text-2xl font-semibold mb-3" style={{ color: P.ink }}>In Summary</h3>
-            <p className="text-sm leading-relaxed" style={{ color: P.inkMid }}>
-              We keep things neat behind the scenes — making it easy to update,
-              maintain, and get the most out of your website.
-            </p>
-          </div>
-
-          <motion.ul
-            className="relative z-10 flex flex-col gap-2 h-full"
-            variants={listVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {summaryText.map((text) => (
-              <motion.li
-                key={text}
-                variants={listItemVariants}
-                className="flex items-center gap-2.5 group/item p-1 rounded-lg
-                           hover:bg-black/[0.025] transition-colors cursor-default"
-              >
-                <Check className="w-3.5 h-3.5 shrink-0" style={{ color: P.mid }} strokeWidth={2.5} />
-                <p
-                  className="text-sm font-medium transition-colors group-hover/item:text-gray-950"
-                  style={{ color: P.inkMid }}
-                >
-                  {text}
-                </p>
-              </motion.li>
-            ))}
-          </motion.ul>
-
-          {/* Accepting badge */}
-          <div
-            className="relative z-10 flex flex-wrap items-center justify-center gap-2 rounded-full
-                       px-4 py-2.5 text-xs font-medium w-fit mt-2
-                       transition-all duration-200 hover:opacity-85 hover:-translate-y-px cursor-pointer"
-            style={{
-              background: P.darkBg,
-              color: "#f4f1ec",
-              boxShadow: `0 6px 20px -4px rgba(0,0,0,0.4)`,
-            }}
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
-            Accepting New Partnerships
-            <Link
-              href="/contact"
-              className="font-semibold hover:opacity-75 transition-opacity inline-flex text-xs items-center gap-1"
-            >
-              Contact Us <ArrowUpRight size={12} />
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Cards grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </motion.div>
-      </div>
+          View All Services <ArrowUpRight size={14} />
+        </Link>
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-sm" style={{ color: P.inkMid }}>
+            Accepting new partnerships
+          </span>
+        </div>
+      </motion.div>
     </section>
   );
 }

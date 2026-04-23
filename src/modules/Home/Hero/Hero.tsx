@@ -1,174 +1,133 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Featured from "../Featured/Featured";
-import { P, GRAD, GRAD_TEXT } from "@/lib/ds";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { P, GRAD, GRAD_TEXT, labelLight } from "@/lib/ds";
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const blobY = useTransform(scrollYProgress, [0, 1], [0, 70]);
-
   return (
     <section
-      ref={heroRef}
-      className="relative flex flex-col items-center justify-center overflow-hidden w-full
-                 px-4 sm:px-8 md:px-12 lg:px-16 pt-16 pb-12 sm:pt-24 sm:pb-16"
-      style={{
-        background: `linear-gradient(160deg, #f8f5f0 0%, #f3ede4 45%, #ede5d6 100%)`,
-      }}
+      className="relative w-full min-h-[92vh] flex flex-col items-center justify-center
+                 px-4 sm:px-8 pt-16 pb-12 sm:pt-24 sm:pb-16 overflow-hidden"
+      style={{ background: P.page }}
     >
-      {/* Diagonal stripe texture */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.22]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(-18deg, transparent 0px, transparent 220px, oklch(0.78 0.04 54 / 0.7) 220px, oklch(0.78 0.04 54 / 0.7) 221px)",
-        }}
-      />
-
-      {/* Ambient gradient blobs — more visible */}
-      <motion.div style={{ y: blobY }} className="absolute inset-0 pointer-events-none">
+      {/* ── Ambient glow blobs ─────────────────────────────────────────── */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute top-[-12%] right-[-6%] w-[580px] h-[580px] rounded-full blur-[100px] opacity-40"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute -top-32 -right-32 w-[650px] h-[650px] rounded-full blur-[130px] opacity-20"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
         <div
-          className="absolute bottom-[-18%] left-[-10%] w-[480px] h-[480px] rounded-full blur-[90px] opacity-35"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+          className="absolute -bottom-20 -left-20 w-[500px] h-[500px] rounded-full blur-[120px] opacity-18"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
         <div
-          className="absolute top-[30%] left-[30%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-20"
-          style={{ background: `radial-gradient(circle, ${P.mid}, transparent 65%)` }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full blur-[140px] opacity-7"
+          style={{ background: `radial-gradient(ellipse, ${P.purple}, transparent 70%)` }}
         />
-      </motion.div>
-
-      {/* Floating status badges — desktop only */}
-      <div
-        className="hidden lg:flex absolute top-[26%] left-[4%] lg:left-[6%] items-center gap-2
-                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-medium z-10
-                   pointer-events-none select-none border border-white/60"
-        style={{ background: "rgba(255,255,255,0.80)", backdropFilter: "blur(12px)" }}
-      >
-        <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
-        Alice
       </div>
 
-      <div
-        className="hidden md:flex absolute top-[48%] left-[9%] lg:left-[13%] items-center gap-2
-                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-semibold z-10
-                   pointer-events-none select-none"
-        style={{ background: "#fde047" }}
-      >
-        <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-yellow-600 inline-block" />
-        Client
-      </div>
+      {/* ── Content ────────────────────────────────────────────────────── */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto gap-7">
 
-      <div
-        className="hidden md:flex absolute top-[20%] right-[4%] lg:right-[7%] items-center gap-2
-                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-medium z-10
-                   pointer-events-none select-none"
-        style={{ background: "#a78bfa", color: "#fff" }}
-      >
-        <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-white inline-block" />
-        Dev Team
-      </div>
-
-      {/* Centre content */}
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl z-10
-                   flex flex-col items-center gap-5 sm:gap-6"
-      >
-        {/* Section label */}
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -14 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex flex-wrap justify-center items-center gap-1.5 sm:gap-2
-                     rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm border"
-          style={{
-            background: `${P.primary}0d`,
-            borderColor: `${P.primary}22`,
-            color: P.primary,
-          }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold
+                     uppercase tracking-[0.18em] border"
+          style={labelLight}
         >
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
-          <span className="font-semibold">500+ Projects</span>
-          <span style={{ color: P.inkMid }}>delivered to enterprise clients worldwide</span>
+          <Sparkles size={10} />
+          Enterprise Web — Built to Own
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 36 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight"
+          transition={{ duration: 0.6, delay: 0.08 }}
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]"
           style={{ color: P.ink }}
         >
-          Enterprise web built{" "}
-          <span className="italic font-normal">&amp; owned</span>
-          <br className="hidden sm:block" />
-          {" "}
-          <span style={GRAD_TEXT}>by your team, forever.</span>
+          Digital products
+          <br />
+          built{" "}
+          <span style={GRAD_TEXT}>to scale.</span>
         </motion.h1>
 
         {/* Subheading */}
         <motion.p
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.25 }}
-          className="text-base sm:text-lg md:text-xl max-w-xs sm:max-w-lg md:max-w-2xl leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.16 }}
+          className="text-lg sm:text-xl leading-relaxed max-w-2xl"
           style={{ color: P.inkMid }}
         >
-          We deliver full autonomy for marketing teams at global brands — secure,
-          high-performance applications on open-source tech. Fully owned. Free from
-          vendor lock-in. At a fraction of the TCO.
+          Full-service digital agency delivering enterprise-grade web experiences
+          on open-source tech. Full ownership. No lock-in. Since 2015.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-1 w-full sm:w-auto"
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="flex flex-col sm:flex-row gap-3 mt-2"
         >
           <Link
-            href="/#our-work"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2
-                       px-7 py-3.5 rounded-full text-sm font-bold text-white
-                       transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
-            style={{
-              background: GRAD,
-              boxShadow: `0 8px 28px -6px ${P.red}55`,
-            }}
-          >
-            Our Work
-            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-
-          <Link
             href="/contact"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2
-                       px-7 py-3.5 rounded-full text-sm font-semibold border
-                       transition-all duration-200 hover:bg-white/60 hover:-translate-y-px"
-            style={{ borderColor: P.border, color: P.ink }}
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl
+                       text-sm font-bold tracking-wide text-white transition-opacity hover:opacity-85"
+            style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.pink}55` }}
           >
             Start a Project
+            <ArrowRight size={15} />
+          </Link>
+          <Link
+            href="/our-work"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl
+                       text-sm font-bold tracking-wide transition-all hover:bg-white/5"
+            style={{ color: P.inkMid, border: `1px solid ${P.border}` }}
+          >
+            View Our Work
           </Link>
         </motion.div>
-      </motion.div>
 
-      <Featured />
+        {/* Social proof */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.38 }}
+          className="flex items-center gap-8 pt-4"
+        >
+          {[
+            { value: "500+", label: "Projects"     },
+            { value: "12+",  label: "Years"        },
+            { value: "98%",  label: "Satisfaction" },
+          ].map((s, i) => (
+            <div key={s.label} className="flex flex-col items-center gap-0.5">
+              {i > 0 && (
+                <div
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-6"
+                  style={{ background: P.border }}
+                />
+              )}
+              <span className="text-xl font-extrabold" style={GRAD_TEXT}>{s.value}</span>
+              <span className="text-xs" style={{ color: P.inkLight }}>{s.label}</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Bottom fade */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: `linear-gradient(to bottom, transparent, ${P.page})` }}
+      />
     </section>
   );
 }

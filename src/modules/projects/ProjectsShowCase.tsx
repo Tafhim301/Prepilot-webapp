@@ -37,14 +37,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div
           aria-hidden
           className="absolute top-0 left-8 right-8 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: `linear-gradient(90deg, transparent, ${P.amber}70, transparent)` }}
+          style={{ background: `linear-gradient(90deg, transparent, ${P.pink}80, ${P.violet}80, transparent)` }}
         />
 
-        {/* Hover warm wash */}
+        {/* Hover wash */}
         <div
           aria-hidden
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{ background: `linear-gradient(220deg, ${P.amber}08, transparent 55%)` }}
+          style={{ background: `linear-gradient(220deg, ${P.pink}08, ${P.violet}05, transparent 55%)` }}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 p-8 lg:p-12 items-center">
@@ -55,7 +55,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div
                 className="w-[85%] h-[80%] rounded-full blur-2xl"
-                style={{ background: `radial-gradient(ellipse, ${P.amber}18, ${P.red}0c, transparent 70%)` }}
+                style={{ background: `radial-gradient(ellipse, ${P.violet}18, ${P.pink}0c, transparent 70%)` }}
               />
             </div>
 
@@ -104,7 +104,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {/* Client name */}
             <p
               className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: P.amber }}
+              style={{ color: P.purple }}
             >
               {project.client.name}
             </p>
@@ -184,12 +184,12 @@ export default function ProjectShowcase() {
       {/* Ambient blobs */}
       <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full blur-[110px] opacity-28"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full blur-[110px] opacity-16"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
         <div
-          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[100px] opacity-22"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[100px] opacity-12"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
       </div>
 

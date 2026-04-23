@@ -3,57 +3,31 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
-  ArrowRight,
-  CheckCircle2,
-  Loader2,
-  Mail,
-  MapPin,
-  Phone,
-  Clock,
-  AlertCircle,
+  ArrowRight, CheckCircle2, Loader2, Mail, MapPin, Phone, Clock, AlertCircle,
 } from "lucide-react";
 import {
-  P, GRAD, GRAD_TEXT, GRAD_SECTION,
-  cardGlass,
+  P, GRAD, GRAD_TEXT, GRAD_SECTION, cardGlass, labelLight,
 } from "@/lib/ds";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormData {
-  fullName: string;
-  email: string;
-  organization: string;
-  phone: string;
-  budget: string;
-  service: string;
-  message: string;
+  fullName: string; email: string; organization: string; phone: string;
+  budget: string; service: string; message: string;
 }
-
 interface FieldError {
-  fullName?: string;
-  email?: string;
-  budget?: string;
-  message?: string;
+  fullName?: string; email?: string; budget?: string; message?: string;
 }
-
 type Status = "idle" | "loading" | "success" | "error";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const BUDGETS = [
-  "Under $5,000",
-  "$5,000 – $15,000",
-  "$15,000 – $50,000",
-  "$50,000 – $100,000",
-  "$100,000+",
-  "Not sure yet",
+  "Under $5,000", "$5,000 – $15,000", "$15,000 – $50,000",
+  "$50,000 – $100,000", "$100,000+", "Not sure yet",
 ];
 
 const SERVICES = [
-  "UI/UX Design",
-  "MERN Stack Development",
-  "Custom Web Architecture",
-  "WordPress Development",
-  "Webflow Development",
-  "E-commerce Solutions",
+  "UI/UX Design", "MERN Stack Development", "Custom Web Architecture",
+  "WordPress Development", "Webflow Development", "E-commerce Solutions",
   "Other / Not sure",
 ];
 
@@ -71,19 +45,16 @@ const CONTACT_INFO = [
   { icon: Clock,  label: "Mon–Fri, 9am–6pm EST"          },
 ];
 
+const ERROR_COLOR = "#FF5572";
+
 // ─── Validation ───────────────────────────────────────────────────────────────
 function validate(data: FormData): FieldError {
   const errors: FieldError = {};
-  if (!data.fullName.trim())
-    errors.fullName = "Name is required.";
-  if (!data.email.trim())
-    errors.email = "Email is required.";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-    errors.email = "Enter a valid email.";
-  if (!data.budget)
-    errors.budget = "Please select a budget.";
-  if (!data.message.trim())
-    errors.message = "Tell us about your project.";
+  if (!data.fullName.trim()) errors.fullName = "Name is required.";
+  if (!data.email.trim()) errors.email = "Email is required.";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = "Enter a valid email.";
+  if (!data.budget) errors.budget = "Please select a budget.";
+  if (!data.message.trim()) errors.message = "Tell us about your project.";
   return errors;
 }
 
@@ -92,7 +63,7 @@ function Label({ children, required }: { children: React.ReactNode; required?: b
   return (
     <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: P.inkMid }}>
       {children}
-      {required && <span className="ml-1" style={{ color: P.red }}>*</span>}
+      {required && <span className="ml-1" style={{ color: ERROR_COLOR }}>*</span>}
     </label>
   );
 }
@@ -104,11 +75,9 @@ function FieldWrap({ error, children }: { error?: string; children: React.ReactN
       <AnimatePresence>
         {error && (
           <motion.p
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
+            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
             className="flex items-center gap-1 text-xs font-medium"
-            style={{ color: P.red }}
+            style={{ color: ERROR_COLOR }}
           >
             <AlertCircle className="w-3 h-3" /> {error}
           </motion.p>
@@ -118,12 +87,19 @@ function FieldWrap({ error, children }: { error?: string; children: React.ReactN
   );
 }
 
-const inputCls = (hasError: boolean) =>
-  `w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 bg-white/70 placeholder:text-gray-400 focus:bg-white ${
-    hasError
-      ? "ring-2 ring-red-400/60 border-transparent"
-      : "border border-gray-200 focus:ring-2 focus:ring-amber-800/30 focus:border-amber-800/40"
-  }`;
+function getInputStyle(hasError: boolean): React.CSSProperties {
+  return {
+    width: "100%",
+    padding: "12px 16px",
+    borderRadius: "12px",
+    fontSize: "14px",
+    background: "rgba(255,255,255,0.05)",
+    border: hasError ? `1px solid ${ERROR_COLOR}55` : "1px solid rgba(255,255,255,0.10)",
+    color: P.ink,
+    outline: "none",
+    transition: "border-color 0.2s, background 0.2s",
+  };
+}
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ContactPage() {
@@ -145,9 +121,7 @@ export default function ContactPage() {
     const val = e.target.value;
     setForm((p) => ({ ...p, [field]: val }));
     if (field === "message") setCharCount(val.length);
-    if (touched[field]) {
-      setErrors((p) => ({ ...p, ...validate({ ...form, [field]: val }) }));
-    }
+    if (touched[field]) setErrors((p) => ({ ...p, ...validate({ ...form, [field]: val }) }));
   };
 
   const blur = (field: keyof FormData) => () => {
@@ -180,10 +154,7 @@ export default function ContactPage() {
   // ── Success state ──────────────────────────────────────────────────────────
   if (status === "success") {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center px-4 py-20"
-        style={{ background: GRAD_SECTION }}
-      >
+      <div className="min-h-screen flex items-center justify-center px-4 py-20" style={{ background: GRAD_SECTION }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -191,17 +162,14 @@ export default function ContactPage() {
           className="text-center max-w-md"
         >
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ scale: 0 }} animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200, damping: 15 }}
             className="w-20 h-20 rounded-full mx-auto mb-8 flex items-center justify-center"
             style={{ background: GRAD }}
           >
             <CheckCircle2 className="w-10 h-10 text-white" />
           </motion.div>
-          <h2 className="text-4xl font-bold mb-4" style={{ color: P.ink }}>
-            Message received!
-          </h2>
+          <h2 className="text-4xl font-bold mb-4" style={{ color: P.ink }}>Message received!</h2>
           <p className="text-lg leading-relaxed mb-8" style={{ color: P.inkMid }}>
             Thanks for reaching out,{" "}
             <strong style={{ color: P.ink }}>{form.fullName.split(" ")[0]}</strong>.
@@ -211,9 +179,7 @@ export default function ContactPage() {
             onClick={() => {
               setStatus("idle");
               setForm({ fullName:"", email:"", organization:"", phone:"", budget:"", service:"", message:"" });
-              setCharCount(0);
-              setTouched({});
-              setErrors({});
+              setCharCount(0); setTouched({}); setErrors({});
             }}
             className="text-sm font-semibold underline underline-offset-4 transition-opacity hover:opacity-60"
             style={{ color: P.primary }}
@@ -228,61 +194,47 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ background: GRAD_SECTION }}>
 
-      {/* ── Ambient blobs ─────────────────────────────────────────────────── */}
+      {/* Ambient blobs */}
       <div aria-hidden className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full blur-[120px] opacity-28"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 70%)` }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-22"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 70%)` }}
-        />
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full blur-[120px] opacity-14"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 70%)` }} />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-10"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 70%)` }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16 lg:py-24">
 
-        {/* ── Page header ───────────────────────────────────────────────── */}
+        {/* Page header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16"
         >
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] mb-5 border"
-            style={{ background: `${P.primary}0a`, borderColor: `${P.primary}20`, color: P.primary }}
-          >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] mb-5 border" style={labelLight}>
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
             Get In Touch
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.06]" style={{ color: P.ink }}>
             Let&apos;s build something
             <br />
-            <span style={{ ...GRAD_TEXT, fontStyle: "italic", fontWeight: 300 }}>
-              remarkable.
-            </span>
+            <span style={{ ...GRAD_TEXT, fontStyle: "italic", fontWeight: 300 }}>remarkable.</span>
           </h1>
         </motion.div>
 
-        {/* ── Two-column layout ──────────────────────────────────────────── */}
+        {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-10 xl:gap-16 items-start">
 
-          {/* ── LEFT PANEL ─────────────────────────────────────────────────── */}
+          {/* LEFT PANEL */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="lg:sticky lg:top-28 flex flex-col gap-8"
           >
             {/* Tag line */}
             <div>
-              <p className="text-sm font-semibold mb-1" style={{ color: P.inkMid }}>
-                Let&apos;s connect
-              </p>
+              <p className="text-sm font-semibold mb-1" style={{ color: P.inkMid }}>Let&apos;s connect</p>
               <p className="text-3xl font-bold leading-snug" style={{ color: P.ink }}>
-                You&apos;re in{" "}
-                <span style={GRAD_TEXT}>good hands</span>
+                You&apos;re in{" "}<span style={GRAD_TEXT}>good hands</span>
               </p>
               <p className="mt-4 text-sm leading-relaxed" style={{ color: P.inkMid }}>
                 Serving global brands with enterprise-grade solutions on open-source tech.
@@ -295,18 +247,12 @@ export default function ContactPage() {
               {TRUST_STATS.map((s, i) => (
                 <motion.div
                   key={s.label}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + i * 0.07, duration: 0.4 }}
                   className="rounded-2xl p-4"
-                  style={{
-                    background: "rgba(255,255,255,0.65)",
-                    border: `1px solid rgba(255,255,255,0.9)`,
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                  }}
+                  style={cardGlass}
                 >
-                  <p className="text-2xl font-extrabold" style={{ color: P.ink }}>{s.value}</p>
+                  <p className="text-2xl font-extrabold" style={GRAD_TEXT}>{s.value}</p>
                   <p className="text-xs mt-0.5" style={{ color: P.inkMid }}>{s.label}</p>
                 </motion.div>
               ))}
@@ -317,16 +263,13 @@ export default function ContactPage() {
               {CONTACT_INFO.map((c, i) => (
                 <motion.div
                   key={c.label}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.45 + i * 0.06, duration: 0.4 }}
                   className="flex items-center gap-3"
                 >
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${P.primary}12` }}
-                  >
-                    <c.icon className="w-3.5 h-3.5" style={{ color: P.primary }} />
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(160,48,200,0.15)" }}>
+                    <c.icon className="w-3.5 h-3.5" style={{ color: P.purple }} />
                   </div>
                   <span className="text-sm" style={{ color: P.ink }}>{c.label}</span>
                 </motion.div>
@@ -334,75 +277,61 @@ export default function ContactPage() {
             </div>
 
             {/* Availability badge */}
-            <div
-              className="flex items-center gap-3 rounded-2xl px-5 py-4"
-              style={{
-                background: "rgba(255,255,255,0.55)",
-                border: `1px solid rgba(255,255,255,0.85)`,
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-              }}
-            >
+            <div className="flex items-center gap-3 rounded-2xl px-5 py-4" style={cardGlass}>
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold" style={{ color: P.ink }}>
-                  Currently accepting new projects
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: P.inkMid }}>
-                  Typical response within 24 hours
-                </p>
+                <p className="text-sm font-semibold" style={{ color: P.ink }}>Currently accepting new projects</p>
+                <p className="text-xs mt-0.5" style={{ color: P.inkMid }}>Typical response within 24 hours</p>
               </div>
             </div>
           </motion.div>
 
-          {/* ── RIGHT PANEL — Form ───────────────────────────────────────── */}
+          {/* RIGHT PANEL — Form */}
           <div ref={formRef}>
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-3xl p-8 md:p-10"
-              style={{
-                ...cardGlass,
-                background: "rgba(255,255,255,0.72)",
-                boxShadow: "0 8px 40px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04)",
-              }}
+              className="relative rounded-3xl p-8 md:p-10 overflow-hidden"
+              style={cardGlass}
             >
+              {/* Top accent line */}
+              <div aria-hidden className="absolute top-0 left-8 right-8 h-px"
+                style={{ background: `linear-gradient(90deg, transparent, ${P.pink}80, ${P.violet}80, transparent)` }} />
+              {/* Inner glow */}
+              <div aria-hidden className="absolute inset-0 rounded-3xl pointer-events-none"
+                style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)" }} />
+
               {/* Form heading */}
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold" style={{ color: P.ink }}>
-                  Tell us about your project
-                </h2>
+              <div className="mb-8 relative z-10">
+                <h2 className="text-2xl font-bold" style={{ color: P.ink }}>Tell us about your project</h2>
                 <p className="mt-1 text-sm" style={{ color: P.inkMid }}>
-                  Fields marked <span style={{ color: P.red }}>*</span> are required.
+                  Fields marked <span style={{ color: ERROR_COLOR }}>*</span> are required.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6 relative z-10">
 
                 {/* Row 1: Name + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <FieldWrap error={touched.fullName ? errors.fullName : undefined}>
                     <Label required>Full Name</Label>
                     <input
-                      type="text"
-                      placeholder="Jane Smith"
-                      value={form.fullName}
-                      onChange={set("fullName")}
-                      onBlur={blur("fullName")}
-                      className={inputCls(!!touched.fullName && !!errors.fullName)}
+                      type="text" placeholder="Jane Smith" value={form.fullName}
+                      onChange={set("fullName")} onBlur={blur("fullName")}
+                      style={getInputStyle(!!touched.fullName && !!errors.fullName)}
+                      onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = `${P.purple}80`; }}
+                      onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = touched.fullName && errors.fullName ? `${ERROR_COLOR}55` : "rgba(255,255,255,0.10)"; blur("fullName")(); }}
                     />
                   </FieldWrap>
 
                   <FieldWrap error={touched.email ? errors.email : undefined}>
                     <Label required>Email Address</Label>
                     <input
-                      type="email"
-                      placeholder="jane@company.com"
-                      value={form.email}
-                      onChange={set("email")}
-                      onBlur={blur("email")}
-                      className={inputCls(!!touched.email && !!errors.email)}
+                      type="email" placeholder="jane@company.com" value={form.email}
+                      onChange={set("email")} onBlur={blur("email")}
+                      style={getInputStyle(!!touched.email && !!errors.email)}
+                      onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = `${P.purple}80`; }}
                     />
                   </FieldWrap>
                 </div>
@@ -412,22 +341,20 @@ export default function ContactPage() {
                   <FieldWrap>
                     <Label>Organisation</Label>
                     <input
-                      type="text"
-                      placeholder="Acme Inc."
-                      value={form.organization}
-                      onChange={set("organization")}
-                      className={inputCls(false)}
+                      type="text" placeholder="Acme Inc." value={form.organization}
+                      onChange={set("organization")} style={getInputStyle(false)}
+                      onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = `${P.purple}80`; }}
+                      onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.10)"; }}
                     />
                   </FieldWrap>
 
                   <FieldWrap>
                     <Label>Phone (Optional)</Label>
                     <input
-                      type="tel"
-                      placeholder="+1 555 000 0000"
-                      value={form.phone}
-                      onChange={set("phone")}
-                      className={inputCls(false)}
+                      type="tel" placeholder="+1 555 000 0000" value={form.phone}
+                      onChange={set("phone")} style={getInputStyle(false)}
+                      onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = `${P.purple}80`; }}
+                      onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.10)"; }}
                     />
                   </FieldWrap>
                 </div>
@@ -438,15 +365,13 @@ export default function ContactPage() {
                     <Label required>Project Budget</Label>
                     <div className="relative">
                       <select
-                        value={form.budget}
-                        onChange={set("budget")}
-                        onBlur={blur("budget")}
-                        className={`${inputCls(!!touched.budget && !!errors.budget)} appearance-none pr-10 cursor-pointer`}
-                        style={{ color: form.budget ? P.ink : "#9ca3af" }}
+                        value={form.budget} onChange={set("budget")} onBlur={blur("budget")}
+                        className="appearance-none pr-10 cursor-pointer w-full"
+                        style={{ ...getInputStyle(!!touched.budget && !!errors.budget), color: form.budget ? P.ink : P.inkLight }}
                       >
-                        <option value="" disabled>Select a range</option>
+                        <option value="" disabled style={{ background: "#0d0b14", color: P.inkMid }}>Select a range</option>
                         {BUDGETS.map((b) => (
-                          <option key={b} value={b} style={{ color: P.ink }}>{b}</option>
+                          <option key={b} value={b} style={{ background: "#0d0b14", color: P.ink }}>{b}</option>
                         ))}
                       </select>
                       <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -461,14 +386,12 @@ export default function ContactPage() {
                     <Label>Service Needed</Label>
                     <div className="relative">
                       <select
-                        value={form.service}
-                        onChange={set("service")}
-                        className={`${inputCls(false)} appearance-none pr-10 cursor-pointer`}
-                        style={{ color: form.service ? P.ink : "#9ca3af" }}
+                        value={form.service} onChange={set("service")} className="appearance-none pr-10 cursor-pointer w-full"
+                        style={{ ...getInputStyle(false), color: form.service ? P.ink : P.inkLight }}
                       >
-                        <option value="" disabled>Choose a service</option>
+                        <option value="" disabled style={{ background: "#0d0b14", color: P.inkMid }}>Choose a service</option>
                         {SERVICES.map((s) => (
-                          <option key={s} value={s} style={{ color: P.ink }}>{s}</option>
+                          <option key={s} value={s} style={{ background: "#0d0b14", color: P.ink }}>{s}</option>
                         ))}
                       </select>
                       <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -484,17 +407,17 @@ export default function ContactPage() {
                 <FieldWrap error={touched.message ? errors.message : undefined}>
                   <div className="flex items-center justify-between mb-2">
                     <Label required>Project Details</Label>
-                    <span className="text-[11px]" style={{ color: charCount > 20 ? P.inkMid : "#d1d5db" }}>
+                    <span className="text-[11px]" style={{ color: charCount > 20 ? P.inkMid : P.inkLight }}>
                       {charCount} chars
                     </span>
                   </div>
                   <textarea
                     rows={5}
                     placeholder="Tell us about your project, goals, timeline, and anything else that will help us understand what you need..."
-                    value={form.message}
-                    onChange={set("message")}
-                    onBlur={blur("message")}
-                    className={`${inputCls(!!touched.message && !!errors.message)} resize-none leading-relaxed`}
+                    value={form.message} onChange={set("message")} onBlur={blur("message")}
+                    className="resize-none leading-relaxed"
+                    style={getInputStyle(!!touched.message && !!errors.message)}
+                    onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = `${P.purple}80`; }}
                   />
                 </FieldWrap>
 
@@ -502,15 +425,13 @@ export default function ContactPage() {
                 <AnimatePresence>
                   {status === "error" && (
                     <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
+                      initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                       className="flex items-start gap-3 p-4 rounded-xl"
-                      style={{ background: `${P.red}10`, border: `1px solid ${P.red}25` }}
+                      style={{ background: `${ERROR_COLOR}10`, border: `1px solid ${ERROR_COLOR}25` }}
                     >
-                      <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: P.red }} />
+                      <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: ERROR_COLOR }} />
                       <div>
-                        <p className="text-sm font-semibold" style={{ color: P.red }}>Something went wrong</p>
+                        <p className="text-sm font-semibold" style={{ color: ERROR_COLOR }}>Something went wrong</p>
                         <p className="text-xs mt-0.5" style={{ color: P.inkMid }}>
                           Please try again or email us directly at hello@digitreak.com
                         </p>
@@ -526,32 +447,18 @@ export default function ContactPage() {
                   whileHover={{ scale: status === "loading" ? 1 : 1.015 }}
                   whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
                   className="group relative w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold tracking-wide overflow-hidden disabled:opacity-80 disabled:cursor-not-allowed"
-                  style={{
-                    background: GRAD,
-                    color: "#fff",
-                    boxShadow: `0 8px 24px -6px ${P.red}50`,
-                  }}
+                  style={{ background: GRAD, color: "#fff", boxShadow: `0 8px 24px -6px ${P.pink}50` }}
                 >
-                  {/* Shimmer */}
                   <motion.div
                     className="absolute inset-0 -translate-x-full"
                     animate={{ translateX: ["−100%", "200%"] }}
                     transition={{ repeat: Infinity, duration: 2.5, ease: "linear", repeatDelay: 1 }}
-                    style={{
-                      background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
-                    }}
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                   />
-
                   {status === "loading" ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Sending your message…
-                    </>
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Sending your message…</>
                   ) : (
-                    <>
-                      Send Message
-                      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                    </>
+                    <>Send Message<ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" /></>
                   )}
                 </motion.button>
 

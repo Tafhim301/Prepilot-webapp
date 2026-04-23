@@ -8,36 +8,36 @@ import {
   Code2, Lightbulb, Award, Coffee,
 } from "lucide-react";
 import {
-  P, GRAD, GRAD_TEXT, GRAD_H, GRAD_SECTION, GRAD_SECTION_ALT,
+  P, GRAD, GRAD_TEXT, GRAD_SECTION, GRAD_SECTION_ALT,
   cardGlass, cardDark, cardHoverShadow, labelLight, labelDark,
 } from "@/lib/ds";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const VALUES = [
-  { icon: Shield,    title: "Full Ownership",         body: "We build on open-source. Every line of code belongs to you — no vendor lock-in, no hostage fees. Walk away with everything." },
+  { icon: Shield,    title: "Full Ownership",          body: "We build on open-source. Every line of code belongs to you — no vendor lock-in, no hostage fees. Walk away with everything." },
   { icon: Zap,       title: "Speed Without Shortcuts", body: "Fast delivery doesn't mean cutting corners. Our processes are tuned for both velocity and craft — because clients deserve both." },
-  { icon: Heart,     title: "Radical Transparency",   body: "You see every decision, every trade-off, every invoice line. Surprises belong in birthday parties, not development projects." },
-  { icon: Globe,     title: "Global Perspective",     body: "With teams across the US and South Asia, we bring diverse thinking to every problem — and timezone overlap that actually works." },
-  { icon: Lightbulb, title: "Curiosity First",        body: "We ask why before we ask how. The best solutions come from understanding the real problem, not just executing the brief." },
-  { icon: Users,     title: "Long-term Partnership",  body: "We measure success in years, not sprints. Over half our revenue comes from clients we've worked with for three or more years." },
+  { icon: Heart,     title: "Radical Transparency",    body: "You see every decision, every trade-off, every invoice line. Surprises belong in birthday parties, not development projects." },
+  { icon: Globe,     title: "Global Perspective",      body: "With teams across the US and South Asia, we bring diverse thinking to every problem — and timezone overlap that actually works." },
+  { icon: Lightbulb, title: "Curiosity First",         body: "We ask why before we ask how. The best solutions come from understanding the real problem, not just executing the brief." },
+  { icon: Users,     title: "Long-term Partnership",   body: "We measure success in years, not sprints. Over half our revenue comes from clients we've worked with for three or more years." },
 ];
 
 const TEAM = [
-  { name: "Aryan Chowdhury", role: "Founder & CEO",     location: "Dhaka, BD",     bio: "10 years building enterprise products. Formerly at Automattic.",      emoji: "👨‍💻", color: "#8b3a2a" },
-  { name: "Sarah Lin",       role: "Head of Design",    location: "New York, US",   bio: "Ex-Figma. Obsessed with the gap between beautiful and usable.",        emoji: "🎨",  color: "#9b4a28" },
-  { name: "Marcus Webb",     role: "Lead Engineer",     location: "Sheridan, WY",   bio: "Open-source contributor. Builds things that don't break at 3am.",      emoji: "⚙️",  color: "#a85e26" },
-  { name: "Priya Nair",      role: "Strategy Director", location: "Dhaka, BD",     bio: "Turns fuzzy briefs into clear roadmaps. MBA, ex-McKinsey.",            emoji: "📊",  color: "#7a3520" },
-  { name: "James Okoye",     role: "Senior Developer",  location: "Remote",         bio: "Full-stack specialist. WordPress core contributor since 2018.",        emoji: "🔧",  color: "#6b4a2a" },
-  { name: "Leila Hassan",    role: "Project Manager",   location: "Dhaka, BD",     bio: "Keeps 12 clients happy simultaneously. Certified in everything.",      emoji: "🗂️", color: "#8b5a30" },
+  { name: "Aryan Chowdhury", role: "Founder & CEO",     location: "Dhaka, BD",    bio: "10 years building enterprise products. Formerly at Automattic.",     emoji: "👨‍💻", color: "#A030C8" },
+  { name: "Sarah Lin",       role: "Head of Design",    location: "New York, US",  bio: "Ex-Figma. Obsessed with the gap between beautiful and usable.",       emoji: "🎨",  color: "#E8236C" },
+  { name: "Marcus Webb",     role: "Lead Engineer",     location: "Sheridan, WY",  bio: "Open-source contributor. Builds things that don't break at 3am.",     emoji: "⚙️",  color: "#6B2EE8" },
+  { name: "Priya Nair",      role: "Strategy Director", location: "Dhaka, BD",    bio: "Turns fuzzy briefs into clear roadmaps. MBA, ex-McKinsey.",           emoji: "📊",  color: "#C040D8" },
+  { name: "James Okoye",     role: "Senior Developer",  location: "Remote",        bio: "Full-stack specialist. WordPress core contributor since 2018.",       emoji: "🔧",  color: "#8B30D0" },
+  { name: "Leila Hassan",    role: "Project Manager",   location: "Dhaka, BD",    bio: "Keeps 12 clients happy simultaneously. Certified in everything.",     emoji: "🗂️", color: "#D040A0" },
 ];
 
 const TIMELINE = [
   { year: "2015", title: "Founded in a co-working space",  body: "Started with two people, one laptop, and an irrational belief that agencies could be better." },
-  { year: "2017", title: "First enterprise client",         body: "Landed a Fortune 500 engagement. Proved that small teams can punch far above their weight." },
-  { year: "2019", title: "Opened Dhaka office",             body: "Built a world-class engineering team in Bangladesh — cutting costs for clients without cutting quality." },
-  { year: "2021", title: "100th project delivered",         body: "Crossed a milestone. Celebrated quietly. Then immediately started project 101." },
-  { year: "2023", title: "Google partnership",              body: "Selected to collaborate on Web Stories for WordPress, now installed 500,000+ times." },
-  { year: "2025", title: "Today & beyond",                  body: "500+ projects, 12 countries, zero projects we're embarrassed by. The best work is still ahead." },
+  { year: "2017", title: "First enterprise client",        body: "Landed a Fortune 500 engagement. Proved that small teams can punch far above their weight." },
+  { year: "2019", title: "Opened Dhaka office",            body: "Built a world-class engineering team in Bangladesh — cutting costs for clients without cutting quality." },
+  { year: "2021", title: "100th project delivered",        body: "Crossed a milestone. Celebrated quietly. Then immediately started project 101." },
+  { year: "2023", title: "Google partnership",             body: "Selected to collaborate on Web Stories for WordPress, now installed 500,000+ times." },
+  { year: "2025", title: "Today & beyond",                 body: "500+ projects, 12 countries, zero projects we're embarrassed by. The best work is still ahead." },
 ];
 
 const STATS = [
@@ -54,10 +54,7 @@ function SectionLabel({ children, dark = false }: { children: string; dark?: boo
       className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] mb-5 border w-fit"
       style={dark ? labelDark : labelLight}
     >
-      <span
-        className="w-1.5 h-1.5 rounded-full animate-pulse"
-        style={{ background: dark ? P.amber : P.primary }}
-      />
+      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
       {children}
     </div>
   );
@@ -99,24 +96,17 @@ function Hero() {
     <section
       ref={heroRef}
       className="relative min-h-[88vh] flex items-center overflow-hidden"
-      style={{ background: `linear-gradient(160deg, #f8f5f0 0%, #f3ede4 45%, #ede5d6 100%)` }}
+      style={{ background: GRAD_SECTION }}
     >
-      {/* Diagonal stripe texture */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.20]"
-        style={{ backgroundImage: "repeating-linear-gradient(-18deg, transparent 0px, transparent 220px, oklch(0.78 0.04 54 / 0.7) 220px, oklch(0.78 0.04 54 / 0.7) 221px)" }}
-      />
-
       {/* Ambient blobs */}
       <motion.div style={{ y }} className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] rounded-full blur-[120px] opacity-38"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] rounded-full blur-[120px] opacity-18"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
         <div
-          className="absolute bottom-[-15%] left-[-8%] w-[550px] h-[550px] rounded-full blur-[110px] opacity-30"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+          className="absolute bottom-[-15%] left-[-8%] w-[550px] h-[550px] rounded-full blur-[110px] opacity-12"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
       </motion.div>
 
@@ -165,7 +155,7 @@ function Hero() {
               href="/contact"
               className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white
                          transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
-              style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.red}55` }}
+              style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.pink}55` }}
             >
               Start a project
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -173,7 +163,7 @@ function Hero() {
             <Link
               href="/#our-work"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold border
-                         transition-all duration-200 hover:bg-white/55 hover:-translate-y-px"
+                         transition-all duration-200 hover:bg-white/10 hover:-translate-y-px"
               style={{ borderColor: P.border, color: P.ink }}
             >
               See our work
@@ -194,7 +184,7 @@ function Hero() {
             >
               <s.icon className="w-4 h-4" style={{ color: P.primary }} />
               <div>
-                <p className="text-lg font-extrabold leading-none" style={{ color: P.ink }}>{s.value}</p>
+                <p className="text-lg font-extrabold leading-none" style={GRAD_TEXT}>{s.value}</p>
                 <p className="text-[11px] mt-0.5" style={{ color: P.inkMid }}>{s.label}</p>
               </div>
             </motion.div>
@@ -211,8 +201,8 @@ function Story() {
       {/* Ambient glow */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full blur-[130px] opacity-20"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full blur-[130px] opacity-14"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
       </div>
 
@@ -247,12 +237,12 @@ function Story() {
 
           <FadeIn direction="right" delay={0.15}>
             <div className="relative">
-              <div className="absolute -inset-4 rounded-3xl opacity-22" style={{ background: GRAD }} />
+              <div className="absolute -inset-4 rounded-3xl opacity-20" style={{ background: GRAD }} />
               <div
                 className="relative rounded-3xl p-8 sm:p-10"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
+                style={cardGlass}
               >
-                <svg className="w-10 h-10 mb-6 opacity-45" fill="currentColor" viewBox="0 0 32 32" style={{ color: P.amber }}>
+                <svg className="w-10 h-10 mb-6 opacity-45" fill="currentColor" viewBox="0 0 32 32" style={{ color: P.purple }}>
                   <path d="M10 8C6.686 8 4 10.686 4 14v10h10V14H7c0-1.654 1.346-3 3-3V8zm16 0c-3.314 0-6 2.686-6 6v10h10V14h-7c0-1.654 1.346-3 3-3V8z" />
                 </svg>
                 <p className="text-xl md:text-2xl font-medium leading-relaxed mb-8" style={{ color: P.onDark }}>
@@ -300,28 +290,25 @@ function Values() {
               <motion.div
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.22 }}
-                className="group relative h-full flex flex-col gap-5 rounded-2xl p-7 overflow-hidden
-                           transition-shadow duration-300"
+                className="group relative h-full flex flex-col gap-5 rounded-2xl p-7 overflow-hidden transition-shadow duration-300"
                 style={cardGlass}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardHoverShadow}
                 onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardGlass.boxShadow as string}
               >
                 {/* Top accent line */}
-                <div
-                  aria-hidden
+                <div aria-hidden
                   className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(90deg, transparent, ${P.amber}70, transparent)` }}
+                  style={{ background: `linear-gradient(90deg, transparent, ${P.pink}80, ${P.violet}80, transparent)` }}
                 />
                 {/* Hover wash */}
-                <div
-                  aria-hidden
+                <div aria-hidden
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
-                  style={{ background: `linear-gradient(220deg, ${P.amber}10, transparent 55%)` }}
+                  style={{ background: `linear-gradient(220deg, ${P.pink}08, ${P.violet}06, transparent 55%)` }}
                 />
 
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${P.primary}12` }}
+                  style={{ background: "rgba(160,48,200,0.15)" }}
                 >
                   <v.icon className="w-5 h-5" style={{ color: P.primary }} />
                 </div>
@@ -356,7 +343,7 @@ function Timeline() {
           {/* Vertical line */}
           <div
             className="absolute left-[18px] lg:left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ background: `linear-gradient(to bottom, transparent, ${P.amber}65, transparent)` }}
+            style={{ background: `linear-gradient(to bottom, transparent, ${P.purple}65, transparent)` }}
           />
 
           <div className="flex flex-col gap-0">
@@ -376,7 +363,7 @@ function Timeline() {
                         className="inline-block max-w-sm rounded-2xl p-6 text-left"
                         style={cardGlass}
                       >
-                        <span className="text-[11px] font-bold uppercase tracking-widest mb-2 block" style={{ color: P.amber }}>
+                        <span className="text-[11px] font-bold uppercase tracking-widest mb-2 block" style={GRAD_TEXT}>
                           {item.year}
                         </span>
                         <h3 className="text-base font-bold mb-1.5" style={{ color: P.ink }}>{item.title}</h3>
@@ -385,8 +372,8 @@ function Timeline() {
                     </div>
 
                     <div
-                      className="absolute left-[18px] lg:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white flex-shrink-0 z-10"
-                      style={{ background: GRAD, boxShadow: `0 0 0 4px ${P.amber}35` }}
+                      className="absolute left-[18px] lg:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full flex-shrink-0 z-10"
+                      style={{ background: GRAD, boxShadow: `0 0 0 4px ${P.purple}35` }}
                     />
 
                     <div className="flex-1 hidden lg:block" />
@@ -406,8 +393,8 @@ function Team() {
     <section className="py-24 px-4 sm:px-6 lg:px-10 relative overflow-hidden" style={{ background: P.darkBg }}>
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full blur-[130px] opacity-18"
-          style={{ background: `radial-gradient(ellipse, ${P.red}, transparent 70%)` }}
+          className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full blur-[130px] opacity-14"
+          style={{ background: `radial-gradient(ellipse, ${P.pink}, transparent 70%)` }}
         />
       </div>
 
@@ -444,7 +431,7 @@ function Team() {
                 <div className="flex items-start justify-between">
                   <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-                    style={{ background: `${member.color}28`, border: `1px solid ${member.color}30` }}
+                    style={{ background: `${member.color}22`, border: `1px solid ${member.color}30` }}
                   >
                     {member.emoji}
                   </div>
@@ -481,7 +468,7 @@ function Team() {
 
 function Offices() {
   const offices = [
-    { city: "Sheridan", country: "United States", flag: "🇺🇸", address: "30 N Gould St Ste R, Sheridan, WY 82801",         phone: "+1 307 459 1578",    type: "Headquarters"  },
+    { city: "Sheridan", country: "United States", flag: "🇺🇸", address: "30 N Gould St Ste R, Sheridan, WY 82801",          phone: "+1 307 459 1578",    type: "Headquarters"   },
     { city: "Dhaka",    country: "Bangladesh",    flag: "🇧🇩", address: "House-2/1A, Post Office Road, Mirpur-11, Dhaka-1216", phone: "+880 9611 656798", type: "Engineering Hub" },
   ];
 
@@ -516,14 +503,14 @@ function Offices() {
                   </div>
                   <span
                     className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
-                    style={{ background: `${P.primary}10`, color: P.primary }}
+                    style={{ background: "rgba(160,48,200,0.15)", color: P.primary }}
                   >
                     {office.type}
                   </span>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm leading-relaxed" style={{ color: P.inkMid }}>{office.address}</p>
-                  <p className="text-sm font-semibold" style={{ color: P.ink }}>{office.phone}</p>
+                  <p className="text-sm font-semibold" style={GRAD_TEXT}>{office.phone}</p>
                 </div>
               </motion.div>
             </FadeIn>
@@ -541,16 +528,14 @@ function CTA() {
         <FadeIn>
           <div
             className="relative rounded-3xl p-10 sm:p-12 md:p-16 overflow-hidden text-center"
-            style={{ background: P.darkBg, boxShadow: `0 32px 80px -16px rgba(0,0,0,0.4), 0 8px 24px -8px ${P.red}22` }}
+            style={{ ...cardDark, boxShadow: `0 32px 80px -16px rgba(0,0,0,0.4), 0 8px 24px -8px ${P.pink}22` }}
           >
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: `radial-gradient(ellipse 70% 60% at 50% 0%, ${P.red}30, transparent 55%)` }}
+            <div aria-hidden className="absolute inset-0 pointer-events-none"
+              style={{ background: `radial-gradient(ellipse 70% 60% at 50% 0%, ${P.violet}28, transparent 55%)` }}
             />
 
             <div className="relative z-10">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: P.amber }}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: P.purple }}>
                 Ready when you are
               </p>
               <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6" style={{ color: P.onDark }}>
@@ -568,7 +553,7 @@ function CTA() {
                   href="/contact"
                   className="group inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-bold text-white
                              transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
-                  style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.red}60` }}
+                  style={{ background: GRAD, boxShadow: `0 8px 28px -6px ${P.pink}60` }}
                 >
                   Start a conversation
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

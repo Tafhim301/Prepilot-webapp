@@ -8,29 +8,30 @@ import {
   BehanceLogo,
   DribbbleLogoIcon,
 } from "@phosphor-icons/react";
+import Logo from "@/components/Logo";
 import { P, GRAD, GRAD_H, GRAD_TEXT } from "@/lib/ds";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const navLinks = [
-  { title: "Home",       href: "/"          },
-  { title: "Services",   href: "/#services" },
-  { title: "Our Work",   href: "/our-work"  },
-  { title: "Pricing",    href: "/pricing"   },
-  { title: "About Us",   href: "/about"     },
-  { title: "Contact",    href: "/contact"   },
+  { title: "Home",      href: "/"          },
+  { title: "Services",  href: "/#services" },
+  { title: "Our Work",  href: "/our-work"  },
+  { title: "Pricing",   href: "/pricing"   },
+  { title: "About Us",  href: "/about"     },
+  { title: "Contact",   href: "/contact"   },
 ];
 
 const legalLinks = [
-  { title: "Privacy Policy",    href: "#" },
+  { title: "Privacy Policy",     href: "#" },
   { title: "Terms & Conditions", href: "#" },
-  { title: "Cookie Policy",     href: "#" },
+  { title: "Cookie Policy",      href: "#" },
 ];
 
 const socialLinks = [
-  { title: "LinkedIn",  href: "#", icon: <LinkedinLogoIcon  size={17} weight="fill" /> },
-  { title: "Behance",   href: "#", icon: <BehanceLogo        size={17} weight="fill" /> },
-  { title: "Dribbble",  href: "#", icon: <DribbbleLogoIcon   size={17} weight="fill" /> },
-  { title: "Facebook",  href: "#", icon: <FacebookLogoIcon   size={17} weight="fill" /> },
+  { title: "LinkedIn", href: "#", icon: <LinkedinLogoIcon size={17} weight="fill" /> },
+  { title: "Behance",  href: "#", icon: <BehanceLogo       size={17} weight="fill" /> },
+  { title: "Dribbble", href: "#", icon: <DribbbleLogoIcon  size={17} weight="fill" /> },
+  { title: "Facebook", href: "#", icon: <FacebookLogoIcon  size={17} weight="fill" /> },
 ];
 
 const offices = [
@@ -51,12 +52,12 @@ export function Footer() {
       {/* Ambient blobs */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] opacity-18"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] opacity-12"
+          style={{ background: `radial-gradient(circle, ${P.violet}, transparent 65%)` }}
         />
         <div
-          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[100px] opacity-14"
-          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[100px] opacity-10"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
       </div>
 
@@ -74,12 +75,7 @@ export function Footer() {
             className="sm:col-span-2 lg:col-span-1 flex flex-col gap-5"
           >
             <Link href="/" className="w-fit">
-              <span
-                className="text-xl font-bold tracking-tight"
-                style={GRAD_TEXT}
-              >
-                DigiTreak
-              </span>
+              <Logo size={28} showName />
             </Link>
 
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: P.onDarkMid }}>
@@ -99,9 +95,9 @@ export function Footer() {
                     href={s.href}
                     aria-label={s.title}
                     className="w-9 h-9 rounded-full flex items-center justify-center
-                               transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
+                               transition-all duration-200 hover:-translate-y-0.5"
                     style={{
-                      background: "rgba(255,255,255,0.07)",
+                      background: "rgba(255,255,255,0.06)",
                       border:     "1px solid rgba(255,255,255,0.10)",
                       color:      P.onDarkMid,
                     }}
@@ -111,7 +107,7 @@ export function Footer() {
                       (e.currentTarget as HTMLElement).style.color = "#fff";
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)";
+                      (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)";
                       (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.10)";
                       (e.currentTarget as HTMLElement).style.color = P.onDarkMid;
                     }}
@@ -139,7 +135,7 @@ export function Footer() {
                 <li key={link.title}>
                   <Link
                     href={link.href}
-                    className="text-sm transition-colors duration-200 hover:opacity-100"
+                    className="text-sm transition-colors duration-200"
                     style={{ color: P.onDarkMid }}
                     onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = P.onDark}
                     onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = P.onDarkMid}
@@ -167,16 +163,10 @@ export function Footer() {
                 <div key={office.country}>
                   <div className="flex items-center gap-1.5 mb-1.5">
                     <span className="text-base">{office.flag}</span>
-                    <p className="text-sm font-semibold" style={{ color: P.onDark }}>
-                      {office.country}
-                    </p>
+                    <p className="text-sm font-semibold" style={{ color: P.onDark }}>{office.country}</p>
                   </div>
-                  <p className="text-xs leading-relaxed" style={{ color: P.onDarkMid }}>
-                    {office.address}
-                  </p>
-                  <p className="text-xs font-medium mt-1" style={{ color: P.amber }}>
-                    {office.phone}
-                  </p>
+                  <p className="text-xs leading-relaxed" style={{ color: P.onDarkMid }}>{office.address}</p>
+                  <p className="text-xs font-medium mt-1" style={GRAD_TEXT}>{office.phone}</p>
                 </div>
               ))}
             </div>
@@ -196,22 +186,17 @@ export function Footer() {
 
             <div
               className="rounded-2xl p-5"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border:     "1px solid rgba(255,255,255,0.08)",
-              }}
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <p className="text-sm font-semibold mb-1.5" style={{ color: P.onDark }}>
-                Ready to build together?
-              </p>
+              <p className="text-sm font-semibold mb-1.5" style={{ color: P.onDark }}>Ready to build together?</p>
               <p className="text-xs leading-relaxed mb-4" style={{ color: P.onDarkMid }}>
                 Tell us about your project and we&apos;ll respond within 24 hours.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl
-                           text-xs font-bold tracking-wide text-white transition-opacity hover:opacity-85 w-full justify-center"
-                style={{ background: GRAD, boxShadow: `0 6px 20px -4px ${P.red}55` }}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold
+                           tracking-wide text-white transition-opacity hover:opacity-85 w-full justify-center"
+                style={{ background: GRAD, boxShadow: `0 6px 20px -4px ${P.pink}50` }}
               >
                 Get in Touch
               </Link>
@@ -219,10 +204,7 @@ export function Footer() {
 
             <div
               className="flex items-center gap-2.5 rounded-xl px-4 py-3"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border:     "1px solid rgba(255,255,255,0.07)",
-              }}
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
               <p className="text-xs" style={{ color: P.onDarkMid }}>
@@ -234,23 +216,19 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div
-          className="w-full h-px mb-6"
-          style={{ background: "rgba(255,255,255,0.07)" }}
-        />
+        <div className="w-full h-px mb-6" style={{ background: "rgba(255,255,255,0.07)" }} />
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-center sm:text-left" style={{ color: P.onDarkDim }}>
             © {new Date().getFullYear()} DigiTreak. All rights reserved.
           </p>
-
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
             {legalLinks.map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="text-xs transition-colors duration-200 hover:opacity-100"
+                className="text-xs transition-colors duration-200"
                 style={{ color: P.onDarkDim }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = P.onDarkMid}
                 onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = P.onDarkDim}

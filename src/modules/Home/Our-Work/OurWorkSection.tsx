@@ -4,243 +4,174 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 import projects from "@/data/projects.json";
 import type { Project } from "@/types/projects.types";
-import { P, GRAD, GRAD_TEXT, GRAD_SECTION, cardGlass, cardHoverShadow } from "@/lib/ds";
+import {
+  P, GRAD, GRAD_TEXT, GRAD_SECTION,
+  cardGlass, cardHoverShadow, labelLight,
+} from "@/lib/ds";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [arrowHovered, setArrowHovered] = useState(false);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
     >
       <Link
         href={`/our-work/${project.slug}`}
-        className="group relative block rounded-3xl overflow-hidden transition-all duration-400"
+        className="group relative flex flex-col sm:flex-row items-center gap-6 rounded-2xl p-6
+                   transition-shadow duration-300 overflow-hidden"
         style={cardGlass}
-        onMouseEnter={(e) => {
-          const el = e.currentTarget as HTMLElement;
-          el.style.boxShadow = cardHoverShadow;
-          el.style.transform = "translateY(-3px)";
-        }}
-        onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement;
-          el.style.boxShadow = cardGlass.boxShadow as string;
-          el.style.transform = "translateY(0)";
-        }}
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardHoverShadow}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.boxShadow = cardGlass.boxShadow as string}
       >
-        {/* Top shine */}
-        <div
-          aria-hidden
-          className="absolute inset-0 rounded-3xl pointer-events-none"
-          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)" }}
-        />
-
-        {/* Hover warm wash */}
-        <div
-          aria-hidden
-          className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-350"
-          style={{ background: `linear-gradient(220deg, ${P.amber}09, transparent 55%)` }}
-        />
-
         {/* Top accent line on hover */}
         <div
           aria-hidden
-          className="absolute top-0 left-8 right-8 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-350"
-          style={{ background: `linear-gradient(90deg, transparent, ${P.amber}80, transparent)` }}
+          className="absolute top-0 left-8 right-8 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: `linear-gradient(90deg, transparent, ${P.pink}80, ${P.violet}80, transparent)` }}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6 sm:gap-8 p-6 sm:p-8 lg:p-12 items-center">
+        {/* Hover wash */}
+        <div
+          aria-hidden
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{ background: `linear-gradient(220deg, ${P.pink}0a, ${P.violet}06, transparent 60%)` }}
+        />
 
-          {/* Left: stacked cover images */}
-          <div className="relative min-h-[220px] sm:min-h-[260px] flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div
-                className="w-[85%] h-[80%] rounded-full blur-2xl"
-                style={{ background: `radial-gradient(circle, ${P.amber}28, ${P.red}12, transparent 70%)` }}
-              />
-            </div>
-
-            <div className="relative z-10 flex items-end gap-2 sm:gap-3">
-              {project.coverImages.map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -8, scale: 1.04 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="relative rounded-xl overflow-hidden shadow-lg flex-shrink-0"
-                  style={{
-                    width:  i === 1 ? "110px" : "90px",
-                    height: i === 1 ? "180px" : "150px",
-                  }}
-                >
-                  <Image
-                    src={src}
-                    alt={`${project.client.name} project preview ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="120px"
-                  />
-                </motion.div>
-              ))}
-            </div>
-
-            {project.awards.length > 0 && (
-              <div className="absolute bottom-0 left-0 flex gap-3 z-20">
-                {project.awards.map((award) => (
-                  <span key={award} className="text-xs font-medium" style={{ color: P.inkMid }}>
-                    🏆 {award}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Right: content */}
-          <div className="flex flex-col gap-5 sm:gap-8 pr-0 sm:pr-14 lg:pr-16 relative z-10">
-            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: P.amber }}>
-              {project.client.name}
-            </p>
-
-            <h3
-              className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight transition-colors duration-300 group-hover:text-[#8b3a2a]"
-              style={{ color: P.ink }}
+        {/* Images stack */}
+        <div className="relative flex items-end gap-2 flex-shrink-0">
+          {project.coverImages.slice(0, 3).map((src, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -6, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+              className="relative rounded-xl overflow-hidden shadow-lg flex-shrink-0"
+              style={{
+                width:  i === 1 ? "110px" : "90px",
+                height: i === 1 ? "175px" : "148px",
+              }}
             >
-              {project.title}
-            </h3>
+              <Image
+                src={src}
+                alt={`${project.client.name} preview ${i + 1}`}
+                fill
+                className="object-cover"
+                sizes="110px"
+              />
+            </motion.div>
+          ))}
+        </div>
 
-            <div className="grid grid-cols-2 gap-5 sm:gap-8 max-w-md">
-              <div>
-                <p className="text-xs uppercase tracking-widest mb-1.5" style={{ color: P.inkMid }}>
-                  Solution
-                </p>
-                <p className="text-sm font-semibold" style={{ color: P.ink }}>
-                  {project.solution}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest mb-1.5" style={{ color: P.inkMid }}>
-                  Industry
-                </p>
-                <p className="text-sm font-semibold" style={{ color: P.ink }}>
-                  {project.industry}
-                </p>
-              </div>
+        {/* Content */}
+        <div className="flex flex-col gap-3 flex-1 z-10 min-w-0">
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: P.purple }}>
+            {project.client.name}
+          </p>
+          <h3 className="text-xl sm:text-2xl font-bold leading-tight" style={{ color: P.ink }}>
+            {project.title}
+          </h3>
+          <div className="flex flex-wrap gap-5">
+            <div>
+              <p className="text-[10px] uppercase tracking-widest mb-1" style={{ color: P.inkLight }}>Solution</p>
+              <p className="text-sm font-semibold" style={{ color: P.inkMid }}>{project.solution}</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-widest mb-1" style={{ color: P.inkLight }}>Industry</p>
+              <p className="text-sm font-semibold" style={{ color: P.inkMid }}>{project.industry}</p>
             </div>
           </div>
+          <span className="inline-flex items-center gap-1 text-sm font-semibold mt-1 w-fit" style={GRAD_TEXT}>
+            View case study <ArrowRight size={13} />
+          </span>
         </div>
 
         {/* Arrow button */}
-        <div className="absolute top-1/2 right-6 sm:right-8 lg:right-10 -translate-y-1/2">
-          <motion.div
-            whileHover={{ scale: 1.12, rotate: -45 }}
-            transition={{ type: "spring", stiffness: 300, damping: 18 }}
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300"
-            style={{
-              border: `2px solid ${P.border}`,
-              color:  P.inkMid,
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.background = GRAD;
-              el.style.borderColor = "transparent";
-              el.style.color = "#fff";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.background = "transparent";
-              el.style.borderColor = P.border;
-              el.style.color = P.inkMid;
-            }}
-          >
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300" />
-          </motion.div>
-        </div>
+        <motion.div
+          whileHover={{ scale: 1.1, rotate: -45 }}
+          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+          className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10
+                     transition-all duration-300"
+          style={{
+            border:     arrowHovered ? "1.5px solid transparent" : `1.5px solid ${P.border}`,
+            background: arrowHovered ? GRAD : "transparent",
+            color:      arrowHovered ? "#fff" : P.inkMid,
+          }}
+          onMouseEnter={() => setArrowHovered(true)}
+          onMouseLeave={() => setArrowHovered(false)}
+        >
+          <ArrowRight size={18} />
+        </motion.div>
       </Link>
     </motion.div>
   );
 }
 
 export default function OurWorkSection() {
+  const preview = (projects as Project[]).slice(0, 3);
+
   return (
     <section
       id="our-work"
-      className="py-20 lg:py-28 px-4 sm:px-6 lg:px-10 scroll-mt-20 relative overflow-hidden"
+      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 py-20 sm:py-28
+                 relative overflow-hidden scroll-mt-20"
       style={{ background: GRAD_SECTION }}
     >
       {/* Ambient blobs */}
       <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[130px] opacity-28"
-          style={{ background: `radial-gradient(ellipse, ${P.red}, transparent 70%)` }}
+          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[120px] opacity-12"
+          style={{ background: `radial-gradient(ellipse, ${P.purple}, transparent 70%)` }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full blur-[110px] opacity-25"
-          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+          className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[110px] opacity-14"
+          style={{ background: `radial-gradient(circle, ${P.pink}, transparent 65%)` }}
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          transition={{ duration: 0.5 }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
         >
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold
-                       uppercase tracking-[0.18em] mb-5 border w-fit"
-            style={{
-              background:  `${P.primary}0d`,
-              borderColor: `${P.primary}22`,
-              color:       P.primary,
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
-            Our Work
+          <div className="flex flex-col gap-3">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] w-fit border"
+              style={labelLight}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
+              Our Work
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: P.ink }}>
+              Projects we&rsquo;re{" "}
+              <span style={GRAD_TEXT}>proud of.</span>
+            </h2>
           </div>
-
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: P.ink }}>
-            Projects we&rsquo;re{" "}
-            <span style={GRAD_TEXT}>proud of.</span>
-          </h2>
-          <p className="mt-4 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: P.inkMid }}>
-            A selection of the products, platforms, and experiences we&rsquo;ve
-            built with ambitious teams.
-          </p>
+          <Link
+            href="/our-work"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold
+                       transition-all hover:bg-white/5 flex-shrink-0"
+            style={{ color: P.inkMid, border: `1px solid ${P.border}` }}
+          >
+            All Projects <ArrowRight size={14} />
+          </Link>
         </motion.div>
 
         {/* Cards */}
-        <div className="flex flex-col gap-5 sm:gap-6">
-          {(projects as Project[]).slice(0, 3).map((project, i) => (
+        <div className="flex flex-col gap-5">
+          {preview.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
-
-        {/* View all CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 text-center"
-        >
-          <Link
-            href="/our-work"
-            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold
-                       text-white transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
-            style={{
-              background:  GRAD,
-              boxShadow:   `0 8px 28px -6px ${P.red}55`,
-            }}
-          >
-            View all projects
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
