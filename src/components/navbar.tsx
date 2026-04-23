@@ -83,11 +83,22 @@ const SERVICES_PREVIEW: ServicePreview[] = [
 
 const SERVICES_SUMMARY = [
   "Custom Web Development",
-  "Full-stack Engineering",
+  "Front-end Development",
+  "Back-end Development",
+  "Full-stack Development",
+  "E-commerce Solutions",
+  "WordPress Development",
   "API Integrations",
+  "Web Application",
+  "Webflow Development",
+  "E-commerce Development",
+  "Web Interactions & Animations",
+  "Technical Planning",
   "CMS Implementation",
+  "Landing Page Development",
+  "Hosting & Domain Setup",
   "Accessibility Audits",
-  "Performance Optimization",
+  "Quality Assurance",
 ];
 
 // ─── Derived data from JSON ──────────────────────────────────────────────────
@@ -204,7 +215,7 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full">
       <div
-        className="w-[300px] flex-shrink-0 flex flex-col justify-between p-7 relative overflow-hidden"
+        className="w-[300px] flex-shrink-0 flex flex-col p-7 relative overflow-hidden"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div
@@ -215,7 +226,7 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
           }}
         />
 
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col flex-1 min-h-0">
           <Label onDark>What We Do</Label>
           <h3 className="text-[24px] font-bold leading-[1.05] mt-4 mb-3" style={{ color: P.onDark }}>
             Services built
@@ -233,16 +244,17 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
               for scale.
             </span>
           </h3>
-          <p className="text-[12px] leading-relaxed mb-5" style={{ color: P.onDarkMid }}>
-            End-to-end digital solutions for teams that want to own their stack — no lock-in, no compromises.
-          </p>
+        
 
-          <p className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: P.onDarkDim }}>
+          <p className="text-[9px] font-bold uppercase tracking-widest mb-2.5 flex-shrink-0" style={{ color: P.onDarkDim }}>
             In Summary
           </p>
-          <ul className="flex flex-col gap-1.5 mb-5">
+          <ul
+            className="flex flex-col gap-1.5 flex-1 min-h-0 overflow-y-auto pr-2"
+            style={{ scrollbarWidth: "thin", scrollbarColor: `${P.amber}55 transparent` }}
+          >
             {SERVICES_SUMMARY.map((text) => (
-              <li key={text} className="flex items-center gap-2">
+              <li key={text} className="flex items-center gap-2 flex-shrink-0 font-bold text-xs" style={{ color: P.onDarkMid }}>
                 <Check className="w-3 h-3 flex-shrink-0" style={{ color: P.amber }} strokeWidth={2.75} />
                 <span className="text-[11px]" style={{ color: P.onDarkMid }}>
                   {text}
@@ -253,7 +265,7 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
         </div>
 
         <div
-          className="relative z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-medium w-fit"
+          className="relative z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-medium w-fit mt-4 flex-shrink-0"
           style={{ background: "rgba(255,255,255,0.05)", color: P.onDark, border: "1px solid rgba(255,255,255,0.08)" }}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -261,8 +273,8 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col p-5">
-        <div className="flex items-center justify-between mb-3.5 px-1">
+      <div className="flex-1 flex flex-col p-5 min-h-0">
+        <div className="flex items-center justify-between mb-3.5 px-1 flex-shrink-0">
           <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: P.inkMid }}>
             Core Services
           </p>
@@ -277,7 +289,10 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 flex-1">
+        <div
+          className="grid grid-cols-2 gap-2.5 flex-1 overflow-y-auto min-h-0 pr-1"
+          style={{ scrollbarWidth: "thin", scrollbarColor: `${P.amber}55 transparent` }}
+        >
           {SERVICES_PREVIEW.map((s, i) => (
             <motion.div
               key={s.title}
@@ -798,7 +813,7 @@ export function Navbar({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "sticky top-0 z-50 w-full py-4 px-10 flex justify-center shrink-0 mx-auto",
+        "sticky top-0 z-50 w-full py-4 px-10 lg:flex justify-center shrink-0 mx-auto",
         className,
       )}
       style={{
@@ -809,7 +824,7 @@ export function Navbar({ className }: { className?: string }) {
         boxShadow: "0 1px 0 rgba(168,94,38,0.08), 0 4px 24px -4px rgba(139,58,42,0.08)",
       }}
     >
-      <div className="w-full flex justify-center">
+      <div className="w-full lg:flex justify-center hidden">
         <div
           className="relative w-full max-w-5xl rounded-2xl p-[1.5px]"
           style={{
@@ -978,7 +993,7 @@ export function Navbar({ className }: { className?: string }) {
                   <div className="absolute top- left-0 w-full h-4 z-50" />
                   
                   <div
-                    className="relative rounded-2xl overflow-hidden"
+                    className="relative rounded-2xl"
                     style={{
                       width: `${PANEL_SIZE.width}px`,
                       height: `${PANEL_SIZE.height}px`,
@@ -1005,7 +1020,7 @@ export function Navbar({ className }: { className?: string }) {
                         top: "-25%", right: "-10%",
                         width: "320px", height: "320px",
                         background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
-                        filter: "blur(48px)",
+                        filter: "blur(60px)",
                       }}
                     />
                     <AnimatePresence mode="wait">

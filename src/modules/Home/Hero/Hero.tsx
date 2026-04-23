@@ -5,26 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Featured from "../Featured/Featured";
-
-// ─── Design tokens (mirrors about page) ──────────────────────────────────────
-const P = {
-  page:      "#f4f1ec",
-  ink:       "#1f1a14",
-  inkMid:    "#7a6e62",
-  primary:   "#4a3018",
-  red:       "#8b3a2a",
-  mid:       "#9b4a28",
-  amber:     "#a85e26",
-  border:    "rgba(0,0,0,0.08)",
-} as const;
-
-const GRAD = `linear-gradient(135deg, ${P.red} 0%, ${P.mid} 50%, ${P.amber} 100%)`;
-const GRAD_TEXT = {
-  backgroundImage: GRAD,
-  WebkitBackgroundClip: "text" as const,
-  WebkitTextFillColor: "transparent" as const,
-  backgroundClip: "text" as const,
-};
+import { P, GRAD, GRAD_TEXT } from "@/lib/ds";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -32,46 +13,58 @@ export default function Hero() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const blobY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, 70]);
 
   return (
     <section
       ref={heroRef}
-      className="relative flex flex-col items-center justify-center overflow-hidden w-full px-4 sm:px-8 md:px-12 lg:px-16 pb-16 sm:py-20"
-      style={{ background: P.page }}
+      className="relative flex flex-col items-center justify-center overflow-hidden w-full
+                 px-4 sm:px-8 md:px-12 lg:px-16 pt-16 pb-12 sm:pt-24 sm:pb-16"
+      style={{
+        background: `linear-gradient(160deg, #f8f5f0 0%, #f3ede4 45%, #ede5d6 100%)`,
+      }}
     >
-      {/* ── Diagonal stripe texture (matches about page) ── */}
+      {/* Diagonal stripe texture */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.18]"
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.22]"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(-18deg, transparent 0px, transparent 220px, oklch(0.78 0.04 54 / 0.6) 220px, oklch(0.78 0.04 54 / 0.6) 221px)",
+            "repeating-linear-gradient(-18deg, transparent 0px, transparent 220px, oklch(0.78 0.04 54 / 0.7) 220px, oklch(0.78 0.04 54 / 0.7) 221px)",
         }}
       />
 
-      {/* ── Ambient gradient blobs (matches about page) ── */}
+      {/* Ambient gradient blobs — more visible */}
       <motion.div style={{ y: blobY }} className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full blur-[110px] opacity-25"
+          className="absolute top-[-12%] right-[-6%] w-[580px] h-[580px] rounded-full blur-[100px] opacity-40"
           style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
         />
         <div
-          className="absolute bottom-[-15%] left-[-8%] w-[450px] h-[450px] rounded-full blur-[100px] opacity-18"
+          className="absolute bottom-[-18%] left-[-10%] w-[480px] h-[480px] rounded-full blur-[90px] opacity-35"
           style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+        />
+        <div
+          className="absolute top-[30%] left-[30%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-20"
+          style={{ background: `radial-gradient(circle, ${P.mid}, transparent 65%)` }}
         />
       </motion.div>
 
-      {/* ── Floating badges ── */}
+      {/* Floating status badges — desktop only */}
       <div
-        className="hidden md:flex absolute top-[28%] left-[4%] lg:left-[6%] items-center gap-2 rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-md text-xs lg:text-sm font-medium z-10 pointer-events-none select-none"
-        style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(10px)" }}
+        className="hidden lg:flex absolute top-[26%] left-[4%] lg:left-[6%] items-center gap-2
+                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-medium z-10
+                   pointer-events-none select-none border border-white/60"
+        style={{ background: "rgba(255,255,255,0.80)", backdropFilter: "blur(12px)" }}
       >
-        <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-green-400 inline-block" />
+        <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
         Alice
       </div>
 
       <div
-        className="hidden md:flex absolute top-[48%] left-[10%] lg:left-[14%] items-center gap-2 rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-md text-xs lg:text-sm font-semibold z-10 pointer-events-none select-none"
+        className="hidden md:flex absolute top-[48%] left-[9%] lg:left-[13%] items-center gap-2
+                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-semibold z-10
+                   pointer-events-none select-none"
         style={{ background: "#fde047" }}
       >
         <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-yellow-600 inline-block" />
@@ -79,43 +72,44 @@ export default function Hero() {
       </div>
 
       <div
-        className="hidden md:flex absolute top-[22%] right-[4%] lg:right-[8%] items-center gap-2 rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-md text-xs lg:text-sm font-medium z-10 pointer-events-none select-none"
+        className="hidden md:flex absolute top-[20%] right-[4%] lg:right-[7%] items-center gap-2
+                   rounded-full px-3 py-1.5 lg:px-4 lg:py-2 shadow-lg text-xs lg:text-sm font-medium z-10
+                   pointer-events-none select-none"
         style={{ background: "#a78bfa", color: "#fff" }}
       >
         <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-white inline-block" />
         Dev Team
       </div>
 
-      {/* ── Center content ── */}
+      {/* Centre content */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl z-10 flex flex-col items-center gap-4 sm:gap-6"
+        className="text-center w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl z-10
+                   flex flex-col items-center gap-5 sm:gap-6"
       >
         {/* Section label */}
         <motion.div
-          initial={{ opacity: 0, y: -12 }}
+          initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm"
+          className="inline-flex flex-wrap justify-center items-center gap-1.5 sm:gap-2
+                     rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm border"
           style={{
-            background: `${P.primary}0a`,
-            border: `1px solid ${P.primary}20`,
+            background: `${P.primary}0d`,
+            borderColor: `${P.primary}22`,
             color: P.primary,
           }}
         >
-          <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse"
-            style={{ background: P.primary }}
-          />
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
           <span className="font-semibold">500+ Projects</span>
           <span style={{ color: P.inkMid }}>delivered to enterprise clients worldwide</span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight"
@@ -130,40 +124,47 @@ export default function Hero() {
 
         {/* Subheading */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.25 }}
           className="text-base sm:text-lg md:text-xl max-w-xs sm:max-w-lg md:max-w-2xl leading-relaxed"
           style={{ color: P.inkMid }}
         >
           We deliver full autonomy for marketing teams at global brands — secure,
-          high-performance applications on open-source tech. Fully owned.
-          Free from vendor lock-in. At a fraction of the TCO.
+          high-performance applications on open-source tech. Fully owned. Free from
+          vendor lock-in. At a fraction of the TCO.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-2 w-full sm:w-auto"
+          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-1 w-full sm:w-auto"
         >
           <Link
             href="/#our-work"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-85"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2
+                       px-7 py-3.5 rounded-full text-sm font-bold text-white
+                       transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
             style={{
               background: GRAD,
-              boxShadow: `0 8px 24px -6px ${P.red}50`,
+              boxShadow: `0 8px 28px -6px ${P.red}55`,
             }}
           >
-            OUR WORK{" "}
-            <ArrowRight
-              size={15}
-              className="group-hover:translate-x-0.5 transition-transform"
-            />
+            Our Work
+            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
 
-       
+          <Link
+            href="/contact"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2
+                       px-7 py-3.5 rounded-full text-sm font-semibold border
+                       transition-all duration-200 hover:bg-white/60 hover:-translate-y-px"
+            style={{ borderColor: P.border, color: P.ink }}
+          >
+            Start a Project
+          </Link>
         </motion.div>
       </motion.div>
 

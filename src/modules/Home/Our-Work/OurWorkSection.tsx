@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import projects from "@/data/projects.json";
 import type { Project } from "@/types/projects.types";
+import { P, GRAD, GRAD_TEXT, GRAD_SECTION, cardGlass, cardHoverShadow } from "@/lib/ds";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
@@ -17,17 +18,52 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <Link
         href={`/our-work/${project.slug}`}
-        className="group relative block rounded-3xl bg-card border border-border/50 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden"
+        className="group relative block rounded-3xl overflow-hidden transition-all duration-400"
+        style={cardGlass}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.boxShadow = cardHoverShadow;
+          el.style.transform = "translateY(-3px)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.boxShadow = cardGlass.boxShadow as string;
+          el.style.transform = "translateY(0)";
+        }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 p-8 lg:p-12 items-center">
+        {/* Top shine */}
+        <div
+          aria-hidden
+          className="absolute inset-0 rounded-3xl pointer-events-none"
+          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)" }}
+        />
 
-          {/* Left: 3 stacked cover images */}
-          <div className="relative min-h-[260px] flex items-center justify-center">
+        {/* Hover warm wash */}
+        <div
+          aria-hidden
+          className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-350"
+          style={{ background: `linear-gradient(220deg, ${P.amber}09, transparent 55%)` }}
+        />
+
+        {/* Top accent line on hover */}
+        <div
+          aria-hidden
+          className="absolute top-0 left-8 right-8 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-350"
+          style={{ background: `linear-gradient(90deg, transparent, ${P.amber}80, transparent)` }}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6 sm:gap-8 p-6 sm:p-8 lg:p-12 items-center">
+
+          {/* Left: stacked cover images */}
+          <div className="relative min-h-[220px] sm:min-h-[260px] flex items-center justify-center">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[85%] h-[80%] rounded-full bg-gradient-to-br from-amber-100/50 via-orange-50/30 to-rose-100/20 blur-2xl" />
+              <div
+                className="w-[85%] h-[80%] rounded-full blur-2xl"
+                style={{ background: `radial-gradient(circle, ${P.amber}28, ${P.red}12, transparent 70%)` }}
+              />
             </div>
 
-            <div className="relative z-10 flex items-end gap-3">
+            <div className="relative z-10 flex items-end gap-2 sm:gap-3">
               {project.coverImages.map((src, i) => (
                 <motion.div
                   key={i}
@@ -35,8 +71,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="relative rounded-xl overflow-hidden shadow-lg flex-shrink-0"
                   style={{
-                    width: i === 1 ? "120px" : "100px",
-                    height: i === 1 ? "195px" : "165px",
+                    width:  i === 1 ? "110px" : "90px",
+                    height: i === 1 ? "180px" : "150px",
                   }}
                 >
                   <Image
@@ -53,7 +89,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {project.awards.length > 0 && (
               <div className="absolute bottom-0 left-0 flex gap-3 z-20">
                 {project.awards.map((award) => (
-                  <span key={award} className="text-xs font-medium text-muted-foreground">
+                  <span key={award} className="text-xs font-medium" style={{ color: P.inkMid }}>
                     🏆 {award}
                   </span>
                 ))}
@@ -61,41 +97,64 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             )}
           </div>
 
-          {/* Right: Content */}
-          <div className="flex flex-col gap-8 pr-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+          {/* Right: content */}
+          <div className="flex flex-col gap-5 sm:gap-8 pr-0 sm:pr-14 lg:pr-16 relative z-10">
+            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: P.amber }}>
               {project.client.name}
             </p>
 
-            <h3 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors duration-300">
+            <h3
+              className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight transition-colors duration-300 group-hover:text-[#8b3a2a]"
+              style={{ color: P.ink }}
+            >
               {project.title}
             </h3>
 
-            <div className="grid grid-cols-2 gap-8 max-w-md">
+            <div className="grid grid-cols-2 gap-5 sm:gap-8 max-w-md">
               <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1.5">
+                <p className="text-xs uppercase tracking-widest mb-1.5" style={{ color: P.inkMid }}>
                   Solution
                 </p>
-                <p className="text-sm font-semibold text-foreground">{project.solution}</p>
+                <p className="text-sm font-semibold" style={{ color: P.ink }}>
+                  {project.solution}
+                </p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1.5">
+                <p className="text-xs uppercase tracking-widest mb-1.5" style={{ color: P.inkMid }}>
                   Industry
                 </p>
-                <p className="text-sm font-semibold text-foreground">{project.industry}</p>
+                <p className="text-sm font-semibold" style={{ color: P.ink }}>
+                  {project.industry}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Arrow button */}
-        <div className="absolute top-1/2 right-8 lg:right-10 -translate-y-1/2 rounded-full transition-all duration-300">
+        <div className="absolute top-1/2 right-6 sm:right-8 lg:right-10 -translate-y-1/2">
           <motion.div
             whileHover={{ scale: 1.12, rotate: -45 }}
             transition={{ type: "spring", stiffness: 300, damping: 18 }}
-            className="w-14 h-14 rounded-full border-2 border-foreground/20 flex items-center justify-center group-hover:bg-primary-gradaint group-hover:text-white transition-colors duration-300"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300"
+            style={{
+              border: `2px solid ${P.border}`,
+              color:  P.inkMid,
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.background = GRAD;
+              el.style.borderColor = "transparent";
+              el.style.color = "#fff";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.background = "transparent";
+              el.style.borderColor = P.border;
+              el.style.color = P.inkMid;
+            }}
           >
-            <ArrowRight className="w-5 h-5  hover:text-white transition-colors duration-300" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300" />
           </motion.div>
         </div>
       </Link>
@@ -107,32 +166,55 @@ export default function OurWorkSection() {
   return (
     <section
       id="our-work"
-      className="py-20 px-4 sm:px-6 lg:px-10 bg-muted/30 scroll-mt-20"
+      className="py-20 lg:py-28 px-4 sm:px-6 lg:px-10 scroll-mt-20 relative overflow-hidden"
+      style={{ background: GRAD_SECTION }}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section header */}
+      {/* Ambient blobs */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[130px] opacity-28"
+          style={{ background: `radial-gradient(ellipse, ${P.red}, transparent 70%)` }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full blur-[110px] opacity-25"
+          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold tracking-widest uppercase mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold
+                       uppercase tracking-[0.18em] mb-5 border w-fit"
+            style={{
+              background:  `${P.primary}0d`,
+              borderColor: `${P.primary}22`,
+              color:       P.primary,
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
             Our Work
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-            Projects we&rsquo;re proud of
+
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: P.ink }}>
+            Projects we&rsquo;re{" "}
+            <span style={GRAD_TEXT}>proud of.</span>
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: P.inkMid }}>
             A selection of the products, platforms, and experiences we&rsquo;ve
             built with ambitious teams.
           </p>
         </motion.div>
 
-        {/* Project cards — show first 3 on homepage */}
-        <div className="flex flex-col gap-6">
+        {/* Cards */}
+        <div className="flex flex-col gap-5 sm:gap-6">
           {(projects as Project[]).slice(0, 3).map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}
@@ -148,9 +230,15 @@ export default function OurWorkSection() {
         >
           <Link
             href="/our-work"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold hover:bg-primary-gradaint transition-opacity duration-200"
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold
+                       text-white transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
+            style={{
+              background:  GRAD,
+              boxShadow:   `0 8px 28px -6px ${P.red}55`,
+            }}
           >
-            View all projects <ArrowRight className="w-4 h-4" />
+            View all projects
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </motion.div>
       </div>

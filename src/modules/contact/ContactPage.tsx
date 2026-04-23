@@ -12,6 +12,10 @@ import {
   Clock,
   AlertCircle,
 } from "lucide-react";
+import {
+  P, GRAD, GRAD_TEXT, GRAD_SECTION,
+  cardGlass,
+} from "@/lib/ds";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormData {
@@ -55,47 +59,35 @@ const SERVICES = [
 
 const TRUST_STATS = [
   { value: "500+", label: "Projects delivered" },
-  { value: "12+", label: "Years in business" },
-  { value: "98%", label: "Client satisfaction" },
-  { value: "24h", label: "Response time" },
+  { value: "12+",  label: "Years in business"  },
+  { value: "98%",  label: "Client satisfaction" },
+  { value: "24h",  label: "Response time"       },
 ];
 
 const CONTACT_INFO = [
-  { icon: Mail,    label: "hello@prepilot.com"          },
-  { icon: Phone,   label: "+1 307 459 1578"             },
-  { icon: MapPin,  label: "Sheridan, WY · Dhaka, BD"   },
-  { icon: Clock,   label: "Mon–Fri, 9am–6pm EST"       },
+  { icon: Mail,   label: "hello@digitreak.com"          },
+  { icon: Phone,  label: "+1 307 459 1578"               },
+  { icon: MapPin, label: "Sheridan, WY · Dhaka, BD"      },
+  { icon: Clock,  label: "Mon–Fri, 9am–6pm EST"          },
 ];
-
-// ─── Palette (mirrors globals.css) ───────────────────────────────────────────
-const P = {
-  page:    "#f4f1ec",
-  ink:     "#1f1a14",
-  inkMid:  "#7a6e62",
-  card:    "#fdfcfb",
-  border:  "rgba(0,0,0,0.09)",
-  primary: "#4a3018",
-  red:     "#8b3a2a",
-  mid:     "#9b4a28",
-  amber:   "#a85e26",
-} as const;
-
-const GRAD = `linear-gradient(135deg, ${P.red} 0%, ${P.mid} 50%, ${P.amber} 100%)`;
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 function validate(data: FormData): FieldError {
   const errors: FieldError = {};
-  if (!data.fullName.trim())            errors.fullName = "Name is required.";
-  if (!data.email.trim())               errors.email    = "Email is required.";
+  if (!data.fullName.trim())
+    errors.fullName = "Name is required.";
+  if (!data.email.trim())
+    errors.email = "Email is required.";
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-                                        errors.email    = "Enter a valid email.";
-  if (!data.budget)                     errors.budget   = "Please select a budget.";
-  if (!data.message.trim())             errors.message  = "Tell us about your project.";
+    errors.email = "Enter a valid email.";
+  if (!data.budget)
+    errors.budget = "Please select a budget.";
+  if (!data.message.trim())
+    errors.message = "Tell us about your project.";
   return errors;
 }
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
-
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
     <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: P.inkMid }}>
@@ -135,17 +127,17 @@ const inputCls = (hasError: boolean) =>
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ContactPage() {
-  const [form, setForm]     = useState<FormData>({
+  const [form, setForm] = useState<FormData>({
     fullName: "", email: "", organization: "", phone: "",
     budget: "", service: "", message: "",
   });
-  const [errors, setErrors] = useState<FieldError>({});
-  const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors]   = useState<FieldError>({});
+  const [status, setStatus]   = useState<Status>("idle");
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
   const [charCount, setCharCount] = useState(0);
 
   const formRef = useRef<HTMLDivElement>(null);
-  const inView   = useInView(formRef, { once: true, margin: "-60px" });
+  const inView  = useInView(formRef, { once: true, margin: "-60px" });
 
   const set = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -190,7 +182,7 @@ export default function ContactPage() {
     return (
       <div
         className="min-h-screen flex items-center justify-center px-4 py-20"
-        style={{ background: P.page }}
+        style={{ background: GRAD_SECTION }}
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
@@ -211,13 +203,14 @@ export default function ContactPage() {
             Message received!
           </h2>
           <p className="text-lg leading-relaxed mb-8" style={{ color: P.inkMid }}>
-            Thanks for reaching out, <strong style={{ color: P.ink }}>{form.fullName.split(" ")[0]}</strong>.
+            Thanks for reaching out,{" "}
+            <strong style={{ color: P.ink }}>{form.fullName.split(" ")[0]}</strong>.
             We&apos;ll review your enquiry and get back to you within 24 hours.
           </p>
           <button
             onClick={() => {
               setStatus("idle");
-              setForm({ fullName:"",email:"",organization:"",phone:"",budget:"",service:"",message:"" });
+              setForm({ fullName:"", email:"", organization:"", phone:"", budget:"", service:"", message:"" });
               setCharCount(0);
               setTouched({});
               setErrors({});
@@ -233,23 +226,23 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: P.page }}>
+    <div className="min-h-screen relative overflow-hidden" style={{ background: GRAD_SECTION }}>
 
-      {/* ── Ambient blobs ───────────────────────────────────────────────── */}
+      {/* ── Ambient blobs ─────────────────────────────────────────────────── */}
       <div aria-hidden className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full blur-[120px] opacity-25"
+          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full blur-[120px] opacity-28"
           style={{ background: `radial-gradient(circle, ${P.amber}, transparent 70%)` }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-20"
+          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-22"
           style={{ background: `radial-gradient(circle, ${P.red}, transparent 70%)` }}
         />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16 lg:py-24">
 
-        {/* ── Page header ─────────────────────────────────────────────── */}
+        {/* ── Page header ───────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -266,25 +259,16 @@ export default function ContactPage() {
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.06]" style={{ color: P.ink }}>
             Let&apos;s build something
             <br />
-            <span
-              style={{
-                backgroundImage: GRAD,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                fontStyle: "italic",
-                fontWeight: 300,
-              }}
-            >
+            <span style={{ ...GRAD_TEXT, fontStyle: "italic", fontWeight: 300 }}>
               remarkable.
             </span>
           </h1>
         </motion.div>
 
-        {/* ── Two-column layout ────────────────────────────────────────── */}
+        {/* ── Two-column layout ──────────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-10 xl:gap-16 items-start">
 
-          {/* ── LEFT PANEL ───────────────────────────────────────────────── */}
+          {/* ── LEFT PANEL ─────────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -298,16 +282,7 @@ export default function ContactPage() {
               </p>
               <p className="text-3xl font-bold leading-snug" style={{ color: P.ink }}>
                 You&apos;re in{" "}
-                <span
-                  style={{
-                    backgroundImage: GRAD,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  good hands
-                </span>
+                <span style={GRAD_TEXT}>good hands</span>
               </p>
               <p className="mt-4 text-sm leading-relaxed" style={{ color: P.inkMid }}>
                 Serving global brands with enterprise-grade solutions on open-source tech.
@@ -325,9 +300,10 @@ export default function ContactPage() {
                   transition={{ delay: 0.2 + i * 0.07, duration: 0.4 }}
                   className="rounded-2xl p-4"
                   style={{
-                    background: "rgba(255,255,255,0.6)",
-                    border: `1px solid ${P.border}`,
-                    backdropFilter: "blur(10px)",
+                    background: "rgba(255,255,255,0.65)",
+                    border: `1px solid rgba(255,255,255,0.9)`,
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
                   }}
                 >
                   <p className="text-2xl font-extrabold" style={{ color: P.ink }}>{s.value}</p>
@@ -361,9 +337,10 @@ export default function ContactPage() {
             <div
               className="flex items-center gap-3 rounded-2xl px-5 py-4"
               style={{
-                background: "rgba(255,255,255,0.5)",
-                border: `1px solid ${P.border}`,
-                backdropFilter: "blur(8px)",
+                background: "rgba(255,255,255,0.55)",
+                border: `1px solid rgba(255,255,255,0.85)`,
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
               }}
             >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
@@ -386,11 +363,9 @@ export default function ContactPage() {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="rounded-3xl p-8 md:p-10"
               style={{
-                background: "rgba(255,255,255,0.65)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: `1px solid rgba(255,255,255,0.9)`,
-                boxShadow: "0 8px 40px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04)",
+                ...cardGlass,
+                background: "rgba(255,255,255,0.72)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04)",
               }}
             >
               {/* Form heading */}
@@ -537,7 +512,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-sm font-semibold" style={{ color: P.red }}>Something went wrong</p>
                         <p className="text-xs mt-0.5" style={{ color: P.inkMid }}>
-                          Please try again or email us directly at hello@prepilot.com
+                          Please try again or email us directly at hello@digitreak.com
                         </p>
                       </div>
                     </motion.div>

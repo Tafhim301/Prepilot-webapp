@@ -3,71 +3,45 @@
 import { Check, ArrowUpRight } from "lucide-react";
 import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
+import { P,  GRAD_TEXT, GRAD_SECTION_ALT, cardGlass, cardHoverShadow } from "@/lib/ds";
 
-// ─── Design tokens ────────────────────────────────────────────────────────────
-const P = {
-  page:    "#f4f1ec",
-  ink:     "#1f1a14",
-  inkMid:  "#7a6e62",
-  primary: "#4a3018",
-  red:     "#8b3a2a",
-  mid:     "#9b4a28",
-  amber:   "#a85e26",
-  darkBg:  "#1a1208",
-  border:  "rgba(0,0,0,0.08)",
-} as const;
-
-const GRAD = `linear-gradient(135deg, ${P.red} 0%, ${P.mid} 50%, ${P.amber} 100%)`;
-const GRAD_TEXT = {
-  backgroundImage:        GRAD,
-  WebkitBackgroundClip:  "text" as const,
-  WebkitTextFillColor:   "transparent" as const,
-  backgroundClip:        "text" as const,
-};
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ── Services data ─────────────────────────────────────────────────────────────
 const services = [
   {
     icon: "🎨",
     title: "Strategic UI/UX Design",
-    description: "User-centric interfaces that optimize conversion rates and drive meaningful engagement.",
+    description: "User-centric interfaces that optimise conversion rates and drive meaningful engagement.",
     tags: ["Figma", "Prototyping", "User Research", "Design Systems"],
-    href: "#",
   },
   {
     icon: "⚛️",
     title: "MERN Stack Development",
     description: "Full-stack JavaScript applications built with MongoDB, Express, React, and Node.js.",
     tags: ["MongoDB", "Express", "React", "Node.js"],
-    href: "#",
   },
   {
     icon: "🌐",
     title: "Custom Web Architecture",
     description: "Secure, high-performance web applications tailored to complex business logic.",
-    tags: ["Next.js", "React", "Node.js", "REST & GraphQL"],
-    href: "#",
+    tags: ["Next.js", "React", "Node.js", "GraphQL"],
   },
   {
     icon: "🔷",
     title: "WordPress Development",
     description: "Custom themes, plugins, and headless WordPress setups for content-driven sites.",
     tags: ["Custom Themes", "Plugins", "WooCommerce", "Headless CMS"],
-    href: "#",
   },
   {
     icon: "💧",
     title: "Webflow Development",
     description: "Pixel-perfect Webflow builds with CMS, animations, and full client handoff.",
     tags: ["Webflow CMS", "Interactions", "E-commerce", "SEO"],
-    href: "#",
   },
   {
     icon: "🛒",
     title: "E-commerce Solutions",
-    description: "Conversion-optimized storefronts with seamless checkout and payment integrations.",
+    description: "Conversion-optimised storefronts with seamless checkout and payment integrations.",
     tags: ["Shopify", "WooCommerce", "Stripe", "Headless"],
-    href: "#",
   },
 ];
 
@@ -89,69 +63,78 @@ const summaryText = [
   "Hosting & Domain Setup",
   "Accessibility Audits",
   "Quality Assurance",
-
 ];
 
-// ─── Variants ─────────────────────────────────────────────────────────────────
+// ── Animation variants ────────────────────────────────────────────────────────
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.09 } },
 };
 
 const cardVariants = {
-  hidden:   { opacity: 0, y: 32 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) } },
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) } },
 };
 
 const listVariants = {
-  hidden:   {},
-  visible:  { transition: { staggerChildren: 0.04 } },
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.04 } },
 };
 
 const listItemVariants = {
-  hidden:   { opacity: 0, x: -12 },
-  visible:  { opacity: 1, x: 0, transition: { duration: 0.3 } },
+  hidden:  { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.28 } },
 };
 
-// ─── ServiceCard ──────────────────────────────────────────────────────────────
-function ServiceCard({
-  icon, title, description, tags, href,
-}: {
-  icon: string; title: string; description: string; tags: string[]; href: string;
+// ── ServiceCard ───────────────────────────────────────────────────────────────
+function ServiceCard({ icon, title, description, tags }: {
+  icon: string; title: string; description: string; tags: string[];
 }) {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ y: -4, boxShadow: "0 20px 50px rgba(0,0,0,0.10)" }}
-      transition={{ duration: 0.25 }}
-      className="group relative flex flex-col gap-5 rounded-2xl p-7 cursor-pointer overflow-hidden"
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.22 }}
+      className="group relative flex flex-col gap-5 rounded-2xl p-7 cursor-pointer overflow-hidden
+                 transition-shadow duration-300"
       style={{
-        background:     "rgba(255,255,255,0.6)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        border:         "1px solid rgba(255,255,255,0.85)",
-        boxShadow:      "0 2px 16px rgba(0,0,0,0.05)",
+        ...cardGlass,
+        ["--hover-shadow" as string]: cardHoverShadow,
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = cardHoverShadow;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = cardGlass.boxShadow as string;
       }}
     >
-      {/* Hover gradient wash */}
+      {/* Top gradient accent line */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: `linear-gradient(135deg, ${P.amber}09, transparent 60%)` }}
+        aria-hidden
+        className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: `linear-gradient(90deg, transparent, ${P.amber}70, transparent)` }}
       />
 
-      {/* Shine */}
+      {/* Hover warm wash */}
       <div
+        aria-hidden
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: `linear-gradient(220deg, ${P.amber}10, transparent 55%)` }}
+      />
+
+      {/* Subtle top-left shine */}
+      <div
+        aria-hidden
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
         }}
       />
 
       {/* Icon */}
       <div
-        className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl select-none z-10"
-        style={{ background: `${P.primary}0d` }}
+        className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl select-none z-10 transition-transform duration-300 group-hover:scale-110"
+        style={{ background: `${P.primary}0e` }}
       >
         {icon}
       </div>
@@ -167,11 +150,11 @@ function ServiceCard({
         {tags.map((tag) => (
           <span
             key={tag}
-            className="text-xs rounded-full px-3 py-1 transition-colors"
+            className="text-xs rounded-full px-3 py-1 transition-colors duration-200 group-hover:border-amber-300/60"
             style={{
               border:     `1px solid ${P.border}`,
               color:      P.inkMid,
-              background: "rgba(0,0,0,0.02)",
+              background: "rgba(0,0,0,0.025)",
             }}
           >
             {tag}
@@ -179,54 +162,57 @@ function ServiceCard({
         ))}
       </div>
 
-      {/* CTA */}
-      <a
-        href={href}
-        className="inline-flex items-center gap-1 text-sm font-semibold mt-auto z-10 w-fit transition-opacity hover:opacity-75"
+      {/* CTA link */}
+      <Link
+        href="/service"
+        className="inline-flex items-center gap-1 text-sm font-semibold mt-auto z-10 w-fit
+                   transition-opacity hover:opacity-70"
         style={GRAD_TEXT}
       >
         See More
-        <motion.span
-          className="inline-flex"
-          whileHover={{ x: 2, y: -2 }}
-          transition={{ duration: 0.2 }}
-        >
-          <ArrowUpRight size={15} />
-        </motion.span>
-      </a>
+        <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+      </Link>
     </motion.div>
   );
 }
 
-// ─── Section ──────────────────────────────────────────────────────────────────
+// ── Section ───────────────────────────────────────────────────────────────────
 export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 py-16 flex flex-col gap-16 scroll-mt-20"
-      style={{ background: P.page }}
+      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 py-20 lg:py-28 flex flex-col gap-16 scroll-mt-20 relative overflow-hidden"
+      style={{ background: GRAD_SECTION_ALT }}
     >
+      {/* Ambient corner blobs */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full blur-[110px] opacity-30"
+          style={{ background: `radial-gradient(circle, ${P.amber}, transparent 65%)` }}
+        />
+        <div
+          className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full blur-[100px] opacity-25"
+          style={{ background: `radial-gradient(circle, ${P.red}, transparent 65%)` }}
+        />
+      </div>
+
       {/* Section header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col gap-3 max-w-xl"
+        className="flex flex-col gap-3 max-w-xl relative z-10"
       >
-        {/* Label pill */}
         <div
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] w-fit border"
           style={{
-            background:   `${P.primary}0a`,
-            borderColor:  `${P.primary}20`,
-            color:        P.primary,
+            background:  `${P.primary}0d`,
+            borderColor: `${P.primary}22`,
+            color:       P.primary,
           }}
         >
-          <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse"
-            style={{ background: P.primary }}
-          />
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: P.primary }} />
           What We Do
         </div>
 
@@ -241,67 +227,57 @@ export default function ServicesSection() {
       </motion.div>
 
       {/* Main layout */}
-      <div className="flex flex-col lg:flex-row gap-10 items-start">
+      <div className="flex flex-col lg:flex-row gap-10 items-start relative z-10">
 
-        {/* ── Sidebar ── */}
+        {/* Sidebar */}
         <motion.div
-          initial={{ opacity: 0, x: -24 }}
+          initial={{ opacity: 0, x: -28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: cubicBezier(0.22, 1, 0.36, 1) }}
-          className="lg:sticky lg:top-24 w-full lg:w-[300px] xl:w-[340px] flex-shrink-0 flex flex-col gap-6 rounded-2xl p-7 overflow-hidden relative"
-          style={{
-            background:     "rgba(255,255,255,0.5)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            border:         "1px solid rgba(255,255,255,0.85)",
-            boxShadow:      "0 2px 16px rgba(0,0,0,0.05)",
-          }}
+          className="lg:sticky lg:top-24 w-full lg:w-[300px] xl:w-[340px] flex-shrink-0
+                     flex flex-col gap-6 rounded-2xl p-7 relative overflow-hidden"
+          style={cardGlass}
         >
-          {/* Ambient glow */}
+          {/* Ambient amber glow */}
           <div
             aria-hidden
             className="absolute top-[-30%] right-[-20%] w-[220px] h-[220px] rounded-full pointer-events-none"
-            style={{
-              background: `radial-gradient(circle, ${P.amber}20, transparent 65%)`,
-              filter:     "blur(40px)",
-            }}
+            style={{ background: `radial-gradient(circle, ${P.amber}2a, transparent 65%)`, filter: "blur(40px)" }}
           />
 
-          {/* Shine */}
+          {/* Shine overlay */}
           <div
             aria-hidden
             className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
-            }}
+            style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)" }}
           />
 
           <div className="relative z-10">
             <h3 className="text-2xl font-semibold mb-3" style={{ color: P.ink }}>In Summary</h3>
             <p className="text-sm leading-relaxed" style={{ color: P.inkMid }}>
               We keep things neat behind the scenes — making it easy to update,
-              maintain and get the most out of your website.
+              maintain, and get the most out of your website.
             </p>
           </div>
 
           <motion.ul
-            className="relative z-10 flex flex-col gap-2"
+            className="relative z-10 flex flex-col gap-2 h-full"
             variants={listVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {summaryText.map((text, index) => (
+            {summaryText.map((text) => (
               <motion.li
-                key={index}
+                key={text}
                 variants={listItemVariants}
-                className="flex items-center gap-2.5 group/item hover:cursor-pointer p-1 rounded-xl transition-colors  shadow-sm hover:shadow-md"
+                className="flex items-center gap-2.5 group/item p-1 rounded-lg
+                           hover:bg-black/[0.025] transition-colors cursor-default"
               >
-                <Check className="w-4 h-4 shrink-0" style={{ color: P.mid }} />
+                <Check className="w-3.5 h-3.5 shrink-0" style={{ color: P.mid }} strokeWidth={2.5} />
                 <p
-                  className="text-sm font-medium  transition-colors hover:text-gray-950 group-hover/item:text-gray-950"
+                  className="text-sm font-medium transition-colors group-hover/item:text-gray-950"
                   style={{ color: P.inkMid }}
                 >
                   {text}
@@ -312,12 +288,17 @@ export default function ServicesSection() {
 
           {/* Accepting badge */}
           <div
-            className="relative z-10 flex flex-wrap items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-medium w-fit mt-2 hover:shadow-xl transition-opacity hover:opacity-85"
-            style={{ background: P.darkBg, color: "#f4f1ec" }}
+            className="relative z-10 flex flex-wrap items-center justify-center gap-2 rounded-full
+                       px-4 py-2.5 text-xs font-medium w-fit mt-2
+                       transition-all duration-200 hover:opacity-85 hover:-translate-y-px cursor-pointer"
+            style={{
+              background: P.darkBg,
+              color: "#f4f1ec",
+              boxShadow: `0 6px 20px -4px rgba(0,0,0,0.4)`,
+            }}
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
             Accepting New Partnerships
-   
             <Link
               href="/contact"
               className="font-semibold hover:opacity-75 transition-opacity inline-flex text-xs items-center gap-1"
@@ -327,7 +308,7 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
-        {/* ── Cards grid ── */}
+        {/* Cards grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1"
           variants={containerVariants}
