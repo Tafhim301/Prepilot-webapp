@@ -215,12 +215,12 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full">
       <div
-        className="w-[300px] flex-shrink-0 flex flex-col p-7 relative overflow-hidden"
+        className="w-[300px] flex-shrink-0 flex flex-col p-7 relative overflow-hidden rounded-bl-2xl"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div
           aria-hidden
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none rounded-2xl"
           style={{
             background: `radial-gradient(ellipse 80% 60% at 20% 0%, ${P.red}22 0%, transparent 55%)`,
           }}
@@ -250,7 +250,7 @@ function ServicesPanel({ onClose }: { onClose: () => void }) {
             In Summary
           </p>
           <ul
-            className="flex flex-col gap-1.5 flex-1 min-h-0 overflow-y-auto pr-2"
+            className="flex flex-col gap-1.5 flex-1 min-h-0 overflow-y-auto pr-2 "
             style={{ scrollbarWidth: "thin", scrollbarColor: `${P.amber}55 transparent` }}
           >
             {SERVICES_SUMMARY.map((text) => (
@@ -376,7 +376,7 @@ function OurWorkPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full">
       <div
-        className="w-[340px] flex-shrink-0 flex flex-col p-6 relative overflow-hidden"
+        className="w-[340px] flex-shrink-0 flex flex-col p-6 relative overflow-hidden rounded-bl-2xl"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div className="relative z-10 mb-4">
@@ -553,7 +553,7 @@ function PricingPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full">
       <div
-        className="w-[270px] flex-shrink-0 flex flex-col justify-between p-6 relative overflow-hidden"
+        className="w-[270px] flex-shrink-0 flex flex-col justify-between p-6 relative overflow-hidden rounded-bl-2xl"
         style={{ background: P.darkBg, borderRight: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div
@@ -845,7 +845,7 @@ export function Navbar({ className }: { className?: string }) {
                 borderRadius: "999px",
                 background: "linear-gradient(90deg, transparent, rgba(255,255,255,1), rgba(255,255,255,0.6), transparent)",
                 filter: "blur(1.5px)",
-                animation: "navTravelLight 3.5s linear infinite",
+                animation: "navTravelLight 15s linear infinite",
               }}
             />
           </div>
@@ -972,7 +972,7 @@ export function Navbar({ className }: { className?: string }) {
             </div>
 
             {/* CTA */}
-            <Button asChild className="rounded-sm flex-shrink-0 z-20">
+            <Button asChild className="rounded-xl py-4 shrink-0 z-20">
               <Link href="/contact" onClick={() => setActivePanel(null)}>
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
@@ -990,10 +990,10 @@ export function Navbar({ className }: { className?: string }) {
                   className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-40 scroll-mr-10"
                 >
                   {/* Invisible Bridge */}
-                  <div className="absolute top- left-0 w-full h-4 z-50" />
+                  <div className="absolute top-4 left-0 w-full p-4 h-4 z-50" />
                   
                   <div
-                    className="relative rounded-2xl"
+                    className="relative rounded-b-2xl"
                     style={{
                       width: `${PANEL_SIZE.width}px`,
                       height: `${PANEL_SIZE.height}px`,
