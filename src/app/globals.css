@@ -1,0 +1,179 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-relative);
+  --font-mono: var(--font-space-mono);
+  --font-heading: var(--font-relative);
+  --font-relative: var(--font-relative);
+  --font-space-mono: var(--font-space-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Dark-first design system ─────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --background:       oklch(8% 0.025 280);   /* #0d0b14 deep dark purple */
+  --foreground:       oklch(96% 0.022 285);  /* #f0ecfa lavender-white   */
+
+  /* Card / Popover */
+  --card:             oklch(11% 0.022 280);
+  --card-foreground:  oklch(96% 0.022 285);
+  --popover:          oklch(12% 0.022 280);
+  --popover-foreground: oklch(96% 0.022 285);
+
+  /* Primary — mid purple */
+  --primary:          oklch(52% 0.22 295);   /* #A030C8 */
+  --primary-foreground: oklch(98% 0.005 285);
+
+  /* Secondary */
+  --secondary:        oklch(16% 0.025 280);
+  --secondary-foreground: oklch(90% 0.02 285);
+
+  /* Muted */
+  --muted:            oklch(14% 0.022 280);
+  --muted-foreground: oklch(62% 0.07 290);   /* #9080b8 lavender-grey */
+
+  /* Accent */
+  --accent:           oklch(20% 0.06 295);
+  --accent-foreground: oklch(88% 0.06 285);
+
+  /* Destructive */
+  --destructive:      oklch(58% 0.22 22);    /* vivid red */
+
+  /* Structural */
+  --border:           oklch(100% 0 0 / 9%);
+  --input:            oklch(100% 0 0 / 10%);
+  --ring:             oklch(52% 0.22 295);
+  --radius:           0.625rem;
+
+  /* Charts */
+  --chart-1: oklch(60% 0.22 295);
+  --chart-2: oklch(58% 0.20 330);
+  --chart-3: oklch(55% 0.18 240);
+  --chart-4: oklch(60% 0.15 190);
+  --chart-5: oklch(62% 0.22 20);
+
+  /* Sidebar */
+  --sidebar:                    oklch(10% 0.022 280);
+  --sidebar-foreground:         oklch(96% 0.022 285);
+  --sidebar-primary:            oklch(52% 0.22 295);
+  --sidebar-primary-foreground: oklch(98% 0.005 285);
+  --sidebar-accent:             oklch(20% 0.06 295);
+  --sidebar-accent-foreground:  oklch(88% 0.06 285);
+  --sidebar-border:             oklch(100% 0 0 / 9%);
+  --sidebar-ring:               oklch(52% 0.22 295);
+}
+
+.dark {
+  --background:       oklch(8% 0.025 280);
+  --foreground:       oklch(96% 0.022 285);
+  --card:             oklch(11% 0.022 280);
+  --card-foreground:  oklch(96% 0.022 285);
+  --popover:          oklch(12% 0.022 280);
+  --popover-foreground: oklch(96% 0.022 285);
+  --primary:          oklch(52% 0.22 295);
+  --primary-foreground: oklch(98% 0.005 285);
+  --secondary:        oklch(16% 0.025 280);
+  --secondary-foreground: oklch(90% 0.02 285);
+  --muted:            oklch(14% 0.022 280);
+  --muted-foreground: oklch(62% 0.07 290);
+  --accent:           oklch(20% 0.06 295);
+  --accent-foreground: oklch(88% 0.06 285);
+  --destructive:      oklch(58% 0.22 22);
+  --border:           oklch(100% 0 0 / 9%);
+  --input:            oklch(100% 0 0 / 10%);
+  --ring:             oklch(52% 0.22 295);
+  --sidebar:                    oklch(10% 0.022 280);
+  --sidebar-foreground:         oklch(96% 0.022 285);
+  --sidebar-primary:            oklch(52% 0.22 295);
+  --sidebar-primary-foreground: oklch(98% 0.005 285);
+  --sidebar-accent:             oklch(20% 0.06 295);
+  --sidebar-accent-foreground:  oklch(88% 0.06 285);
+  --sidebar-border:             oklch(100% 0 0 / 9%);
+  --sidebar-ring:               oklch(52% 0.22 295);
+}
+
+/* ── Navbar travel-light animation ───────────────────────────────────────── */
+@keyframes navTravelLight {
+  0%   { top: -2px; left: -100px; bottom: auto; right: auto; }
+  24%  { top: -2px; left: calc(100% + 100px); bottom: auto; right: auto; }
+  25%  { top: -2px; left: auto; right: -100px; bottom: auto; }
+  49%  { top: -2px; left: auto; right: calc(100% + 100px); bottom: auto; }
+  50%  { top: auto; bottom: -2px; left: auto; right: -100px; }
+  74%  { top: auto; bottom: -2px; left: auto; right: calc(100% + 100px); }
+  75%  { top: auto; bottom: -2px; left: -100px; right: auto; }
+  99%  { top: auto; bottom: -2px; left: calc(100% + 100px); right: auto; }
+  100% { top: -2px; left: -100px; bottom: auto; right: auto; }
+}
+
+/* ── Thin scrollbar (dark glass variant) ─────────────────────────────────── */
+.scrollbar-thin-grad {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(161,0,255,0.4) transparent;
+}
+.scrollbar-thin-grad::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin-grad::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin-grad::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #E8236C, #6B2EE8);
+  border-radius: 4px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: var(--font-relative), system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #0d0b14;
+  }
+  /* Space Mono as secondary font for body paragraphs */
+  p {
+    font-family: var(--font-space-mono), "Space Mono", monospace;
+    line-height: 1.8;
+  }
+}

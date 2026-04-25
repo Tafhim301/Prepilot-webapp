@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "rating": 5,
+    "review": "PrePilot transformed how our team prepares for client meetings. The AI-driven briefings are sharp, accurate, and save us hours every week. Truly indispensable.",
+    "name": "Sarah M.",
+    "role": "Head of Strategy",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+  },
+  {
+    "id": 2,
+    "rating": 5,
+    "review": "I was skeptical at first, but PrePilot's research depth blew me away. We walked into our last pitch fully prepared and closed the deal. Game changer.",
+    "name": "James K.",
+    "role": "Sales Director",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=James"
+  },
+  {
+    "id": 3,
+    "rating": 5,
+    "review": "The briefing summaries are concise yet incredibly detailed. Our consultants now spend time on strategy instead of research. PrePilot is worth every penny.",
+    "name": "Lena T.",
+    "role": "Managing Consultant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Lena"
+  },
+  {
+    "id": 4,
+    "rating": 5,
+    "review": "PrePilot feels like having a brilliant analyst on call 24/7. The context it provides before every meeting helps our team show up sharp and confident.",
+    "name": "Omar R.",
+    "role": "Founder & CEO",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Omar"
+  },
+  {
+    "id": 5,
+    "rating": 5,
+    "review": "Onboarding new hires used to take weeks. With PrePilot, they're client-ready in days. The intelligence it surfaces is exactly what matters.",
+    "name": "Priya N.",
+    "role": "VP of Operations",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+  },
+  {
+    "id": 6,
+    "rating": 5,
+    "review": "I've tried a dozen productivity tools. PrePilot is the first one that actually made a measurable difference in our win rate. Highly recommend to any client-facing team.",
+    "name": "Daniel W.",
+    "role": "Business Development Lead",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel"
+  }
+]
