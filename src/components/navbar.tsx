@@ -422,7 +422,14 @@ const NAV_ITEMS: Array<{
 // ═══════════════════════════════════════════════════════════════════════════
 export function Navbar({ className }: { className?: string }) {
   const [activePanel, setActivePanel] = useState<PanelKey | null>(null);
+  const [mobileOpen, setMobileOpen]   = useState(false);
   const activeKey    = useActiveSection();
+  const pathname     = usePathname();
+
+  // Auto-close the mobile drawer whenever the route changes
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -619,7 +626,7 @@ export function Navbar({ className }: { className?: string }) {
               <Logo  />
             </Link>
 
-            <Sheet>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Menu className="size-4" />
@@ -629,7 +636,7 @@ export function Navbar({ className }: { className?: string }) {
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <Link href="/"><Logo/></Link>
+                    <Link href="/" onClick={() => setMobileOpen(false)}><Logo/></Link>
                   </SheetTitle>
                 </SheetHeader>
 
@@ -641,6 +648,7 @@ export function Navbar({ className }: { className?: string }) {
                         title={item.title}
                         panel={item.panel!}
                         isActive={activeKey === item.activeKey}
+                        onClose={() => setMobileOpen(false)}
                       />
                     ))}
                   </Accordion>
@@ -650,6 +658,7 @@ export function Navbar({ className }: { className?: string }) {
                     return (
                       <Link
                         key={item.title} href={item.url}
+                        onClick={() => setMobileOpen(false)}
                         className="text-base font-semibold py-1 inline-flex items-center gap-2"
                         style={{ color: isActive ? P.purple : P.ink }}
                       >
@@ -660,7 +669,7 @@ export function Navbar({ className }: { className?: string }) {
                   })}
 
                   <Button asChild className="mt-2 p-5">
-                    <Link href="/contact">
+                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
                       <Contact2Icon /> Contact Us
                     </Link>
                   </Button>
@@ -676,9 +685,9 @@ export function Navbar({ className }: { className?: string }) {
 
 // ─── Mobile accordion ───────────────────────────────────────────────────────
 function MobileAccordion({
-  title, panel, isActive = false,
+  title, panel, isActive = false, onClose,
 }: {
-  title: string; panel: PanelKey; isActive?: boolean;
+  title: string; panel: PanelKey; isActive?: boolean; onClose: () => void;
 }) {
   return (
     <AccordionItem value={title} className="border-b border-border/40 last:border-0">
@@ -698,6 +707,7 @@ function MobileAccordion({
             {SERVICES_PREVIEW.slice(0, 4).map((s) => (
               <Link
                 key={s.title} href="/service"
+                onClick={onClose}
                 className="flex items-center gap-3 p-2 rounded-lg transition-colors"
                 style={{ background: "rgba(255,255,255,0.03)" }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"}
@@ -713,7 +723,7 @@ function MobileAccordion({
                 </div>
               </Link>
             ))}
-            <Link href="/service" className="text-sm font-semibold mt-2" style={GRAD_TEXT}>
+            <Link href="/service" onClick={onClose} className="text-sm font-semibold mt-2" style={GRAD_TEXT}>
               All services →
             </Link>
           </div>
@@ -724,6 +734,7 @@ function MobileAccordion({
             {PROJECTS_PREVIEW.map((p) => (
               <Link
                 key={p.slug} href={`/our-work/${p.slug}`}
+                onClick={onClose}
                 className="flex items-center gap-3 p-2 rounded-lg transition-colors"
                 style={{ background: "rgba(255,255,255,0.03)" }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"}
@@ -740,7 +751,7 @@ function MobileAccordion({
                 </div>
               </Link>
             ))}
-            <Link href="/our-work" className="text-sm font-semibold mt-2" style={GRAD_TEXT}>
+            <Link href="/our-work" onClick={onClose} className="text-sm font-semibold mt-2" style={GRAD_TEXT}>
               View all projects →
             </Link>
           </div>
