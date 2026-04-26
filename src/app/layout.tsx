@@ -30,6 +30,14 @@ export const metadata: Metadata = {
   },
   description:
     "Full-service digital agency delivering enterprise-grade web experiences on open-source tech. No lock-in. Full ownership. Since 2015.",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

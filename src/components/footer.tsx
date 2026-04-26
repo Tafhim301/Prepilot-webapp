@@ -73,7 +73,7 @@ export function Footer() {
             className="sm:col-span-2 lg:col-span-1 flex flex-col gap-5"
           >
             <Link href="/" className="w-fit">
-              <Logo size={28} showName />
+              <Logo/>
             </Link>
 
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: P.onDarkMid }}>

@@ -58,8 +58,8 @@ function ServiceCard({ icon, title, description, tags }: { icon: string; title: 
       </div>
       <div className="flex flex-wrap gap-2 z-10">
         {tags.map((tag) => (
-          <span key={tag} className="text-xs rounded-full px-3 py-1 shadow-lg  transition-colors duration-200"
-            style={{ border: `1px solid ${P.primary}`, background: P.darkBg }}>{tag}</span>
+          <span key={tag} className="text-xs rounded-full px-3 py-1 shadow-lg transition-colors duration-200"
+            style={{ border: `1px solid ${P.primary}`, background: P.darkBg, color: P.inkMid }}>{tag}</span>
         ))}
       </div>
       

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Star, Zap, Globe, ShoppingCart, Layers, PhoneCall, Play } from "lucide-react";
 import { useEffect, useRef, type RefObject } from "react";
 import { P, GRAD, GRAD_TEXT, GRAD_SECTION, cardGlass, cardGlassElevated } from "@/lib/ds";
+import Featured from "../Featured/Featured";
 
 // ── Grain canvas hook ─────────────────────────────────────────────────────────
 function useGrainCanvas(canvasRef: RefObject<HTMLCanvasElement | null>) {
@@ -70,13 +71,6 @@ const RIGHT_SERVICES = [
   { icon: <Layers size={18} />, label: "CMS Platforms", desc: "WordPress · Webflow", color: "#22d3ee" },
 ];
 
-const BOTTOM_STATS = [
-  { num: "12+", label: "Years of craft" },
-  { num: "50+", label: "Clients served" },
-  { num: "24h", label: "Response time" },
-  { num: "0%", label: "Vendor lock-in" },
-  { num: "100%", label: "Code ownership" },
-];
 
 // Fake avatar initials for social proof
 const AVATARS = ["AK", "JM", "SR", "TL", "PD"];
@@ -95,7 +89,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full min-h-screen overflow-hidden flex flex-col"
+      className="relative w-full  overflow-hidden flex flex-col md:pb-10"
       style={{ background: GRAD_SECTION }}
     >
       {/* ── Grain canvas ─────────────────────────────────────────────────── */}
@@ -487,48 +481,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Bottom stat strip ────────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full border-t"
-        style={{ borderColor: "rgba(255,255,255,0.07)", zIndex: 10 }}
-      >
-        <div
-          className="max-w-350 mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
-        >
-          {BOTTOM_STATS.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="relative flex flex-col items-center justify-center gap-1 py-5 px-6 text-center"
-            >
-              {/* Divider */}
-              {i > 0 && (
-                <div
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-8 hidden sm:block"
-                  style={{ background: "rgba(255,255,255,0.07)" }}
-                />
-              )}
-              <span
-                className="text-xl font-bold"
-                style={{
-                  ...GRAD_TEXT,
-                  fontFamily: "var(--font-space-mono), monospace",
-                }}
-              >
-                {stat.num}
-              </span>
-              <span
-                className="text-xs leading-tight"
-                style={{ color: P.inkLight, fontFamily: "var(--font-space-mono), monospace" }}
-              >
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+    <div className="mx-auto"><Featured /></div>
+      
+
+
+     
     </section>
   );
 }
